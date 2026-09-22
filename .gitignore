@@ -1,0 +1,35 @@
+# ----------------------------------------------------------------------
+# 白名单模式：默认忽略一切，只显式放行项目工具代码本身。
+# 固件镜像/dump、解包/重建出的 rootfs、密钥、抓包、日志、QEMU 磁盘等
+# 一律不进仓库——这些要么体积巨大，要么属于敏感数据，只应留在本地。
+# ----------------------------------------------------------------------
+*
+
+# 允许 git 遍历进这些目录去匹配下面的放行规则
+!/scripts/
+!/scripts/ssh_key/
+
+# 项目工具代码（本仓库真正的交付物）
+!/scripts/*.sh
+!/scripts/*.py
+!/scripts/*.c
+!/scripts/*.patch
+
+# 明确排除：即使上面的规则以后被放宽，这些也绝不进仓库
+/scripts/ssh_key/*        # SSH 私钥，绝不能进公开仓库
+/scripts/time              # 98MB 的 PostScript 文档，与项目无关的误留文件
+/scripts/__pycache__/
+
+# 已废弃的历史调试路线，仅在本地留作存档，不进公开仓库：
+# 根因（dm-linear 重建脚本的位运算截断漏洞）已修好，正常解包流程走
+# `tesla_fw.py unpack` 即可零补丁成功，不需要这几个文件。
+/scripts/patch_squashfs_tables.py
+/scripts/unsquashfs_bypass_id_fragment.patch
+/scripts/unsquashfs_tesla_fake_ids.patch
+/scripts/squashfs_orphan_recovery.py
+
+# 顶层文档
+!/README.md
+!/README.zh-CN.md
+!/.gitignore
+!/LICENSE
