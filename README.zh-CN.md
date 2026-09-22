@@ -118,7 +118,7 @@ tesla_fw.py run --mode glamor
 
 ## 致谢
 
-感谢[@vessial](https://x.com/vessial)在固件解包思路上的指导——`unpack`里`dm-linear`重建这部分工作直接受益于这个建议（详见上面[Part 2](https://cn0xroot.wordpress.com/2026/09/20/root_tesla_os_on_qemu_part_2_debugging_fixing/)原文里的致谢）。
+感谢[@vessial](https://x.com/vessial)（[GitHub](https://github.com/vessial)）在固件解包思路上的指导——`unpack`里`dm-linear`重建这部分工作直接受益于这个建议（详见上面[Part 2](https://cn0xroot.wordpress.com/2026/09/20/root_tesla_os_on_qemu_part_2_debugging_fixing/)原文里的致谢）。
 
 `run --mode glamor`（`scripts/run_v62_glamor.sh`）用到的完整加速图形栈，是把[denysvitali/tesla-qemu](https://github.com/denysvitali/tesla-qemu)率先摸索出的Ubuntu Xorg + `modesetting` + glamor（llvmpipe）方案，连同其中的vblank-wait DRM补丁，一起移植到了本项目真实的Tesla 4.14 rootfs上。`scripts/touch-proxy.c`同样基于该项目的`tools/touch-proxy.c`改写。感谢[@denysvitali](https://github.com/denysvitali)在QEMU图形栈这条路线上打下的原始基础。
 

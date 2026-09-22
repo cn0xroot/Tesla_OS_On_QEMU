@@ -183,7 +183,7 @@ anything you find.
 
 ## Acknowledgments
 
-Thanks to [@vessial](https://x.com/vessial) for guidance on the firmware
+Thanks to [@vessial](https://x.com/vessial) ([GitHub](https://github.com/vessial)) for guidance on the firmware
 unpacking approach — the `dm-linear` reconstruction work in `unpack`
 benefited directly from that input (credited in [Part 2](https://cn0xroot.wordpress.com/2026/09/20/root_tesla_os_on_qemu_part_2_debugging_fixing/)
 of the write-up above).
