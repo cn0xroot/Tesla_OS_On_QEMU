@@ -1,5 +1,7 @@
 # Tesla_OS_On_QEMU
 
+English version: [README.md](README.md)
+
 一套用于解包 Tesla 车机（信息娱乐 ECU，"ICE"）固件/eMMC dump、按需改包
 （patch）根文件系统用于研究，并在 QEMU 里离线启动分析的工具集——基于对
 一台真实 Model 3 Intel Elkhart Lake（"ICE-MRB"）平台固件镜像的完整逆向
@@ -176,7 +178,3 @@ Tesla 官方公开的几个源码仓库，是识别/核对本项目所针对硬�
 因此这一个文件**不受**本仓库 GPL-3.0 授权的覆盖，具体说明见文件头部
 注释。本仓库其余内容（包括 `scripts/tesla_fw.py`、`scripts/custom_init.c`
 及全部文档）均为原创，按 GPL-3.0 授权。
-
----
-
-English version: [README.md](README.md)

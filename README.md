@@ -1,5 +1,7 @@
 # Tesla_OS_On_QEMU
 
+中文说明见 [README.zh-CN.md](README.zh-CN.md)。
+
 Tooling to unpack a Tesla infotainment ECU ("ICE") firmware/eMMC dump,
 optionally patch its root filesystem for research, and boot it under QEMU
 for offline analysis — built from a full reverse-engineering pass over a
@@ -197,7 +199,3 @@ repository's GPL-3.0 grant — see the note at the top of the file.
 Everything else in this repository (including `scripts/tesla_fw.py`,
 `scripts/custom_init.c`, and this documentation) is original work
 licensed under GPL-3.0.
-
----
-
-中文说明见 [README.zh-CN.md](README.zh-CN.md)。
