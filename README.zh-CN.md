@@ -167,7 +167,15 @@ Tesla 官方公开的几个源码仓库，是识别/核对本项目所针对硬�
 
 ## 许可证
 
-本仓库目前未设置许可证文件。在添加之前，请视为作者保留所有权利。
+本项目采用 **GNU General Public License v3.0** 开源许可证，完整文本见
+[`LICENSE`](LICENSE)。
+
+有一个例外：`scripts/touch-proxy.c` 是
+[denysvitali/tesla-qemu](https://github.com/denysvitali/tesla-qemu) 中
+`tools/touch-proxy.c` 的衍生作品，而该上游项目本身没有声明任何许可证。
+因此这一个文件**不受**本仓库 GPL-3.0 授权的覆盖，具体说明见文件头部
+注释。本仓库其余内容（包括 `scripts/tesla_fw.py`、`scripts/custom_init.c`
+及全部文档）均为原创，按 GPL-3.0 授权。
 
 ---
 

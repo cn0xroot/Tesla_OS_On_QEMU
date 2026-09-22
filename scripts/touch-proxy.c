@@ -8,6 +8,14 @@
  *
  * KEY: TOUCH_X_MAX/Y_MAX = 1200x1920 (the real Tesla panel coordinate space
  * QtCarTouchDriver expects), NOT the display resolution.
+ *
+ * LICENSE NOTE: this file is a derivative of denysvitali/tesla-qemu's
+ * tools/touch-proxy.c (https://github.com/denysvitali/tesla-qemu), which
+ * does not declare a license of its own. It is therefore NOT covered by
+ * this repository's GPL-3.0 LICENSE — treat it as "all rights reserved"
+ * by its original author pending upstream clarification, and check with
+ * denysvitali before redistributing this file independently of the rest
+ * of the project.
  */
 #include <stdio.h>
 #include <stdlib.h>

@@ -186,8 +186,17 @@ identifying and cross-checking the platform this firmware targets:
 
 ## License
 
-No license file is currently set for this repository. Until one is
-added, treat the code as "all rights reserved" by its author.
+This project is licensed under the **GNU General Public License v3.0** —
+see [`LICENSE`](LICENSE) for the full text.
+
+One exception: `scripts/touch-proxy.c` is a derivative of
+[denysvitali/tesla-qemu](https://github.com/denysvitali/tesla-qemu)'s
+`tools/touch-proxy.c`, and that upstream project does not declare a
+license of its own. That single file is therefore *not* covered by this
+repository's GPL-3.0 grant — see the note at the top of the file.
+Everything else in this repository (including `scripts/tesla_fw.py`,
+`scripts/custom_init.c`, and this documentation) is original work
+licensed under GPL-3.0.
 
 ---
 
