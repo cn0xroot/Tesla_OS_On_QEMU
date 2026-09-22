@@ -128,6 +128,29 @@ interactive GUI session, a session with kernel- and userspace-GDB stubs
 attached, and a full accelerated 2D graphics stack respectively. See each
 script's header comment for the details of what it configures.
 
+## Further reading
+
+The full research write-up — methodology, dead ends, and the findings
+this toolchain distills — is published in two parts on the author's
+blog:
+
+- [Part 1: Unpacking](https://cn0xroot.wordpress.com/2026/09/19/root-tesla-os-on-qemu-part-1-unpacking/)
+  — GPT partition analysis, reverse-engineering the `iasImage` container
+  from the device's own `bootlog.0`, disassembling `verity-init` to
+  recover the exact `dm-linear` splice formula, and the ±2MB exhaustive
+  search that traced a "corrupted" rootfs down to one missed
+  `(p4_bytes >> 12) << 3` truncation.
+- [Part 2: Debugging + fixing](https://cn0xroot.wordpress.com/2026/09/20/root_tesla_os_on_qemu_part_2_debugging_fixing/)
+  — the boot-chain fixes (kernel module version pinning, RCU stall
+  tuning, a LUKS/quota reformat-on-every-boot loop), the graphics stack
+  port (DRM driver selection, Mesa ABI mismatches, the
+  `virtio-gpu-gl` → `virtio-vga` fallback), the touch-input protocol
+  translation, and two security findings worth flagging on their own:
+  `sshd_config`'s dev/production split gated by `is-fused()`, and a
+  missing `clock_gettime` entry in `QtCarDvServer.kafel`'s seccomp
+  allowlist that only surfaces because this build's glibc skips the
+  VDSO fast path.
+
 ## What's *not* in this repo
 
 `.gitignore` is a strict allowlist: everything is ignored by default, and

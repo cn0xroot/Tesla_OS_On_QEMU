@@ -94,6 +94,13 @@ tesla_fw.py run --mode glamor
 
 `--mode`在`scripts/`下原本就有的四套QEMU启动方案之间切换（`run_qemu.sh`/`run_qemu_ui.sh`/`run_qemu_gdb.sh`/`run_v62_glamor.sh`）：分别是定长无界面启动、长期运行的交互式图形会话、挂载内核态+用户态GDB的调试会话、完整加速2D图形栈。各自的具体配置见对应脚本头部注释。
 
+## 延伸阅读
+
+完整的研究记录——方法论、走过的弯路、以及这套工具沉淀出的结果——发在作者博客上，分两篇：
+
+- [Part 1: Unpacking](https://cn0xroot.wordpress.com/2026/09/19/root-tesla-os-on-qemu-part-1-unpacking/)——完整走一遍GPT分区分析、从设备自己的`bootlog.0`反推出`iasImage`容器格式、反汇编`verity-init`还原出精确的`dm-linear`拼接公式，以及用±2MB全窗口穷举法把一份"看起来数据丢失"的rootfs最终定位到一个被漏掉的`(p4_bytes >> 12) << 3`截断公式。
+- [Part 2: Debugging + fixing](https://cn0xroot.wordpress.com/2026/09/20/root_tesla_os_on_qemu_part_2_debugging_fixing/)——覆盖启动链修复（内核模块版本锁定、RCU stall调优、LUKS/quota每次开机重新格式化的坑）、图形栈移植（DRM驱动选型、Mesa ABI不匹配、`virtio-gpu-gl`回退到`virtio-vga`）、触摸输入协议转换，以及两个值得单独提一下的安全发现：`sshd_config`按`is-fused()`切换开发/生产配置，还有`QtCarDvServer.kafel`的seccomp白名单里漏掉的`clock_gettime`——这颗测试内核的glibc跳过了VDSO快速路径才暴露出这个缺口。
+
 ## 仓库里不包含什么
 
 `.gitignore`采用严格白名单模式：默认忽略一切，只有工具代码本身（`scripts/*.py`、`*.sh`、`*.c`、`*.patch`）和本README被纳入版本控制。明确地，**以下内容永远不会被提交**：
