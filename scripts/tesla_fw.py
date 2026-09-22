@@ -36,6 +36,8 @@ reconstruct_dm_linear_rootfs.py、run_qemu*.sh、ssh_qemu.sh 等）的统一调�
     tesla_fw.py ssh            ... 一键 SSH 进正在跑的 QEMU 客户机
     tesla_fw.py focus          ... 修复宿主机 QEMU 窗口抢不到输入焦点的问题
     tesla_fw.py capture        ... 客户机内抓包，流回宿主机保存为 pcap
+    tesla_fw.py fuzz           ... 针对客户机 D-Bus 服务做结构化 fuzzing（转发到 dbus_fuzz.py）
+    tesla_fw.py snapshot       ... 给客户机做活体快照 save/restore/delete/list（转发到 qemu_snapshot.py）
 
 每个子命令都有自己的 -h/--help，具体参数见对应函数。
 
@@ -229,6 +231,45 @@ def cmd_patch_legacy_tables(args):
     sh([sys.executable, script_path("patch_squashfs_tables.py"), args.squashfs])
 
 
+def cmd_patch_network_fix(args):
+    """把 v68"双网卡 + connman 静态 IP"网络修复（docs/workflow_report.md
+    §20.3）应用到一个已经启动、正在跑的 QEMU 客户机上（通过 SSH 把
+    scripts/apply_network_fix.sh 传进去执行，不是改本地 rootfs 文件）。
+
+    只对当前这次运行生效，重启客户机后失效——脚本改的是运行时网络状态，
+    不是 /etc/runit/1 本身（原始文件内容没有留存，见脚本头部的诚实说明）。
+    需要 QEMU 命令行带第二块网卡 eth1，即用 `tesla_fw.py run --mode ui`
+    或 `--mode glamor` 起的客户机（默认都带），纯 headless 模式没有。
+
+    关于连哪个端口：默认 rootfs（已经带 v68 修复）eth1 开机就配好了，
+    直接用默认的 2223 就行。如果你是拿自己重打包、没有预置这个修复的
+    rootfs 跑起来的，eth1 这时候还没配置，2223 连不上——先用
+    `--ssh-port 2222`（eth0，connman 接管前这条路还能用）连进去跑一次
+    这个命令。跑完之后 eth0(2222) 会像文档记录的那样失效，后续都改用
+    2223。
+    """
+    script = script_path("apply_network_fix.sh")
+    key = args.ssh_key
+    cmd = [
+        "ssh", "-i", key,
+        "-o", "StrictHostKeyChecking=no",
+        "-o", "UserKnownHostsFile=/dev/null",
+        "-o", "LogLevel=ERROR",
+        "-p", str(args.ssh_port),
+        "root@127.0.0.1",
+        "sh -s",
+    ]
+    print(f"通过 SSH（端口 {args.ssh_port}）把 apply_network_fix.sh 传进客户机执行...")
+    with open(script, "rb") as f:
+        result = subprocess.run(cmd, stdin=f)
+    if result.returncode == 255:
+        sys.exit(f"SSH 连接失败（端口 {args.ssh_port}）。如果这是一份自己重打包、"
+                  f"还没有预置 eth1 静态配置的 rootfs，eth1 现在可能还没配好——"
+                  f"试试 `--ssh-port 2222`（走 eth0，connman 接管前这条路还能用）。")
+    elif result.returncode != 0:
+        sys.exit(f"远端脚本失败（退出码 {result.returncode}），看上面的输出定位问题。")
+
+
 # ----------------------------------------------------------------------
 # run：QEMU 启动调度（统一封装 run_qemu*.sh / run_v62_glamor.sh）
 # ----------------------------------------------------------------------
@@ -278,6 +319,18 @@ def cmd_focus(args):
 def cmd_capture(args):
     """客户机内抓包，通过 SSH 流回宿主机保存为 pcap（包 capture_pcap.sh）。"""
     sh(["bash", script_path("capture_pcap.sh"), args.iface, str(args.duration), args.filter or ""])
+
+
+def cmd_fuzz(args):
+    """针对客户机 D-Bus 服务做结构化 fuzzing（转发全部参数给 dbus_fuzz.py，
+    用法见 `tesla_fw.py fuzz -h` / `python3 scripts/dbus_fuzz.py -h`）。"""
+    sh([sys.executable, script_path("dbus_fuzz.py")] + args.fuzz_args)
+
+
+def cmd_snapshot(args):
+    """给正在跑的 QEMU 客户机做活体快照，save/restore/delete/list（转发全部
+    参数给 qemu_snapshot.py，用法见 `tesla_fw.py snapshot -h`）。"""
+    sh([sys.executable, script_path("qemu_snapshot.py")] + args.snapshot_args)
 
 
 # ----------------------------------------------------------------------
@@ -340,6 +393,11 @@ def build_parser():
     p.add_argument("-y", "--yes", action="store_true", help="跳过确认提示")
     p.set_defaults(func=cmd_patch_legacy_tables)
 
+    p = patch_sub.add_parser("network-fix", help="给已启动的客户机应用 v68 双网卡+connman静态IP网络修复（运行时生效，重启失效）")
+    p.add_argument("--ssh-key", default=os.path.join(SCRIPTS_DIR, "ssh_key", "id_ed25519"))
+    p.add_argument("--ssh-port", type=int, default=2223, help="见 ssh_qemu.sh，v68起默认2223(eth1)")
+    p.set_defaults(func=cmd_patch_network_fix)
+
     # run
     p = sub.add_parser("run", help="启动 QEMU（headless/ui/gdb/glamor 四种模式）")
     p.add_argument("--mode", choices=list(RUN_MODE_SCRIPTS), default="headless")
@@ -365,10 +423,41 @@ def build_parser():
     p.add_argument("filter", nargs="?", default="")
     p.set_defaults(func=cmd_capture)
 
+    p = sub.add_parser("fuzz", help="针对客户机 D-Bus 服务做结构化 fuzzing",
+                        add_help=False,
+                        description="转发给 scripts/dbus_fuzz.py，用 `tesla_fw.py fuzz introspect -h` 等看具体子命令的参数。")
+    p.add_argument("fuzz_args", nargs=argparse.REMAINDER,
+                    help="introspect|run|report 及其参数，原样转发给 dbus_fuzz.py")
+    p.set_defaults(func=cmd_fuzz)
+
+    p = sub.add_parser("snapshot", help="给正在跑的 QEMU 客户机做活体快照 save/restore/delete/list",
+                        add_help=False,
+                        description="转发给 scripts/qemu_snapshot.py，用 `tesla_fw.py snapshot save -h` 等看具体子命令的参数。")
+    p.add_argument("snapshot_args", nargs=argparse.REMAINDER,
+                    help="save|restore|delete|list 及其参数，原样转发给 qemu_snapshot.py")
+    p.set_defaults(func=cmd_snapshot)
+
     return ap
 
 
+# 全权转发的子命令：自己有完整的子子命令体系（含各自的 -h），直接拦截
+# 转发比用 argparse.REMAINDER 可靠——REMAINDER 在"紧跟着子命令名的 -h"
+# 这种写法上有已知的老毛病（会被顶层解析器当成自己的 -h 吞掉）。
+FORWARD_SCRIPTS = {
+    "fuzz": "dbus_fuzz.py",
+    "snapshot": "qemu_snapshot.py",
+}
+
+
 def main():
+    if len(sys.argv) > 1 and sys.argv[1] in FORWARD_SCRIPTS:
+        target = FORWARD_SCRIPTS[sys.argv[1]]
+        try:
+            sh([sys.executable, script_path(target)] + sys.argv[2:])
+        except subprocess.CalledProcessError as e:
+            sys.exit(e.returncode)
+        return
+
     parser = build_parser()
     args = parser.parse_args()
     try:

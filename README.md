@@ -128,6 +128,33 @@ interactive GUI session, a session with kernel- and userspace-GDB stubs
 attached, and a full accelerated 2D graphics stack respectively. See each
 script's header comment for the details of what it configures.
 
+## Device / feature status in QEMU
+
+What actually works once you're booted, and what still doesn't:
+
+| Subsystem | Status | Fix | Reproducible from this repo? |
+|---|---|---|---|
+| Touch input | Working | Replaced `touch-proxy` (wrong coordinate space) with `x11-input-proxy`, which injects clicks via X11 XTest directly in screen coordinates (v63) | Partially — `scripts/x11-input-proxy.c` is tracked; the rootfs-side wiring that runs it isn't |
+| Browser — Apple Music web view (`chromium-app`) | Working (renders, stable) | Forced software rendering (`--disable-gpu --disable-gpu-compositing`) plus sandbox netns/bind-mount fixes; the streaming backend itself is unreachable from an emulator, which isn't a guest bug | No — baked into the rootfs only |
+| Browser — built-in in-car Browser | Partially working | Panel opens after a boot-race workaround, but page content renders as a black screen: no GPU acceleration and no swiftshader software-GL fallback compiled in — an open, unresolved hard limit | No — open issue |
+| Audio / sound card | Working (host playback) | The OEM kernel ships no PCI/USB sound driver at all; a custom AC97 kernel module plus QEMU `-audiodev pa,...` streams guest audio out to the host's PulseAudio/PipeWire. A prior crash loop was fixed separately by pre-creating `/var/lib/alsa` and `/var/lib/audiod` | Partially — the QEMU-side `-audiodev` wiring is in `run_qemu_ui.sh`/`run_v62_glamor.sh`; the kernel module and rootfs directory fix aren't |
+| Network (app connectivity + stable SSH, simultaneously) | Working | v68's dual-NIC design: `eth0` stays under `connman`'s static IP for app connectivity, `eth1` gets its own static IP outside connman's reach for SSH, so neither interferes with the other. A separate earlier fix stops `connman` from picking a factory-only config that drops the whole connection | **Yes** — `tesla_fw.py patch network-fix` (see below) |
+| UI rendering (2D) | Working | Pure 2D scanout (`-device virtio-vga`, `gl=on` left off) — the real Tesla UI fully renders and keeps running (Factory Net label, map grid, loading cards, bottom taskbar all visible and animating) | No — QEMU display flags only, no rootfs change needed |
+| 3D hardware acceleration | Not available on this host | Tried `virtio-vga-gl` + `gl=on` (virgl) to fix both the sluggish 2D refresh rate and the mame black screen below — QEMU segfaults inside `libGLX_nvidia.so` around the 35s mark when the guest starts creating a GL context; forcing Mesa software GLX avoids that crash but QEMU still silently dies at the same point. Permanently disabled; kept as an experimental `GL=on` switch in `run_qemu_ui.sh` only | N/A — host GPU/driver limitation, not something this repo's tooling can fix |
+| Maps / navigation | Working | Needed a kernel rebuild (`CONFIG_NETFILTER_XT_TARGET_REDIRECT`, `CONFIG_NF_NAT_REDIRECT`) so a transparent SOCKS proxy can `REDIRECT` the map/streaming traffic that ignores `http_proxy`, plus raising `CONFIG_NR_CPUS` from 4 to 8. This is what "mapfix" in the STABLE rootfs filename refers to. Confirmed with real Google map tiles and a live supercharger list | No — baked into the custom `bzImage_redirect_smp8` kernel build, not a rootfs file |
+| Built-in games | Mixed | Native Toybox mini-games (Light Show, Sketchpad, etc.) work — they're rendered by QtCar itself, no separate GL process needed. The Arcade app opens, but its downloadable titles (Beach Buggy Racing 2, etc.) can't install — Tesla's CDN backend is unreachable from an emulator, an environment limit rather than a bug. Classic mame titles (Missile Command, Asteroids, ...) don't render at all: no GPU, no software SDL renderer compiled in, and Mesa's software EGL-on-X11 path doesn't work in this build — the same hard limit as 3D acceleration above | Partially — the audio-gate workaround (a synthetic `gameaudio-ready` runit service) is a rootfs change, not reproducible from this repo yet; the mame/Arcade limitations aren't fixable from software at all |
+
+A few things worth being explicit about:
+
+- Touch, Chromium, audio, maps, and the games audio-gate workaround are "working" only in the pre-built `..._STABLE.squashfs` images referenced by `run_qemu_ui.sh`/`run_v62_glamor.sh` by default — those images aren't distributed with this repo (see [What's *not* in this repo](#whats-not-in-this-repo)), so a rootfs you build yourself from scratch via `unpack` + `patch repack` won't have those fixes unless you reconstruct them yourself. The graphics/audio/touch/maps fixes involve binary patches, a rebuilt kernel, and a custom kernel module that aren't reproduced as standalone tooling here yet.
+- The network fix is the one exception: it's fully reproducible from this repo. Run it against an already-booted guest (one started with `run --mode ui` or `--mode glamor`, which already carry the second NIC):
+
+  ```bash
+  python3 scripts/tesla_fw.py patch network-fix
+  ```
+
+  This applies the exact `connmanctl` sequence documented in [Part 2](https://cn0xroot.wordpress.com/2026/09/20/root_tesla_os_on_qemu_part_2_debugging_fixing/) to configure `eth0`, and a standard-tooling equivalent (not the original file, which wasn't preserved) to bring up a static IP on `eth1`. It only affects the currently running guest — it edits runtime network state, not `/etc/runit/1` itself, so it doesn't survive a reboot. See the script's own header comment (`scripts/apply_network_fix.sh`) for the full detail on what's verified-exact versus reconstructed.
+
 ## Further reading
 
 The full research write-up — methodology, dead ends, and the findings

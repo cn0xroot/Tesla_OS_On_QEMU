@@ -28,6 +28,12 @@
 /scripts/unsquashfs_tesla_fake_ids.patch
 /scripts/squashfs_orphan_recovery.py
 
+# D-Bus 结构化 fuzzing 工具，仅本地使用，不进公开仓库。
+# 注意：`tesla_fw.py fuzz` 子命令的转发逻辑仍保留在仓库里（只是列出这个
+# 子命令、转发参数，本身不含任何 fuzzing 逻辑），克隆仓库的人跑
+# `tesla_fw.py fuzz ...` 会因为缺这个文件报错——这是预期的，不是 bug。
+/scripts/dbus_fuzz.py
+
 # 顶层文档
 !/README.md
 !/README.zh-CN.md

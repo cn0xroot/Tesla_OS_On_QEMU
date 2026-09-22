@@ -94,6 +94,33 @@ tesla_fw.py run --mode glamor
 
 `--mode`在`scripts/`下原本就有的四套QEMU启动方案之间切换（`run_qemu.sh`/`run_qemu_ui.sh`/`run_qemu_gdb.sh`/`run_v62_glamor.sh`）：分别是定长无界面启动、长期运行的交互式图形会话、挂载内核态+用户态GDB的调试会话、完整加速2D图形栈。各自的具体配置见对应脚本头部注释。
 
+## QEMU里各设备功能的实际状态
+
+启动之后哪些真的能用、哪些还不行：
+
+| 子系统 | 状态 | 修复方式 | 本仓库能否复现 |
+|---|---|---|---|
+| 触摸 | 可用 | 把坐标空间算错的`touch-proxy`换成`x11-input-proxy`——直接用X11 XTest以屏幕坐标注入点击(v63) | 部分——`scripts/x11-input-proxy.c`本身在仓库里，但rootfs里调用它的那部分配置不在 |
+| 浏览器——Apple Music网页视图(`chromium-app`) | 可用(能渲染、不崩溃) | 强制走软件渲染(`--disable-gpu --disable-gpu-compositing`)，加上沙箱netns/绑定挂载修复；流媒体后端本身在模拟器环境里连不通，这不是客户机软件的问题 | 否——只烘焙在rootfs里 |
+| 浏览器——车机内置Browser应用 | 部分可用 | 绕开一个开机时序竞争后面板能打开，但页面内容是黑屏：没有GPU加速、也没编译进swiftshader软件GL兜底——目前是个尚未解决的硬限制 | 否——未解决问题 |
+| 音频/声卡 | 可用(声音输出到宿主机) | 原厂内核压根没编译PCI/USB声卡驱动，加了一个自定义AC97内核模块，配合QEMU的`-audiodev pa,...`把客户机音频流实时转到宿主机PulseAudio/PipeWire；此前还单独修过一个崩溃重启循环(预先建好`/var/lib/alsa`和`/var/lib/audiod`目录) | 部分——QEMU侧的`-audiodev`配置在`run_qemu_ui.sh`/`run_v62_glamor.sh`里，但内核模块和rootfs目录修复不在 |
+| 网络(app联网+稳定SSH同时成立) | 可用 | v68双网卡方案：`eth0`留给connman管、配静态IP保证app联网；`eth1`配一个connman完全碰不到的独立静态IP专供SSH，两边互不干扰。另有一个更早的独立修复，防止connman错选一份factory专用配置导致整机断网 | **是**——`tesla_fw.py patch network-fix`(见下文) |
+| 图形渲染(2D) | 可用 | 纯2D直出(`-device virtio-vga`，不开`gl=on`)——真实车机UI完整渲染并持续运行(Factory Net标识、地图网格、加载卡片、底部任务栏全部可见且在动) | 否——只是QEMU显示参数，不需要改rootfs |
+| 3D硬件加速 | 本宿主不可用 | 试过`virtio-vga-gl`+`gl=on`(virgl)想同时解决下面2D刷新慢和mame黑屏两个问题——guest开始建GL上下文的~35秒那一刻，QEMU在`libGLX_nvidia.so`里段错误；强制走Mesa软件GLX能避开这次崩溃，但QEMU还是在同一个时间点静默死掉。已永久放弃，只在`run_qemu_ui.sh`里留了个实验性的`GL=on`开关 | 不适用——宿主GPU/驱动层限制，不是本仓库工具能解决的 |
+| 地图/导航 | 可用 | 需要重编内核(`CONFIG_NETFILTER_XT_TARGET_REDIRECT`、`CONFIG_NF_NAT_REDIRECT`)才能让透明SOCKS代理`REDIRECT`住那些无视`http_proxy`直连的地图/流媒体流量，同时把`CONFIG_NR_CPUS`从4提到8。STABLE rootfs文件名里的"mapfix"指的就是这个。实测拿到真实Google地图瓦片和超充桩列表 | 否——烘焙在自定义的`bzImage_redirect_smp8`内核里，不是rootfs文件 |
+| 内置游戏 | 部分可用 | 原生Toybox小游戏(Light Show、Sketchpad等)能玩——由QtCar自己渲染，不需要单独的GL进程。Arcade应用能打开，但里面能下载的游戏(Beach Buggy Racing 2等)装不了——Tesla的CDN后端在模拟器环境里连不上，这是环境限制不是bug。经典mame游戏(Missile Command、Asteroids等)完全渲染不出来：没有GPU、没编译进软件SDL渲染器、这套Mesa构建里的软件EGL-on-X11路径也不工作——和上面3D加速是同一个硬限制 | 部分——音频门控的绕过方案(一个自造的`gameaudio-ready` runit服务)是rootfs改动，还没在本仓库里沉淀成工具；mame/Arcade那部分限制本来就没法用软件解决 |
+
+几点需要说清楚的地方：
+
+- 触摸、浏览器、音频、地图，以及游戏的音频门控绕过方案，这几项"可用"，指的是`run_qemu_ui.sh`/`run_v62_glamor.sh`默认引用的那份预打包`..._STABLE.squashfs`——这份镜像本身不随仓库分发(见[仓库里不包含什么](#仓库里不包含什么))，所以如果你自己从头用`unpack`+`patch repack`打一份rootfs，这几项修复不会自动带上，需要自己重新实现。图形/音频/触摸/地图这几处修复涉及二进制补丁、重编内核和一个自定义内核模块，目前还没有沉淀成本仓库里的独立工具。
+- 网络修复是唯一的例外：可以完整从本仓库复现。对着一个已经启动的客户机(用`run --mode ui`或`--mode glamor`起的，这两个模式本来就带第二块网卡)跑：
+
+  ```bash
+  python3 scripts/tesla_fw.py patch network-fix
+  ```
+
+  这条命令对`eth0`应用的是[Part 2](https://cn0xroot.wordpress.com/2026/09/20/root_tesla_os_on_qemu_part_2_debugging_fixing/)原文逐字记录的`connmanctl`命令序列；给`eth1`配静态IP这部分，原始文件内容没有留存，用的是标准命令做的等效重建。只对当前这次运行生效——改的是运行时网络状态，不是`/etc/runit/1`本身，重启客户机后失效。哪部分是"逐字精确"、哪部分是"等效重建"，`scripts/apply_network_fix.sh`脚本头部写得很清楚。
+
 ## 延伸阅读
 
 完整的研究记录——方法论、走过的弯路、以及这套工具沉淀出的结果——发在作者博客上，分两篇：
