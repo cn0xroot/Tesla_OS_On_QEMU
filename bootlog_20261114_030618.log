@@ -1,0 +1,1428 @@
+################ GUEST dmesg (kernel boot ring buffer) ################
+[    0.000000] Linux version 5.4.265-PLK+ (root@AI-Dev) (gcc version 13.3.0 (Ubuntu 13.3.0-6ubuntu2~24.04.1)) #14 SMP Wed Sep 30 06:03:25 HDT 2026
+[    0.000000] Command line: console=tty0 console=ttyS0,115200n8 loglevel=8 ignore_loglevel clocksource=tsc tsc=reliable panic=1 security=apparmor apparmor=1 intel_xhci_usb_role_switch.default_role=1 modprobe.blacklist=dwc3 rng_core.default_quality=1000
+[    0.000000] BIOS-provided physical RAM map:
+[    0.000000] BIOS-e820: [mem 0x0000000000000000-0x000000000009fbff] usable
+[    0.000000] BIOS-e820: [mem 0x000000000009fc00-0x000000000009ffff] reserved
+[    0.000000] BIOS-e820: [mem 0x00000000000f0000-0x00000000000fffff] reserved
+[    0.000000] BIOS-e820: [mem 0x0000000000100000-0x000000007ffcafff] usable
+[    0.000000] BIOS-e820: [mem 0x000000007ffcb000-0x000000007fffffff] reserved
+[    0.000000] BIOS-e820: [mem 0x00000000b0000000-0x00000000bfffffff] reserved
+[    0.000000] BIOS-e820: [mem 0x00000000fed1c000-0x00000000fed1ffff] reserved
+[    0.000000] BIOS-e820: [mem 0x00000000feffc000-0x00000000feffffff] reserved
+[    0.000000] BIOS-e820: [mem 0x00000000fffc0000-0x00000000ffffffff] reserved
+[    0.000000] BIOS-e820: [mem 0x0000000100000000-0x000000047fffffff] usable
+[    0.000000] BIOS-e820: [mem 0x000000fd00000000-0x000000ffffffffff] reserved
+[    0.000000] printk: debug: ignoring loglevel setting.
+[    0.000000] NX (Execute Disable) protection: active
+[    0.000000] SMBIOS 3.0.0 present.
+[    0.000000] DMI: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[    0.000000] tsc: Fast TSC calibration using PIT
+[    0.000000] tsc: Detected 4291.953 MHz processor
+[    0.000861] e820: update [mem 0x00000000-0x00000fff] usable ==> reserved
+[    0.000864] e820: remove [mem 0x000a0000-0x000fffff] usable
+[    0.000867] last_pfn = 0x480000 max_arch_pfn = 0x400000000
+[    0.000928] MTRR default type: write-back
+[    0.000929] MTRR fixed ranges enabled:
+[    0.000930]   00000-9FFFF write-back
+[    0.000930]   A0000-BFFFF uncachable
+[    0.000931]   C0000-FFFFF write-protect
+[    0.000931] MTRR variable ranges enabled:
+[    0.000932]   0 base 00C0000000 mask FFC0000000 uncachable
+[    0.000932]   1 disabled
+[    0.000932]   2 disabled
+[    0.000932]   3 disabled
+[    0.000932]   4 disabled
+[    0.000932]   5 disabled
+[    0.000932]   6 disabled
+[    0.000933]   7 disabled
+[    0.000953] x86/PAT: Configuration [0-7]: WB  WC  UC- UC  WB  WP  UC- WT  
+[    0.000965] last_pfn = 0x7ffcb max_arch_pfn = 0x400000000
+[    0.002140] found SMP MP-table at [mem 0x000f5450-0x000f545f]
+[    0.002167] check: Scanning 1 areas for low memory corruption
+[    0.002375] RAMDISK: [mem 0x7fd7a000-0x7ffbffff]
+[    0.002384] ACPI: Early table checksum verification disabled
+[    0.002388] ACPI: RSDP 0x00000000000F5270 000014 (v00 BOCHS )
+[    0.002390] ACPI: RSDT 0x000000007FFD28C5 00003C (v01 BOCHS  BXPC     00000001 BXPC 00000001)
+[    0.002394] ACPI: FACP 0x000000007FFD2639 0000F4 (v03 BOCHS  BXPC     00000001 BXPC 00000001)
+[    0.002397] ACPI: DSDT 0x000000007FFD0040 0025F9 (v01 BOCHS  BXPC     00000001 BXPC 00000001)
+[    0.002398] ACPI: FACS 0x000000007FFD0000 000040
+[    0.002398] ACPI: APIC 0x000000007FFD272D 0000B0 (v03 BOCHS  BXPC     00000001 BXPC 00000001)
+[    0.002399] ACPI: HPET 0x000000007FFD27DD 000038 (v01 BOCHS  BXPC     00000001 BXPC 00000001)
+[    0.002400] ACPI: TPM2 0x000000007FFD2815 00004C (v04 BOCHS  BXPC     00000001 BXPC 00000001)
+[    0.002401] ACPI: MCFG 0x000000007FFD2861 00003C (v01 BOCHS  BXPC     00000001 BXPC 00000001)
+[    0.002401] ACPI: WAET 0x000000007FFD289D 000028 (v01 BOCHS  BXPC     00000001 BXPC 00000001)
+[    0.002402] ACPI: Reserving FACP table memory at [mem 0x7ffd2639-0x7ffd272c]
+[    0.002403] ACPI: Reserving DSDT table memory at [mem 0x7ffd0040-0x7ffd2638]
+[    0.002403] ACPI: Reserving FACS table memory at [mem 0x7ffd0000-0x7ffd003f]
+[    0.002403] ACPI: Reserving APIC table memory at [mem 0x7ffd272d-0x7ffd27dc]
+[    0.002403] ACPI: Reserving HPET table memory at [mem 0x7ffd27dd-0x7ffd2814]
+[    0.002403] ACPI: Reserving TPM2 table memory at [mem 0x7ffd2815-0x7ffd2860]
+[    0.002404] ACPI: Reserving MCFG table memory at [mem 0x7ffd2861-0x7ffd289c]
+[    0.002404] ACPI: Reserving WAET table memory at [mem 0x7ffd289d-0x7ffd28c4]
+[    0.002425] ACPI: Local APIC address 0xfee00000
+[    0.002773] No NUMA configuration found
+[    0.002774] Faking a node at [mem 0x0000000000000000-0x000000047fffffff]
+[    0.002776] NODE_DATA(0) allocated [mem 0x47fff4000-0x47fff7fff]
+[    0.002871] Zone ranges:
+[    0.002873]   DMA      [mem 0x0000000000001000-0x0000000000ffffff]
+[    0.002874]   DMA32    [mem 0x0000000001000000-0x00000000ffffffff]
+[    0.002875]   Normal   [mem 0x0000000100000000-0x000000047fffffff]
+[    0.002875] Movable zone start for each node
+[    0.002875] Early memory node ranges
+[    0.002876]   node   0: [mem 0x0000000000001000-0x000000000009efff]
+[    0.002876]   node   0: [mem 0x0000000000100000-0x000000007ffcafff]
+[    0.002877]   node   0: [mem 0x0000000100000000-0x000000047fffffff]
+[    0.003038] Zeroed struct page in unavailable ranges: 151 pages
+[    0.003039] Initmem setup node 0 [mem 0x0000000000001000-0x000000047fffffff]
+[    0.003041] On node 0 totalpages: 4194153
+[    0.003041]   DMA zone: 64 pages used for memmap
+[    0.003042]   DMA zone: 21 pages reserved
+[    0.003042]   DMA zone: 3998 pages, LIFO batch:0
+[    0.003054]   DMA32 zone: 8128 pages used for memmap
+[    0.003055]   DMA32 zone: 520139 pages, LIFO batch:63
+[    0.006376]   Normal zone: 57344 pages used for memmap
+[    0.006378]   Normal zone: 3670016 pages, LIFO batch:63
+[    0.029315] ACPI: PM-Timer IO Port: 0x608
+[    0.029319] ACPI: Local APIC address 0xfee00000
+[    0.029324] ACPI: LAPIC_NMI (acpi_id[0xff] dfl dfl lint[0x1])
+[    0.029367] IOAPIC[0]: apic_id 0, version 17, address 0xfec00000, GSI 0-23
+[    0.029369] ACPI: INT_SRC_OVR (bus 0 bus_irq 0 global_irq 2 dfl dfl)
+[    0.029370] ACPI: INT_SRC_OVR (bus 0 bus_irq 5 global_irq 5 high level)
+[    0.029371] ACPI: INT_SRC_OVR (bus 0 bus_irq 9 global_irq 9 high level)
+[    0.029371] ACPI: INT_SRC_OVR (bus 0 bus_irq 10 global_irq 10 high level)
+[    0.029371] ACPI: INT_SRC_OVR (bus 0 bus_irq 11 global_irq 11 high level)
+[    0.029372] ACPI: IRQ0 used by override.
+[    0.029372] ACPI: IRQ5 used by override.
+[    0.029372] ACPI: IRQ9 used by override.
+[    0.029372] ACPI: IRQ10 used by override.
+[    0.029373] ACPI: IRQ11 used by override.
+[    0.029373] Using ACPI (MADT) for SMP configuration information
+[    0.029374] ACPI: HPET id: 0x8086a201 base: 0xfed00000
+[    0.029378] TSC deadline timer available
+[    0.029383] smpboot: Allowing 8 CPUs, 0 hotplug CPUs
+[    0.029392] [mem 0xc0000000-0xfed1bfff] available for PCI devices
+[    0.029395] clocksource: refined-jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 1910969940391419 ns
+[    0.152047] setup_percpu: NR_CPUS:64 nr_cpumask_bits:64 nr_cpu_ids:8 nr_node_ids:1
+[    0.152184] percpu: Embedded 56 pages/cpu s191896 r8192 d29288 u262144
+[    0.152188] pcpu-alloc: s191896 r8192 d29288 u262144 alloc=1*2097152
+[    0.152189] pcpu-alloc: [0] 0 1 2 3 4 5 6 7 
+[    0.152198] Built 1 zonelists, mobility grouping on.  Total pages: 4128596
+[    0.152198] Policy zone: Normal
+[    0.152200] Kernel command line: console=ttyS4,115200n8 console=tty0 console=tty0 console=ttyS0,115200n8 loglevel=8 ignore_loglevel clocksource=tsc tsc=reliable panic=1 security=apparmor apparmor=1 intel_xhci_usb_role_switch.default_role=1 modprobe.blacklist=dwc3 rng_core.default_quality=1000
+[    0.153040] Dentry cache hash table entries: 2097152 (order: 12, 16777216 bytes, linear)
+[    0.153422] Inode-cache hash table entries: 1048576 (order: 11, 8388608 bytes, linear)
+[    0.153444] mem auto-init: stack:off, heap alloc:off, heap free:off
+[    0.156710] Calgary: detecting Calgary via BIOS EBDA area
+[    0.156712] Calgary: Unable to locate Rio Grande table in EBDA - bailing!
+[    0.172400] Memory: 16376604K/16776612K available (18435K kernel code, 1623K rwdata, 11608K rodata, 1364K init, 1552K bss, 400008K reserved, 0K cma-reserved)
+[    0.172575] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=8, Nodes=1
+[    0.172735] rcu: Hierarchical RCU implementation.
+[    0.172737] rcu: 	RCU event tracing is enabled.
+[    0.172738] rcu: 	RCU restricting CPUs from NR_CPUS=64 to nr_cpu_ids=8.
+[    0.172740] rcu: RCU calculated value of scheduler-enlistment delay is 100 jiffies.
+[    0.172740] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=8
+[    0.172834] NR_IRQS: 4352, nr_irqs: 488, preallocated irqs: 16
+[    0.173287] random: crng init done
+[    0.184507] Console: colour VGA+ 80x25
+[    0.239782] printk: console [tty0] enabled
+[    0.240148] ACPI: Core revision 20190816
+[    0.240662] clocksource: hpet: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604467 ns
+[    0.241341] APIC: Switch to symmetric I/O mode setup
+[    0.243282] ..TIMER: vector=0x30 apic1=0 pin1=2 apic2=-1 pin2=-1
+[    0.248324] clocksource: tsc-early: mask: 0xffffffffffffffff max_cycles: 0x3dddb21bff1, max_idle_ns: 440795254633 ns
+[    0.248924] Calibrating delay loop (skipped), value calculated using timer frequency.. 8583.90 BogoMIPS (lpj=4291953)
+[    0.250118] Last level iTLB entries: 4KB 0, 2MB 0, 4MB 0
+[    0.250508] Last level dTLB entries: 4KB 0, 2MB 0, 4MB 0, 1GB 0
+[    0.250924] Spectre V1 : Mitigation: usercopy/swapgs barriers and __user pointer sanitization
+[    0.251455] Spectre V2 : Mitigation: Retpolines
+[    0.251922] Spectre V2 : Spectre v2 / SpectreRSB mitigation: Filling RSB on context switch
+[    0.252443] Spectre V2 : Spectre v2 / SpectreRSB : Filling RSB on VMEXIT
+[    0.252922] Spectre V2 : Enabling Restricted Speculation for firmware calls
+[    0.253369] Spectre V2 : mitigation: Enabling conditional Indirect Branch Prediction Barrier
+[    0.253923] Speculative Store Bypass: Vulnerable
+[    0.254312] x86/fpu: Supporting XSAVE feature 0x001: 'x87 floating point registers'
+[    0.254924] x86/fpu: Supporting XSAVE feature 0x002: 'SSE registers'
+[    0.255419] x86/fpu: Supporting XSAVE feature 0x004: 'AVX registers'
+[    0.255856] x86/fpu: xstate_offset[2]:  576, xstate_sizes[2]:  256
+[    0.256328] x86/fpu: Enabled xstate features 0x7, context size is 832 bytes, using 'compacted' format.
+[    0.257060] Freeing SMP alternatives memory: 44K
+[    0.257417] pid_max: default: 32768 minimum: 301
+[    0.257782] LSM: Security Framework initializing
+[    0.257937] AppArmor: AppArmor initialized
+[    0.258937] Mount-cache hash table entries: 32768 (order: 6, 262144 bytes, linear)
+[    0.259424] Mountpoint-cache hash table entries: 32768 (order: 6, 262144 bytes, linear)
+[    0.260124] smpboot: CPU0: AMD Intel Core Processor (Skylake, IBRS, no TSX) (family: 0x6, model: 0x5e, stepping: 0x3)
+[    0.260968] Performance Events: AMD PMU driver.
+[    0.261346] ... version:                0
+[    0.261683] ... bit width:              48
+[    0.261925] ... generic registers:      4
+[    0.262266] ... value mask:             0000ffffffffffff
+[    0.262645] ... max period:             00007fffffffffff
+[    0.262924] ... fixed-purpose events:   0
+[    0.263260] ... event mask:             000000000000000f
+[    0.263684] rcu: Hierarchical SRCU implementation.
+[    0.263947] Huh? What family is it: 0x6?!
+[    0.264429] smp: Bringing up secondary CPUs ...
+[    0.264848] x86: Booting SMP configuration:
+[    0.264928] .... node  #0, CPUs:      #1 #2 #3 #4 #5
+[    0.070846] calibrate_delay_direct() dropping max bogoMips estimate 1 = 5317354
+[    0.620014]  #6 #7
+[    0.761007] smp: Brought up 1 node, 8 CPUs
+[    0.762561] smpboot: Max logical packages: 1
+[    0.762912] smpboot: Total of 8 processors activated (69214.06 BogoMIPS)
+[    0.763943] devtmpfs: initialized
+[    0.764321] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 1911260446275000 ns
+[    0.764927] futex hash table entries: 2048 (order: 5, 131072 bytes, linear)
+[    0.765392] pinctrl core: initialized pinctrl subsystem
+[    0.765868] PM: RTC time: 13:06:20, date: 2026-11-14
+[    0.766013] NET: Registered protocol family 16
+[    0.766408] audit: initializing netlink subsys (disabled)
+[    0.766927] audit: type=2000 audit(1794661579.524:1): state=initialized audit_enabled=0 res=1
+[    0.766997] cpuidle: using governor menu
+[    0.767357] ACPI: bus type PCI registered
+[    0.768024] PCI: MMCONFIG for domain 0000 [bus 00-ff] at [mem 0xb0000000-0xbfffffff] (base 0xb0000000)
+[    0.768565] PCI: MMCONFIG at [mem 0xb0000000-0xbfffffff] reserved in E820
+[    0.768930] PCI: Using configuration type 1 for base access
+[    0.771028] HugeTLB registered 2.00 MiB page size, pre-allocated 0 pages
+[    0.771947] cryptomgr_test (56) used greatest stack depth: 15400 bytes left
+[    0.772346] cryptomgr_test (58) used greatest stack depth: 15264 bytes left
+[    0.773967] ACPI: Added _OSI(Module Device)
+[    0.774323] ACPI: Added _OSI(Processor Device)
+[    0.774695] ACPI: Added _OSI(3.0 _SCP Extensions)
+[    0.777930] ACPI: Added _OSI(Processor Aggregator Device)
+[    0.778328] ACPI: Added _OSI(Linux-Dell-Video)
+[    0.778696] ACPI: Added _OSI(Linux-Lenovo-NV-HDMI-Audio)
+[    0.778925] ACPI: Added _OSI(Linux-HPI-Hybrid-Graphics)
+[    0.779605] ACPI: 1 ACPI AML tables successfully acquired and loaded
+[    0.780870] ACPI: Interpreter enabled
+[    0.781932] ACPI: (supports S0 S3 S5)
+[    0.782255] ACPI: Using IOAPIC for interrupt routing
+[    0.782635] PCI: Using host bridge windows from ACPI; if necessary, use "pci=nocrs" and report a bug
+[    0.782987] ACPI: Enabled 2 GPEs in block 00 to 3F
+[    0.784786] ACPI: PCI Root Bridge [PCI0] (domain 0000 [bus 00-ff])
+[    0.784928] acpi PNP0A08:00: _OSC: OS supports [ExtendedConfig ASPM ClockPM Segments MSI HPX-Type3]
+[    0.785495] acpi PNP0A08:00: _OSC: platform does not support [LTR]
+[    0.785938] acpi PNP0A08:00: _OSC: OS now controls [PME AER PCIeCapability]
+[    0.786462] PCI host bridge to bus 0000:00
+[    0.786803] pci_bus 0000:00: root bus resource [io  0x0000-0x0cf7 window]
+[    0.787928] pci_bus 0000:00: root bus resource [io  0x0d00-0xffff window]
+[    0.788443] pci_bus 0000:00: root bus resource [mem 0x000a0000-0x000bffff window]
+[    0.788926] pci_bus 0000:00: root bus resource [mem 0x80000000-0xafffffff window]
+[    0.789494] pci_bus 0000:00: root bus resource [mem 0xc0000000-0xfebfffff window]
+[    0.789927] pci_bus 0000:00: root bus resource [mem 0xc000000000-0xc7ffffffff window]
+[    0.790522] pci_bus 0000:00: root bus resource [bus 00-ff]
+[    0.790978] pci 0000:00:00.0: [8086:29c0] type 00 class 0x060000
+[    0.791936] pci 0000:00:01.0: [1b36:0007] type 00 class 0x080501
+[    0.792899] pci 0000:00:01.0: reg 0x10: [mem 0xfebf4000-0xfebf40ff]
+[    0.796376] pci 0000:00:02.0: [1af4:1050] type 00 class 0x030000
+[    0.802680] pci 0000:00:02.0: reg 0x10: [mem 0xfe000000-0xfe7fffff pref]
+[    0.823937] pci 0000:00:02.0: reg 0x18: [mem 0xc040000000-0xc040003fff 64bit pref]
+[    0.833447] pci 0000:00:02.0: reg 0x20: [mem 0xfebf5000-0xfebf5fff]
+[    0.848940] pci 0000:00:02.0: reg 0x30: [mem 0xfebe0000-0xfebeffff pref]
+[    0.850685] pci 0000:00:03.0: [1b36:000d] type 00 class 0x0c0330
+[    0.851281] pci 0000:00:03.0: reg 0x10: [mem 0xfebf0000-0xfebf3fff 64bit]
+[    0.853360] pci 0000:00:04.0: [8086:10c9] type 00 class 0x020000
+[    0.855697] pci 0000:00:04.0: reg 0x10: [mem 0xfeba0000-0xfebbffff]
+[    0.856926] pci 0000:00:04.0: reg 0x14: [mem 0xfebc0000-0xfebdffff]
+[    0.858500] pci 0000:00:04.0: reg 0x18: [io  0xc600-0xc61f]
+[    0.861268] pci 0000:00:04.0: reg 0x1c: [mem 0xc000000000-0xc000003fff 64bit]
+[    0.863562] pci 0000:00:05.0: [8086:2415] type 00 class 0x040100
+[    0.864358] pci 0000:00:05.0: reg 0x10: [io  0xc000-0xc3ff]
+[    0.865121] pci 0000:00:05.0: reg 0x14: [io  0xc400-0xc4ff]
+[    0.868105] pci 0000:00:06.0: [1af4:1009] type 00 class 0x000200
+[    0.870396] pci 0000:00:06.0: reg 0x10: [io  0xc580-0xc5bf]
+[    0.873159] pci 0000:00:06.0: reg 0x14: [mem 0xfebf6000-0xfebf6fff]
+[    0.877201] pci 0000:00:06.0: reg 0x20: [mem 0xc040004000-0xc040007fff 64bit pref]
+[    0.879008] pci 0000:00:07.0: [1af4:1001] type 00 class 0x010000
+[    0.916820] pci 0000:00:07.0: reg 0x10: [io  0xc500-0xc57f]
+[    0.935366] pci 0000:00:07.0: reg 0x14: [mem 0xfebf7000-0xfebf7fff]
+[    0.967699] pci 0000:00:07.0: reg 0x20: [mem 0xc040008000-0xc04000bfff 64bit pref]
+[    0.969926] pci 0000:00:1f.0: [8086:2918] type 00 class 0x060100
+[    0.970993] pci 0000:00:1f.0: quirk: [io  0x0600-0x067f] claimed by ICH6 ACPI/GPIO/TCO
+[    0.971768] pci 0000:00:1f.2: [8086:2922] type 00 class 0x010601
+[    0.973789] pci 0000:00:1f.2: reg 0x20: [io  0xc620-0xc63f]
+[    0.975263] pci 0000:00:1f.2: reg 0x24: [mem 0xfebf8000-0xfebf8fff]
+[    0.976371] pci 0000:00:1f.3: [8086:2930] type 00 class 0x0c0500
+[    0.978676] pci 0000:00:1f.3: reg 0x20: [io  0x0700-0x073f]
+[    0.980659] ACPI: PCI Interrupt Link [LNKA] (IRQs 5 *10 11)
+[    0.981027] ACPI: PCI Interrupt Link [LNKB] (IRQs 5 *10 11)
+[    0.981601] ACPI: PCI Interrupt Link [LNKC] (IRQs 5 10 *11)
+[    0.982016] ACPI: PCI Interrupt Link [LNKD] (IRQs 5 10 *11)
+[    0.982710] ACPI: PCI Interrupt Link [LNKE] (IRQs 5 *10 11)
+[    0.983034] ACPI: PCI Interrupt Link [LNKF] (IRQs 5 *10 11)
+[    0.983606] ACPI: PCI Interrupt Link [LNKG] (IRQs 5 10 *11)
+[    0.984017] ACPI: PCI Interrupt Link [LNKH] (IRQs 5 10 *11)
+[    0.984530] ACPI: PCI Interrupt Link [GSIA] (IRQs *16)
+[    0.984932] ACPI: PCI Interrupt Link [GSIB] (IRQs *17)
+[    0.985395] ACPI: PCI Interrupt Link [GSIC] (IRQs *18)
+[    0.985862] ACPI: PCI Interrupt Link [GSID] (IRQs *19)
+[    0.986932] ACPI: PCI Interrupt Link [GSIE] (IRQs *20)
+[    0.987402] ACPI: PCI Interrupt Link [GSIF] (IRQs *21)
+[    0.987869] ACPI: PCI Interrupt Link [GSIG] (IRQs *22)
+[    0.987932] ACPI: PCI Interrupt Link [GSIH] (IRQs *23)
+[    0.989153] iommu: Default domain type: Translated 
+[    0.989940] pci 0000:00:02.0: vgaarb: setting as boot VGA device
+[    0.990448] pci 0000:00:02.0: vgaarb: VGA device added: decodes=io+mem,owns=io+mem,locks=none
+[    0.990928] pci 0000:00:02.0: vgaarb: bridge control possible
+[    0.991422] vgaarb: loaded
+[    0.991836] SCSI subsystem initialized
+[    0.992943] libata version 3.00 loaded.
+[    0.993378] ACPI: bus type USB registered
+[    0.993815] usbcore: registered new interface driver usbfs
+[    0.993946] usbcore: registered new interface driver hub
+[    0.994425] usbcore: registered new device driver usb
+[    0.994901] pps_core: LinuxPPS API ver. 1 registered
+[    0.994925] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+[    0.995590] PTP clock support registered
+[    0.996943] EDAC MC: Ver: 3.0.0
+[    0.997631] Advanced Linux Sound Architecture Driver Initialized.
+[    0.997933] PCI: Using ACPI for IRQ routing
+[    1.084363] PCI: pci_cache_line_size set to 64 bytes
+[    1.084999] e820: reserve RAM buffer [mem 0x0009fc00-0x0009ffff]
+[    1.085418] e820: reserve RAM buffer [mem 0x7ffcb000-0x7fffffff]
+[    1.085910] NetLabel: Initializing
+[    1.085924] NetLabel:  domain hash size = 128
+[    1.086298] NetLabel:  protocols = UNLABELED CIPSOv4 CALIPSO
+[    1.086708] NetLabel:  unlabeled traffic allowed by default
+[    1.086970] hpet0: at MMIO 0xfed00000, IRQs 2, 8, 0
+[    1.087352] hpet0: 3 comparators, 64-bit 100.000000 MHz counter
+[    1.092030] clocksource: Switched to clocksource tsc-early
+[    1.116027] VFS: Disk quotas dquot_6.6.0
+[    1.116391] VFS: Dquot-cache hash table entries: 512 (order 0, 4096 bytes)
+[    1.116915] AppArmor: AppArmor Filesystem Enabled
+[    1.117293] pnp: PnP ACPI init
+[    1.117663] pnp 00:00: Plug and Play ACPI device, IDs PNP0303 (active)
+[    1.118119] pnp 00:01: Plug and Play ACPI device, IDs PNP0f13 (active)
+[    1.118558] pnp 00:02: Plug and Play ACPI device, IDs PNP0400 (active)
+[    1.119024] pnp 00:03: Plug and Play ACPI device, IDs PNP0501 (active)
+[    1.119465] pnp 00:04: Plug and Play ACPI device, IDs PNP0501 (active)
+[    1.119934] pnp 00:05: Plug and Play ACPI device, IDs PNP0b00 (active)
+[    1.120387] system 00:06: [mem 0xb0000000-0xbfffffff window] has been reserved
+[    1.120896] system 00:06: Plug and Play ACPI device, IDs PNP0c01 (active)
+[    1.121548] pnp: PnP ACPI: found 7 devices
+[    1.127387] thermal_sys: Registered thermal governor 'step_wise'
+[    1.127388] thermal_sys: Registered thermal governor 'user_space'
+[    1.132487] clocksource: acpi_pm: mask: 0xffffff max_cycles: 0xffffff, max_idle_ns: 2085701024 ns
+[    1.133474] pci_bus 0000:00: resource 4 [io  0x0000-0x0cf7 window]
+[    1.133919] pci_bus 0000:00: resource 5 [io  0x0d00-0xffff window]
+[    1.134336] pci_bus 0000:00: resource 6 [mem 0x000a0000-0x000bffff window]
+[    1.134786] pci_bus 0000:00: resource 7 [mem 0x80000000-0xafffffff window]
+[    1.135240] pci_bus 0000:00: resource 8 [mem 0xc0000000-0xfebfffff window]
+[    1.135690] pci_bus 0000:00: resource 9 [mem 0xc000000000-0xc7ffffffff window]
+[    1.136211] NET: Registered protocol family 2
+[    1.136707] IP idents hash table entries: 262144 (order: 9, 2097152 bytes, linear)
+[    1.138708] tcp_listen_portaddr_hash hash table entries: 8192 (order: 5, 131072 bytes, linear)
+[    1.142891] TCP established hash table entries: 131072 (order: 8, 1048576 bytes, linear)
+[    1.143535] TCP bind hash table entries: 65536 (order: 8, 1048576 bytes, linear)
+[    1.144154] TCP: Hash tables configured (established 131072 bind 65536)
+[    1.144606] UDP hash table entries: 8192 (order: 6, 262144 bytes, linear)
+[    1.145077] UDP-Lite hash table entries: 8192 (order: 6, 262144 bytes, linear)
+[    1.145590] NET: Registered protocol family 1
+[    1.146339] RPC: Registered named UNIX socket transport module.
+[    1.146768] RPC: Registered udp transport module.
+[    1.147151] RPC: Registered tcp transport module.
+[    1.147519] RPC: Registered tcp NFSv4.1 backchannel transport module.
+[    1.148239] pci 0000:00:02.0: Video device with shadowed ROM at [mem 0x000c0000-0x000dffff]
+[    1.149036] PCI Interrupt Link [GSIH] enabled at IRQ 23
+[    1.150181] PCI: CLS 0 bytes, default 64
+[    1.150632] Unpacking initramfs...
+[    1.258312] Freeing initrd memory: 2328K
+[    1.258750] PCI-DMA: Using software bounce buffering for IO (SWIOTLB)
+[    1.259283] software IO TLB: mapped [mem 0x7bd7a000-0x7fd7a000] (64MB)
+[    1.261710] check: Scanning for low memory corruption every 60 seconds
+[    1.262452] Initialise system trusted keyrings
+[    1.263059] workingset: timestamp_bits=40 max_order=22 bucket_order=0
+[    1.264156] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[    1.264813] NFS: Registering the id_resolver key type
+[    1.265290] Key type id_resolver registered
+[    1.265715] Key type id_legacy registered
+[    1.266218] 9p: Installing v9fs 9p2000 file system support
+[    1.267447] Key type asymmetric registered
+[    1.267883] Asymmetric key parser 'x509' registered
+[    1.268337] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 249)
+[    1.268952] io scheduler mq-deadline registered
+[    1.269387] io scheduler kyber registered
+[    1.270396] input: Power Button as /devices/LNXSYSTM:00/LNXPWRBN:00/input/input0
+[    1.271820] ACPI: Power Button [PWRF]
+[    1.272667] PCI Interrupt Link [GSIG] enabled at IRQ 22
+[    1.304583] Serial: 8250/16550 driver, 16 ports, IRQ sharing enabled
+[    1.327859] 00:03: ttyS1 at I/O 0x2f8 (irq = 3, base_baud = 115200) is a 16550A
+[    1.351241] 00:04: ttyS0 at I/O 0x3f8 (irq = 4, base_baud = 115200) is a 16550A
+[    1.353738] Non-volatile memory driver v1.3
+[    1.354160] Linux agpgart interface v0.103
+[    1.360948] [drm] amdgpu kernel modesetting enabled.
+[    1.361470] amdgpu: CRAT table disabled by module option
+[    1.361910] amdgpu: Virtual CRAT table created for CPU
+[    1.362300] amdgpu: Topology: Add CPU node
+[    1.362941] kworker/u16:1 (98) used greatest stack depth: 14616 bytes left
+[    1.363375] [drm] pci: virtio-vga detected at 0000:00:02.0
+[    1.363454] kworker/u16:1 (99) used greatest stack depth: 14504 bytes left
+[    1.363862] virtio-pci 0000:00:02.0: remove_conflicting_pci_framebuffers: bar 0: 0xfe000000 -> 0xfe7fffff
+[    1.364839] virtio-pci 0000:00:02.0: remove_conflicting_pci_framebuffers: bar 2: 0xc040000000 -> 0xc040003fff
+[    1.365409] virtio-pci 0000:00:02.0: remove_conflicting_pci_framebuffers: bar 4: 0xfebf5000 -> 0xfebf5fff
+[    1.365971] virtio-pci 0000:00:02.0: vgaarb: deactivate vga console
+[    1.370646] Console: switching to colour dummy device 80x25
+[    1.370671] [drm] virgl 3d acceleration not supported by host
+[    1.370673] [drm] EDID support available.
+[    1.371502] [TTM] Zone  kernel: Available graphics memory: 8189488 KiB
+[    1.371505] [TTM] Zone   dma32: Available graphics memory: 2097152 KiB
+[    1.371506] [TTM] Initializing pool allocator
+[    1.371510] [TTM] Initializing DMA pool allocator
+[    1.371625] [drm] number of scanouts: 1
+[    1.371635] [drm] number of cap sets: 0
+[    1.371946] [drm] Initialized virtio_gpu 0.1.0 0 for virtio0 on minor 0
+[    1.372602] Console: switching to colour frame buffer device 90x25
+[    1.372744] virtio_gpu virtio0: fb0: virtio_gpudrmfb frame buffer device
+[    1.374516] loop: module loaded
+[    1.379754] virtio_blk virtio2: [vda] 6621408 512-byte logical blocks (3.39 GB/3.16 GiB)
+[    1.383322] ahci 0000:00:1f.2: version 3.0
+[    1.383702] PCI Interrupt Link [GSIA] enabled at IRQ 16
+[    1.384662] ahci 0000:00:1f.2: AHCI 0001.0000 32 slots 6 ports 1.5 Gbps 0x3f impl SATA mode
+[    1.384761] ahci 0000:00:1f.2: flags: 64bit ncq only 
+[    1.385983] scsi host0: ahci
+[    1.386300] scsi host1: ahci
+[    1.386652] scsi host2: ahci
+[    1.387036] scsi host3: ahci
+[    1.387368] scsi host4: ahci
+[    1.388076] scsi host5: ahci
+[    1.388244] ata1: SATA max UDMA/133 abar m4096@0xfebf8000 port 0xfebf8100 irq 36
+[    1.388306] ata2: SATA max UDMA/133 abar m4096@0xfebf8000 port 0xfebf8180 irq 36
+[    1.388350] ata3: SATA max UDMA/133 abar m4096@0xfebf8000 port 0xfebf8200 irq 36
+[    1.388390] ata4: SATA max UDMA/133 abar m4096@0xfebf8000 port 0xfebf8280 irq 36
+[    1.388429] ata5: SATA max UDMA/133 abar m4096@0xfebf8000 port 0xfebf8300 irq 36
+[    1.388466] ata6: SATA max UDMA/133 abar m4096@0xfebf8000 port 0xfebf8380 irq 36
+[    1.388643] igb: Intel(R) Gigabit Ethernet Network Driver - version 5.6.0-k
+[    1.388696] igb: Copyright (c) 2007-2014 Intel Corporation.
+[    1.389011] PCI Interrupt Link [GSIE] enabled at IRQ 20
+[    1.697818] ata4: SATA link down (SStatus 0 SControl 300)
+[    1.699750] ata6: SATA link down (SStatus 0 SControl 300)
+[    1.700070] ata5: SATA link down (SStatus 0 SControl 300)
+[    1.700340] ata1: SATA link down (SStatus 0 SControl 300)
+[    1.700632] ata2: SATA link down (SStatus 0 SControl 300)
+[    1.700915] ata3: SATA link up 1.5 Gbps (SStatus 113 SControl 300)
+[    1.701075] ata3.00: ATAPI: QEMU DVD-ROM, 2.5+, max UDMA/100
+[    1.701105] ata3.00: applying bridge limits
+[    1.701311] ata3.00: configured for UDMA/100
+[    1.701832] scsi 2:0:0:0: CD-ROM            QEMU     QEMU DVD-ROM     2.5+ PQ: 0 ANSI: 5
+[    1.719212] sr 2:0:0:0: [sr0] scsi3-mmc drive: 4x/4x cd/rw xa/form2 tray
+[    1.719263] cdrom: Uniform CD-ROM driver Revision: 3.20
+[    1.719569] sr 2:0:0:0: Attached scsi CD-ROM sr0
+[    1.720029] sr 2:0:0:0: Attached scsi generic sg0 type 5
+[    1.799428] igb 0000:00:04.0: added PHC on eth0
+[    1.799594] igb 0000:00:04.0: Intel(R) Gigabit Ethernet Network Connection
+[    1.799654] igb 0000:00:04.0: eth0: (PCIe:unknown:unknown) 52:54:00:12:34:56
+[    1.799697] igb 0000:00:04.0: eth0: PBA No: Unknown
+[    1.799730] igb 0000:00:04.0: Using MSI-X interrupts. 8 rx queue(s), 8 tx queue(s)
+[    1.799859] usbcore: registered new interface driver asix
+[    1.800042] usbcore: registered new interface driver ax88179_178a
+[    1.800122] usbcore: registered new interface driver cdc_ether
+[    1.800203] usbcore: registered new interface driver net1080
+[    1.800285] usbcore: registered new interface driver cdc_subset
+[    1.800370] usbcore: registered new interface driver zaurus
+[    1.800452] usbcore: registered new interface driver cdc_ncm
+[    1.800685] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+[    1.800718] ehci-pci: EHCI PCI platform driver
+[    1.800799] ohci_hcd: USB 1.1 'Open' Host Controller (OHCI) Driver
+[    1.800951] ohci-pci: OHCI PCI platform driver
+[    1.801027] uhci_hcd: USB Universal Host Controller Interface driver
+[    1.801471] xhci_hcd 0000:00:03.0: xHCI Host Controller
+[    1.801692] xhci_hcd 0000:00:03.0: new USB bus registered, assigned bus number 1
+[    1.802218] xhci_hcd 0000:00:03.0: hcc params 0x00087001 hci version 0x100 quirks 0x0000000000000010
+[    1.803734] xhci_hcd 0000:00:03.0: xHCI Host Controller
+[    1.803937] xhci_hcd 0000:00:03.0: new USB bus registered, assigned bus number 2
+[    1.805295] xhci_hcd 0000:00:03.0: Host supports USB 3.0 SuperSpeed
+[    1.805445] usb usb1: New USB device found, idVendor=1d6b, idProduct=0002, bcdDevice= 5.04
+[    1.805509] usb usb1: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    1.805544] usb usb1: Product: xHCI Host Controller
+[    1.805578] usb usb1: Manufacturer: Linux 5.4.265-PLK+ xhci-hcd
+[    1.805623] usb usb1: SerialNumber: 0000:00:03.0
+[    1.805818] hub 1-0:1.0: USB hub found
+[    1.805975] hub 1-0:1.0: 4 ports detected
+[    1.806237] usb usb2: We don't know the algorithms for LPM for this host, disabling LPM.
+[    1.806392] usb usb2: New USB device found, idVendor=1d6b, idProduct=0003, bcdDevice= 5.04
+[    1.806473] usb usb2: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    1.806514] usb usb2: Product: xHCI Host Controller
+[    1.806554] usb usb2: Manufacturer: Linux 5.4.265-PLK+ xhci-hcd
+[    1.806594] usb usb2: SerialNumber: 0000:00:03.0
+[    1.806822] hub 2-0:1.0: USB hub found
+[    1.806975] hub 2-0:1.0: 4 ports detected
+[    1.807274] usbcore: registered new interface driver cdc_acm
+[    1.807316] cdc_acm: USB Abstract Control Model driver for USB modems and ISDN adapters
+[    1.807433] usbcore: registered new interface driver usblp
+[    1.807555] usbcore: registered new interface driver usb-storage
+[    1.807696] i8042: PNP: PS/2 Controller [PNP0303:KBD,PNP0f13:MOU] at 0x60,0x64 irq 1,12
+[    1.808649] serio: i8042 KBD port at 0x60,0x64 irq 1
+[    1.808727] serio: i8042 AUX port at 0x60,0x64 irq 12
+[    1.809146] rtc_cmos 00:05: RTC can wake from S4
+[    1.809604] input: AT Translated Set 2 keyboard as /devices/platform/i8042/serio0/input/input1
+[    1.809841] rtc_cmos 00:05: registered as rtc0
+[    1.809955] rtc_cmos 00:05: alarms up to one day, y3k, 242 bytes nvram, hpet irqs
+[    1.810037] i2c /dev entries driver
+[    1.810238] device-mapper: ioctl: 4.41.0-ioctl (2019-09-16) initialised: dm-devel@redhat.com
+[    1.810415] sdhci: Secure Digital Host Controller Interface driver
+[    1.810479] sdhci: Copyright(c) Pierre Ossman
+[    1.810590] sdhci-pci 0000:00:01.0: SDHCI controller found [1b36:0007] (rev 0)
+[    1.810931] PCI Interrupt Link [GSIF] enabled at IRQ 21
+[    1.811986] mmc0: SDHCI controller on PCI [0000:00:01.0] using ADMA
+[    1.812191] hidraw: raw HID events driver (C) Jiri Kosina
+[    1.812393] usbcore: registered new interface driver usbhid
+[    1.812458] usbhid: USB HID core driver
+[    1.812842] snd_intel8x0 0000:00:05.0: enable KVM optimization
+[    1.848270] mmc0: new high speed SDXC card at address 4567
+[    1.848588] mmcblk0: mmc0:4567 QEMU! 64.0 GiB 
+[    1.858666] GPT:Primary header thinks Alt. header is not at the end of the disk.
+[    1.858722] GPT:124321791 != 134217727
+[    1.858762] GPT:Alternate GPT header not at the end of the disk.
+[    1.858801] GPT:124321791 != 134217727
+[    1.858838] GPT: Use GNU Parted to correct GPT errors.
+[    1.858896]  mmcblk0: p1 p2 p3 p4
+[    2.045887] usb 1-1: new high-speed USB device number 2 using xhci_hcd
+[    2.119952] snd_intel8x0 0000:00:05.0: intel8x0_measure_ac97_clock: measured 52037 usecs (3765 samples)
+[    2.120076] snd_intel8x0 0000:00:05.0: measured clock 72352 rejected
+[    2.173489] usb 1-1: New USB device found, idVendor=0627, idProduct=0001, bcdDevice= 0.00
+[    2.173626] usb 1-1: New USB device strings: Mfr=1, Product=4, SerialNumber=11
+[    2.173679] usb 1-1: Product: QEMU USB Keyboard
+[    2.173725] usb 1-1: Manufacturer: QEMU
+[    2.173763] usb 1-1: SerialNumber: 68284-0000:00:03.0-1
+[    2.175801] input: QEMU QEMU USB Keyboard as /devices/pci0000:00/0000:00:03.0/usb1/1-1/1-1:1.0/0003:0627:0001.0001/input/input4
+[    2.228183] hid-generic 0003:0627:0001.0001: input,hidraw0: USB HID v1.11 Keyboard [QEMU QEMU USB Keyboard] on usb-0000:00:03.0-1/input0
+[    2.323887] tsc: Refined TSC clocksource calibration: 4291.872 MHz
+[    2.323983] clocksource: tsc: mask: 0xffffffffffffffff max_cycles: 0x3ddd657ceec, max_idle_ns: 440795286592 ns
+[    2.324202] clocksource: Switched to clocksource tsc
+[    2.342899] usb 1-2: new high-speed USB device number 3 using xhci_hcd
+[    2.438130] input: ImExPS/2 Generic Explorer Mouse as /devices/platform/i8042/serio1/input/input3
+[    2.470361] usb 1-2: New USB device found, idVendor=0627, idProduct=0001, bcdDevice= 0.00
+[    2.470481] usb 1-2: New USB device strings: Mfr=1, Product=3, SerialNumber=10
+[    2.470527] usb 1-2: Product: QEMU USB Tablet
+[    2.470571] usb 1-2: Manufacturer: QEMU
+[    2.470634] usb 1-2: SerialNumber: 28754-0000:00:03.0-2
+[    2.472779] input: QEMU QEMU USB Tablet as /devices/pci0000:00/0000:00:03.0/usb1/1-2/1-2:1.0/0003:0627:0001.0002/input/input5
+[    2.473060] hid-generic 0003:0627:0001.0002: input,hidraw1: USB HID v0.01 Mouse [QEMU QEMU USB Tablet] on usb-0000:00:03.0-2/input0
+[    2.479925] snd_intel8x0 0000:00:05.0: intel8x0_measure_ac97_clock: measured 51933 usecs (4097 samples)
+[    2.480022] snd_intel8x0 0000:00:05.0: measured clock 78890 rejected
+[    2.839980] snd_intel8x0 0000:00:05.0: intel8x0_measure_ac97_clock: measured 51974 usecs (3583 samples)
+[    2.840113] snd_intel8x0 0000:00:05.0: measured clock 68938 rejected
+[    2.840165] snd_intel8x0 0000:00:05.0: clocking to 48000
+[    2.840691] usbcore: registered new interface driver snd-usb-audio
+[    2.844887] Initializing XFRM netlink socket
+[    2.845090] NET: Registered protocol family 10
+[    2.845573] Segment Routing with IPv6
+[    2.846037] sit: IPv6, IPv4 and MPLS over IPv4 tunneling driver
+[    2.846206] NET: Registered protocol family 17
+[    2.846327] 9pnet: Installing 9P2000 support
+[    2.847263] Key type dns_resolver registered
+[    2.848078] IPI shorthand broadcast: enabled
+[    2.848209] sched_clock: Marking stable (2778182636, 69846729)->(2868650039, -20620674)
+[    2.848452] registered taskstats version 1
+[    2.848498] Loading compiled-in X.509 certificates
+[    2.848622] AppArmor: AppArmor sha1 policy hashing enabled
+[    2.848794] PM:   Magic number: 2:526:129
+[    2.848933] nvmem cmos_nvram0: hash matches
+[    2.848991] event_source kprobe: hash matches
+[    2.849041] acpi device:04: hash matches
+[    2.849154] printk: console [netcon0] enabled
+[    2.849194] netconsole: network logging started
+[    2.849343] cfg80211: Loading compiled-in X.509 certificates for regulatory database
+[    2.850064] cfg80211: Loaded X.509 cert 'sforshee: 00b28ddf47aef9cea7'
+[    2.850171] platform regulatory.0: Direct firmware load for regulatory.db failed with error -2
+[    2.850256] cfg80211: failed to load regulatory.db
+[    2.850372] ALSA device list:
+[    2.850482]   #0: Intel 82801AA-ICH with STAC9700,83,84 at irq 21
+[    2.850781] Freeing unused kernel image memory: 1364K
+[    2.862907] Write protecting the kernel read-only data: 32768k
+[    2.863263] Freeing unused kernel image memory: 2028K
+[    2.863449] Freeing unused kernel image memory: 680K
+[    2.863487] Run /init as init process
+[    2.863788] custom_init: booting (graphics driver bypass test)
+[    2.863896] TESLA2026_TTYS1FIX_MARKER_V2
+[    2.863995] custom_init: waiting for /dev/vda
+[    2.864111] custom_init: mounting /dev/vda as squashfs on /mnt
+[    2.864444] squashfs: SQUASHFS error: Xattrs in filesystem, these will be ignored
+[    2.864489] unable to read xattr id index table
+[    2.865642] custom_init: switching root and executing /sbin/init
+[    2.865834] custom_init: BISECT-1 after umount /sys
+[    2.866019] custom_init: BISECT-2 after umount /proc
+[    2.866186] custom_init: BISECT-3 after umount /dev
+[    2.866295] custom_init: BISECT-A after umounts, before chroot
+[    2.866408] custom_init: BISECT-B after chroot+chdir
+[    5.924380] mount (145) used greatest stack depth: 13840 bytes left
+[    5.941395] EXT4-fs (mmcblk0p1): mounting ext2 file system using the ext4 subsystem
+[    5.947129] EXT4-fs (mmcblk0p1): mounted filesystem without journal. Opts: (null)
+[    5.951039] find (164) used greatest stack depth: 13528 bytes left
+[    5.964261] runit/1: boot-id: 2ebbab89-b082-4cb8-a17b-7ce858d448f6
+[    5.968219] runit/1: mount-all-dirsquashed: start
+[    5.968455] === Loading all apparmor profiles at boot up... ===
+[    5.991929] === Finished successfully loading apparmor profiles ===
+[    6.002995] mount-all-dirsq (223) used greatest stack depth: 13480 bytes left
+[    6.009686] runit/1: mount-all-dirsquashed: finish
+[    6.029431] audit: type=1400 audit(1794661584.785:2): apparmor="STATUS" operation="profile_load" profile="unconfined" name="/usr/sbin/connmand" pid=303 comm="apparmor_parser"
+[    6.029582] audit: type=1400 audit(1794661584.785:3): apparmor="STATUS" operation="profile_load" profile="unconfined" name="/usr/sbin/connmand//worker" pid=303 comm="apparmor_parser"
+[    6.326886] audit: type=1400 audit(1794661585.082:4): apparmor="STATUS" operation="profile_load" profile="unconfined" name="/usr/tesla/UI/bin/AccountManager" pid=389 comm="apparmor_parser"
+[    6.327054] audit: type=1400 audit(1794661585.083:5): apparmor="STATUS" operation="profile_load" profile="unconfined" name="/usr/tesla/UI/bin/InputMethodManager" pid=389 comm="apparmor_parser"
+[    6.327192] audit: type=1400 audit(1794661585.083:6): apparmor="STATUS" operation="profile_load" profile="unconfined" name="/usr/tesla/UI/bin/NuanceServer" pid=389 comm="apparmor_parser"
+[    6.327336] audit: type=1400 audit(1794661585.083:7): apparmor="STATUS" operation="profile_load" profile="unconfined" name="/usr/tesla/UI/bin/OwnersManualAdapter" pid=389 comm="apparmor_parser"
+[    6.327486] audit: type=1400 audit(1794661585.083:8): apparmor="STATUS" operation="profile_load" profile="unconfined" name="/usr/tesla/UI/bin/QtCar" pid=389 comm="apparmor_parser"
+[    6.327649] audit: type=1400 audit(1794661585.083:9): apparmor="STATUS" operation="profile_load" profile="unconfined" name="/usr/tesla/UI/bin/QtCarAudiod" pid=389 comm="apparmor_parser"
+[    6.327804] audit: type=1400 audit(1794661585.083:10): apparmor="STATUS" operation="profile_load" profile="unconfined" name="/usr/tesla/UI/bin/QtCarBluetooth" pid=389 comm="apparmor_parser"
+[    6.327978] audit: type=1400 audit(1794661585.083:11): apparmor="STATUS" operation="profile_load" profile="unconfined" name="/usr/tesla/UI/bin/QtCarCheckInternet" pid=389 comm="apparmor_parser"
+[    6.392834] ip (1221) used greatest stack depth: 12456 bytes left
+[    6.965318] runit/1: check-lvm-parts: start
+[    6.976107] runit/1: check-lvm-parts: cat: can't open '/sys/firmware/oem/eom': No such file or directory
+[    6.995122] runit/1: check-lvm-parts: failed to open heci driver: No such file or directory
+[    6.998249] runit/1: check-lvm-parts: failed to open heci client
+[    7.023169] runit/1: check-lvm-parts: WARNING: FUSE COULD NOT BE READ
+[    7.046092] runit/1: check-lvm-parts: File descriptor 3 (/kmsg) leaked on pvs invocation. Parent PID 1243: /bin/sh
+[    7.146995] runit/1: check-lvm-parts: File descriptor 3 (/kmsg) leaked on pvs invocation. Parent PID 1264: /bin/sh
+[    7.249023] runit/1: check-lvm-parts: File descriptor 3 (/kmsg) leaked on vgs invocation. Parent PID 1243: /bin/sh
+[    7.355089] runit/1: check-lvm-parts: File descriptor 3 (/kmsg) leaked on lvchange invocation. Parent PID 1243: /bin/sh
+[    7.442375] igb 0000:00:04.0 eth0: igb: eth0 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: RX/TX
+[    7.443666] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready
+[    7.504120] runit/1: check-lvm-parts: File descriptor 3 (/kmsg) leaked on lvs invocation. Parent PID 1243: /bin/sh
+[    7.605712] runit/1: check-lvm-parts: File descriptor 3 (/kmsg) leaked on lvs invocation. Parent PID 1243: /bin/sh
+[    7.708638] runit/1: check-lvm-parts: INFO: LoadContext: state = FULLY_ENCRYPTED_INACTIVE
+[    7.718047] runit/1: check-lvm-parts: INFO: Validating vcrypt token.
+[    7.723972] runit/1: check-lvm-parts: INFO: Opening vcrypt token.
+[    7.733981] runit/1: check-lvm-parts: Selected implementation: tpm2
+[    7.781822] device-mapper: table: 252:14: crypt: unknown target type
+[    7.781915] device-mapper: ioctl: error adding target to table
+[    7.783383] runit/1: check-lvm-parts: device-mapper: reload ioctl on ivg-var.crypt (252:14) failed: Invalid argument
+[    7.787953] runit/1: check-lvm-parts: ERROR: crypt_activate_by_token failed with error: Device or resource busy.
+[    7.798937] runit/1: check-lvm-parts: ERROR: Activate failed with error: Device or resource busy
+[   10.161554] runit/1: check-lvm-parts: /dev/mapper/ivg-var: 2 bytes were erased at offset 0x00000438 (ext4): 53 ef
+[   10.177921] runit/1: check-lvm-parts: INFO: LoadContext: state = PLAINTEXT_INACTIVE
+[   12.138909] runit/1: check-lvm-parts: INFO: Wiped 16777216 bytes.
+[   12.150380] runit/1: check-lvm-parts: INFO: LoadContext: state = PLAINTEXT_INACTIVE
+[   16.277169] runit/1: check-lvm-parts: Selected implementation: tpm2
+[   16.292414] runit/1: check-lvm-parts: INFO: Validating vcrypt token.
+[   16.383564] device-mapper: table: 252:14: crypt: unknown target type
+[   16.383647] device-mapper: ioctl: error adding target to table
+[   16.386107] runit/1: check-lvm-parts: device-mapper: reload ioctl on ivg-var.crypt (252:14) failed: Invalid argument
+[   16.391987] runit/1: check-lvm-parts: ERROR: crypt_activate_by_passphrase failed with error: Device or resource busy
+[   16.419358] runit/1: check-lvm-parts: ERROR: FormatAndActivate failed with error: Device or resource busy
+[   16.422780] runit/1: check-lvm-parts: File descriptor 3 (/kmsg) leaked on lvs invocation. Parent PID 1243: /bin/sh
+[   16.491009] runit/1: check-lvm-parts: File descriptor 3 (/kmsg) leaked on lvs invocation. Parent PID 1243: /bin/sh
+[   16.632086] runit/1: check-lvm-parts: INFO: LoadContext: state = FULLY_ENCRYPTED_INACTIVE
+[   16.641288] runit/1: check-lvm-parts: INFO: Validating vcrypt token.
+[   16.650620] runit/1: check-lvm-parts: INFO: Opening vcrypt token.
+[   16.659750] runit/1: check-lvm-parts: Selected implementation: tpm2
+[   16.701829] device-mapper: table: 252:14: crypt: unknown target type
+[   16.701924] device-mapper: ioctl: error adding target to table
+[   16.712302] runit/1: check-lvm-parts: device-mapper: reload ioctl on ivg-log.crypt (252:14) failed: Invalid argument
+[   16.713138] runit/1: check-lvm-parts: ERROR: crypt_activate_by_token failed with error: Device or resource busy.
+[   16.890616] runit/1: check-lvm-parts: ERROR: Activate failed with error: Device or resource busy
+[   19.089269] runit/1: check-lvm-parts: /dev/mapper/ivg-log: 2 bytes were erased at offset 0x00000438 (ext4): 53 ef
+[   19.103953] runit/1: check-lvm-parts: INFO: LoadContext: state = PLAINTEXT_INACTIVE
+[   21.042130] runit/1: check-lvm-parts: INFO: Wiped 16777216 bytes.
+[   21.054007] runit/1: check-lvm-parts: INFO: LoadContext: state = PLAINTEXT_INACTIVE
+[   24.976871] runit/1: check-lvm-parts: Selected implementation: tpm2
+[   24.989493] runit/1: check-lvm-parts: INFO: Validating vcrypt token.
+[   25.079552] device-mapper: table: 252:14: crypt: unknown target type
+[   25.079640] device-mapper: ioctl: error adding target to table
+[   25.081695] runit/1: check-lvm-parts: device-mapper: reload ioctl on ivg-log.crypt (252:14) failed: Invalid argument
+[   25.086301] runit/1: check-lvm-parts: ERROR: crypt_activate_by_passphrase failed with error: Device or resource busy
+[   25.105822] runit/1: check-lvm-parts: ERROR: FormatAndActivate failed with error: Device or resource busy
+[   25.121592] runit/1: check-lvm-parts: File descriptor 3 (/kmsg) leaked on lvs invocation. Parent PID 1243: /bin/sh
+[   25.196524] runit/1: check-lvm-parts: File descriptor 3 (/kmsg) leaked on lvs invocation. Parent PID 1243: /bin/sh
+[   25.314953] runit/1: check-lvm-parts: INFO: LoadContext: state = FULLY_ENCRYPTED_INACTIVE
+[   25.317950] runit/1: check-lvm-parts: INFO: Validating vcrypt token.
+[   25.328795] runit/1: check-lvm-parts: INFO: Opening vcrypt token.
+[   25.337818] runit/1: check-lvm-parts: Selected implementation: tpm2
+[   25.390292] device-mapper: table: 252:14: crypt: unknown target type
+[   25.390368] device-mapper: ioctl: error adding target to table
+[   25.392230] runit/1: check-lvm-parts: device-mapper: reload ioctl on ivg-home.crypt (252:14) failed: Invalid argument
+[   25.393233] runit/1: check-lvm-parts: ERROR: crypt_activate_by_token failed with error: Device or resource busy.
+[   25.395665] runit/1: check-lvm-parts: ERROR: Activate failed with error: Device or resource busy
+[   27.752792] runit/1: check-lvm-parts: /dev/mapper/ivg-home: 2 bytes were erased at offset 0x00000438 (ext4): 53 ef
+[   27.768004] runit/1: check-lvm-parts: INFO: LoadContext: state = PLAINTEXT_INACTIVE
+[   29.952164] runit/1: check-lvm-parts: INFO: Wiped 16777216 bytes.
+[   29.963951] runit/1: check-lvm-parts: INFO: LoadContext: state = PLAINTEXT_INACTIVE
+[   34.391978] runit/1: check-lvm-parts: Selected implementation: tpm2
+[   34.411459] runit/1: check-lvm-parts: INFO: Validating vcrypt token.
+[   34.511167] device-mapper: table: 252:14: crypt: unknown target type
+[   34.511247] device-mapper: ioctl: error adding target to table
+[   34.512640] runit/1: check-lvm-parts: device-mapper: reload ioctl on ivg-home.crypt (252:14) failed: Invalid argument
+[   34.517034] runit/1: check-lvm-parts: ERROR: crypt_activate_by_passphrase failed with error: Device or resource busy
+[   34.534896] runit/1: check-lvm-parts: ERROR: FormatAndActivate failed with error: Device or resource busy
+[   34.539244] runit/1: check-lvm-parts: File descriptor 3 (/kmsg) leaked on lvs invocation. Parent PID 1243: /bin/sh
+[   34.624066] runit/1: check-lvm-parts: File descriptor 3 (/kmsg) leaked on lvs invocation. Parent PID 1243: /bin/sh
+[   34.725027] runit/1: check-lvm-parts: File descriptor 3 (/kmsg) leaked on lvs invocation. Parent PID 1243: /bin/sh
+[   34.834031] runit/1: check-lvm-parts: File descriptor 3 (/kmsg) leaked on lvs invocation. Parent PID 1243: /bin/sh
+[   34.940022] runit/1: check-lvm-parts: File descriptor 3 (/kmsg) leaked on lvs invocation. Parent PID 1243: /bin/sh
+[   35.040027] runit/1: check-lvm-parts: File descriptor 3 (/kmsg) leaked on lvs invocation. Parent PID 1243: /bin/sh
+[   35.164052] runit/1: check-lvm-parts: e2fsck: Bad magic number in super-block while trying to open /dev/mapper/ivg-var
+[   35.173320] runit/1: check-lvm-parts: /dev/mapper/ivg-var:
+[   35.174243] runit/1: check-lvm-parts: The superblock could not be read or does not describe a valid ext2/ext3/ext4
+[   35.187861] runit/1: check-lvm-parts: filesystem.  If the device is valid and it really contains an ext2/ext3/ext4
+[   35.188728] runit/1: check-lvm-parts: filesystem (and not swap or ufs or something else), then the superblock
+[   35.192214] runit/1: check-lvm-parts: is corrupt, and you might try running e2fsck with an alternate superblock:
+[   35.194177] runit/1: check-lvm-parts: e2fsck -b 8193 <device>
+[   35.197471] runit/1: check-lvm-parts: or
+[   35.200476] runit/1: check-lvm-parts: e2fsck -b 32768 <device>
+[   35.213534] runit/1: check-lvm-parts: 
+[   35.273312] runit/1: check-lvm-parts: e2fsck on /dev/mapper/ivg-var returned 8
+[   35.283829] runit/1: check-lvm-parts: e2fsck 1.47.3 (8-Jul-2025)
+[   35.284469] runit/1: check-lvm-parts: ext2fs_open2: Bad magic number in super-block
+[   35.288639] runit/1: check-lvm-parts: e2fsck: Superblock invalid, trying backup blocks...
+[   35.293904] runit/1: check-lvm-parts: Superblock needs_recovery flag is clear, but journal has data.
+[   35.297080] runit/1: check-lvm-parts: Recovery flag not set in backup superblock, so running journal anyway.
+[   35.378609] runit/1: check-lvm-parts: Var: recovering journal
+[   35.474959] runit/1: check-lvm-parts: Pass 1: Checking inodes, blocks, and sizes
+[   37.618931] runit/1: check-lvm-parts: Pass 2: Checking directory structure
+[   37.621684] runit/1: check-lvm-parts: Pass 3: Checking directory connectivity
+[   37.631464] runit/1: check-lvm-parts: Pass 4: Checking reference counts
+[   37.636838] runit/1: check-lvm-parts: Pass 5: Checking group summary information
+[   37.647001] runit/1: check-lvm-parts: Block bitmap differences:  -(32769--40960) -(49153--57344) -(65537--73728) -(81921--114688) -(122881--131072) -(147457--204800) -(212993--221184) -(229377--253952)
+[   37.651095] runit/1: check-lvm-parts: Fix? yes
+[   37.654908] runit/1: check-lvm-parts: 
+[   37.656999] runit/1: check-lvm-parts: Free blocks count wrong for group #0 (143, counted=129).
+[   37.657637] runit/1: check-lvm-parts: Fix? yes
+[   37.658201] runit/1: check-lvm-parts: 
+[   37.661404] runit/1: check-lvm-parts: Free blocks count wrong for group #1 (7421, counted=7347).
+[   37.665557] runit/1: check-lvm-parts: Fix? yes
+[   37.672609] runit/1: check-lvm-parts: 
+[   37.673360] runit/1: check-lvm-parts: Free blocks count wrong for group #17 (8160, counted=7141).
+[   37.674147] runit/1: check-lvm-parts: Fix? yes
+[   37.674793] runit/1: check-lvm-parts: 
+[   37.675547] runit/1: check-lvm-parts: Free blocks count wrong (235353, counted=234246).
+[   37.676189] runit/1: check-lvm-parts: Fix? yes
+[   37.689642] runit/1: check-lvm-parts: 
+[   37.690355] runit/1: check-lvm-parts: Inode bitmap differences:  -(6145--32768) -(34817--65536)
+[   37.691008] runit/1: check-lvm-parts: Fix? yes
+[   37.691564] runit/1: check-lvm-parts: 
+[   37.692156] runit/1: check-lvm-parts: Free inodes count wrong for group #0 (2036, counted=2020).
+[   37.692768] runit/1: check-lvm-parts: Fix? yes
+[   37.693308] runit/1: check-lvm-parts: 
+[   37.694635] runit/1: check-lvm-parts: Directories count wrong for group #0 (2, counted=9).
+[   37.695307] runit/1: check-lvm-parts: Fix? yes
+[   37.715891] runit/1: check-lvm-parts: 
+[   37.734438] runit/1: check-lvm-parts: Free inodes count wrong for group #1 (2048, counted=2044).
+[   37.750459] runit/1: check-lvm-parts: Fix? yes
+[   37.756566] runit/1: check-lvm-parts: 
+[   37.766152] runit/1: check-lvm-parts: Directories count wrong for group #1 (0, counted=4).
+[   37.777204] runit/1: check-lvm-parts: Fix? yes
+[   37.778513] runit/1: check-lvm-parts: 
+[   37.779190] runit/1: check-lvm-parts: Free inodes count wrong for group #2 (2048, counted=2045).
+[   37.781650] runit/1: check-lvm-parts: Fix? yes
+[   37.786065] runit/1: check-lvm-parts: 
+[   37.791027] runit/1: check-lvm-parts: Directories count wrong for group #2 (0, counted=3).
+[   37.794257] runit/1: check-lvm-parts: Fix? yes
+[   37.796323] runit/1: check-lvm-parts: 
+[   37.797034] runit/1: check-lvm-parts: Free inodes count wrong for group #16 (2048, counted=2003).
+[   37.799670] runit/1: check-lvm-parts: Fix? yes
+[   37.800231] runit/1: check-lvm-parts: 
+[   37.800789] runit/1: check-lvm-parts: Directories count wrong for group #16 (0, counted=19).
+[   37.802870] runit/1: check-lvm-parts: Fix? yes
+[   37.804805] runit/1: check-lvm-parts: 
+[   37.807220] runit/1: check-lvm-parts: Free inodes count wrong (65524, counted=65456).
+[   37.811550] runit/1: check-lvm-parts: Fix? yes
+[   37.814285] runit/1: check-lvm-parts: 
+[   37.818397] runit/1: check-lvm-parts: 
+[   37.820729] runit/1: check-lvm-parts: Var: ***** FILE SYSTEM WAS MODIFIED *****
+[   37.824515] runit/1: check-lvm-parts: Var: 80/65536 files (1.3% non-contiguous), 27898/262144 blocks
+[   37.827199] runit/1: check-lvm-parts: e2fsck -y on /dev/mapper/ivg-var returned 1
+[   37.829839] runit/1: check-lvm-parts: 2026-QEMU-patch: e2fsck -y fixed var, preserving data (cookies persist)
+[   37.833985] runit/1: check-lvm-parts: e2fsck: Bad magic number in super-block while trying to open /dev/mapper/ivg-log
+[   37.834804] runit/1: check-lvm-parts: /dev/mapper/ivg-log:
+[   37.839444] runit/1: check-lvm-parts: The superblock could not be read or does not describe a valid ext2/ext3/ext4
+[   37.841352] runit/1: check-lvm-parts: filesystem.  If the device is valid and it really contains an ext2/ext3/ext4
+[   37.846194] runit/1: check-lvm-parts: filesystem (and not swap or ufs or something else), then the superblock
+[   37.847069] runit/1: check-lvm-parts: is corrupt, and you might try running e2fsck with an alternate superblock:
+[   37.849966] runit/1: check-lvm-parts: e2fsck -b 8193 <device>
+[   37.851303] runit/1: check-lvm-parts: or
+[   37.859352] runit/1: check-lvm-parts: e2fsck -b 32768 <device>
+[   37.860054] runit/1: check-lvm-parts: 
+[   37.860701] runit/1: check-lvm-parts: e2fsck on /dev/mapper/ivg-log returned 8
+[   37.861415] runit/1: check-lvm-parts: e2fsck 1.47.3 (8-Jul-2025)
+[   37.862005] runit/1: check-lvm-parts: ext2fs_open2: Bad magic number in super-block
+[   37.863276] runit/1: check-lvm-parts: e2fsck: Superblock invalid, trying backup blocks...
+[   37.868978] runit/1: check-lvm-parts: Superblock needs_recovery flag is clear, but journal has data.
+[   37.881467] runit/1: check-lvm-parts: Recovery flag not set in backup superblock, so running journal anyway.
+[   37.900275] runit/1: check-lvm-parts: Log: recovering journal
+[   38.379992] runit/1: check-lvm-parts: Pass 1: Checking inodes, blocks, and sizes
+[   40.528127] runit/1: check-lvm-parts: Pass 2: Checking directory structure
+[   40.661903] runit/1: check-lvm-parts: Pass 3: Checking directory connectivity
+[   40.666721] runit/1: check-lvm-parts: Pass 4: Checking reference counts
+[   40.669715] runit/1: check-lvm-parts: Pass 5: Checking group summary information
+[   40.674978] runit/1: check-lvm-parts: Free blocks count wrong for group #0 (28457, counted=28226).
+[   40.681529] runit/1: check-lvm-parts: Fix? yes
+[   40.685680] runit/1: check-lvm-parts: 
+[   40.688912] runit/1: check-lvm-parts: Free blocks count wrong for group #1 (32639, counted=16448).
+[   40.696896] runit/1: check-lvm-parts: Fix? yes
+[   40.702462] runit/1: check-lvm-parts: 
+[   40.704649] runit/1: check-lvm-parts: Free blocks count wrong for group #2 (32768, counted=28627).
+[   40.709146] runit/1: check-lvm-parts: Fix? yes
+[   40.716467] runit/1: check-lvm-parts: 
+[   40.720745] runit/1: check-lvm-parts: Free blocks count wrong for group #3 (32639, counted=32178).
+[   40.721525] runit/1: check-lvm-parts: Fix? yes
+[   40.727016] runit/1: check-lvm-parts: 
+[   40.729979] runit/1: check-lvm-parts: Free blocks count wrong (249125, counted=228101).
+[   40.737456] runit/1: check-lvm-parts: Fix? yes
+[   40.746730] runit/1: check-lvm-parts: 
+[   40.747449] runit/1: check-lvm-parts: Free inodes count wrong for group #0 (8180, counted=6316).
+[   40.748056] runit/1: check-lvm-parts: Fix? yes
+[   40.748552] runit/1: check-lvm-parts: 
+[   40.749090] runit/1: check-lvm-parts: Directories count wrong for group #0 (2, counted=94).
+[   40.749654] runit/1: check-lvm-parts: Fix? yes
+[   40.750152] runit/1: check-lvm-parts: 
+[   40.750662] runit/1: check-lvm-parts: Free inodes count wrong for group #1 (8192, counted=8144).
+[   40.751211] runit/1: check-lvm-parts: Fix? yes
+[   40.751700] runit/1: check-lvm-parts: 
+[   40.752217] runit/1: check-lvm-parts: Directories count wrong for group #1 (0, counted=48).
+[   40.752766] runit/1: check-lvm-parts: Fix? yes
+[   40.753281] runit/1: check-lvm-parts: 
+[   40.753768] runit/1: check-lvm-parts: Free inodes count wrong for group #2 (8192, counted=8177).
+[   40.754297] runit/1: check-lvm-parts: Fix? yes
+[   40.754773] runit/1: check-lvm-parts: 
+[   40.755270] runit/1: check-lvm-parts: Directories count wrong for group #2 (0, counted=15).
+[   40.755782] runit/1: check-lvm-parts: Fix? yes
+[   40.756339] runit/1: check-lvm-parts: 
+[   40.756916] runit/1: check-lvm-parts: Free inodes count wrong for group #3 (8192, counted=8177).
+[   40.757505] runit/1: check-lvm-parts: Fix? yes
+[   40.758019] runit/1: check-lvm-parts: 
+[   40.758500] runit/1: check-lvm-parts: Directories count wrong for group #3 (0, counted=15).
+[   40.759034] runit/1: check-lvm-parts: Fix? yes
+[   40.759505] runit/1: check-lvm-parts: 
+[   40.762813] runit/1: check-lvm-parts: Free inodes count wrong for group #4 (8192, counted=8177).
+[   40.780885] runit/1: check-lvm-parts: Fix? yes
+[   40.795965] runit/1: check-lvm-parts: 
+[   40.801248] runit/1: check-lvm-parts: Directories count wrong for group #4 (0, counted=15).
+[   40.813916] runit/1: check-lvm-parts: Fix? yes
+[   40.830571] runit/1: check-lvm-parts: 
+[   40.831977] runit/1: check-lvm-parts: Free inodes count wrong for group #5 (8192, counted=8177).
+[   40.834166] runit/1: check-lvm-parts: Fix? yes
+[   40.836423] runit/1: check-lvm-parts: 
+[   40.842735] runit/1: check-lvm-parts: Directories count wrong for group #5 (0, counted=15).
+[   40.843390] runit/1: check-lvm-parts: Fix? yes
+[   40.846334] runit/1: check-lvm-parts: 
+[   40.847685] runit/1: check-lvm-parts: Free inodes count wrong for group #6 (8192, counted=8177).
+[   40.849086] runit/1: check-lvm-parts: Fix? yes
+[   40.858561] runit/1: check-lvm-parts: 
+[   40.868189] runit/1: check-lvm-parts: Directories count wrong for group #6 (0, counted=15).
+[   40.877148] runit/1: check-lvm-parts: Fix? yes
+[   40.879367] runit/1: check-lvm-parts: 
+[   40.880034] runit/1: check-lvm-parts: Free inodes count wrong for group #7 (8192, counted=8178).
+[   40.888231] runit/1: check-lvm-parts: Fix? yes
+[   40.889032] runit/1: check-lvm-parts: 
+[   40.889791] runit/1: check-lvm-parts: Directories count wrong for group #7 (0, counted=14).
+[   40.890676] runit/1: check-lvm-parts: Fix? yes
+[   40.891365] runit/1: check-lvm-parts: 
+[   40.892035] runit/1: check-lvm-parts: Free inodes count wrong (65524, counted=63523).
+[   40.892677] runit/1: check-lvm-parts: Fix? yes
+[   40.893358] runit/1: check-lvm-parts: 
+[   40.894213] runit/1: check-lvm-parts: Inode bitmap differences: Group 0 inode bitmap does not match checksum.
+[   40.895102] runit/1: check-lvm-parts: FIXED.
+[   40.895839] runit/1: check-lvm-parts: Block bitmap differences: Group 0 block bitmap does not match checksum.
+[   40.896661] runit/1: check-lvm-parts: FIXED.
+[   40.897960] runit/1: check-lvm-parts: 
+[   40.906950] runit/1: check-lvm-parts: Log: ***** FILE SYSTEM WAS MODIFIED *****
+[   40.907697] runit/1: check-lvm-parts: Log: 2013/65536 files (2.9% non-contiguous), 34043/262144 blocks
+[   40.908356] runit/1: check-lvm-parts: e2fsck -y on /dev/mapper/ivg-log returned 1
+[   40.909006] runit/1: check-lvm-parts: 2026-QEMU-patch: e2fsck -y fixed log, preserving data (cookies persist)
+[   40.909715] runit/1: check-lvm-parts: e2fsck: Bad magic number in super-block while trying to open /dev/mapper/ivg-home
+[   40.910334] runit/1: check-lvm-parts: /dev/mapper/ivg-home:
+[   40.910993] runit/1: check-lvm-parts: The superblock could not be read or does not describe a valid ext2/ext3/ext4
+[   40.912612] runit/1: check-lvm-parts: filesystem.  If the device is valid and it really contains an ext2/ext3/ext4
+[   40.919171] runit/1: check-lvm-parts: filesystem (and not swap or ufs or something else), then the superblock
+[   40.936015] runit/1: check-lvm-parts: is corrupt, and you might try running e2fsck with an alternate superblock:
+[   40.939987] runit/1: check-lvm-parts: e2fsck -b 8193 <device>
+[   40.940923] runit/1: check-lvm-parts: or
+[   40.942614] runit/1: check-lvm-parts: e2fsck -b 32768 <device>
+[   40.948757] runit/1: check-lvm-parts: 
+[   40.952340] runit/1: check-lvm-parts: e2fsck on /dev/mapper/ivg-home returned 8
+[   40.953178] runit/1: check-lvm-parts: e2fsck 1.47.3 (8-Jul-2025)
+[   40.953840] runit/1: check-lvm-parts: ext2fs_open2: Bad magic number in super-block
+[   40.954671] runit/1: check-lvm-parts: e2fsck: Superblock invalid, trying backup blocks...
+[   40.955407] runit/1: check-lvm-parts: Superblock needs_recovery flag is clear, but journal has data.
+[   40.956185] runit/1: check-lvm-parts: Recovery flag not set in backup superblock, so running journal anyway.
+[   40.961611] runit/1: check-lvm-parts: Home: recovering journal
+[   42.162769] runit/1: check-lvm-parts: Pass 1: Checking inodes, blocks, and sizes
+[   57.014002] runit/1: check-lvm-parts: Pass 2: Checking directory structure
+[   57.425810] runit/1: check-lvm-parts: Pass 3: Checking directory connectivity
+[   57.434538] runit/1: check-lvm-parts: Pass 4: Checking reference counts
+[   57.437253] runit/1: check-lvm-parts: Pass 5: Checking group summary information
+[   57.490322] runit/1: check-lvm-parts: Block bitmap differences:  -(262144--294911) -(327680--524287) -(622592--819199) -(851968--884735) -(917504--1048575) -(1146880--1572863) -(1638400--1802239)
+[   57.493927] runit/1: check-lvm-parts: Fix? yes
+[   57.498931] runit/1: check-lvm-parts: 
+[   57.499476] runit/1: check-lvm-parts: Free blocks count wrong for group #0 (23193, counted=22743).
+[   57.500135] runit/1: check-lvm-parts: Fix? yes
+[   57.500663] runit/1: check-lvm-parts: 
+[   57.501182] runit/1: check-lvm-parts: Free blocks count wrong for group #1 (31871, counted=18083).
+[   57.501779] runit/1: check-lvm-parts: Fix? yes
+[   57.502240] runit/1: check-lvm-parts: 
+[   57.502711] runit/1: check-lvm-parts: Free blocks count wrong for group #2 (32768, counted=3822).
+[   57.503241] runit/1: check-lvm-parts: Fix? yes
+[   57.503714] runit/1: check-lvm-parts: 
+[   57.504186] runit/1: check-lvm-parts: Free blocks count wrong for group #3 (31871, counted=1151).
+[   57.504744] runit/1: check-lvm-parts: Fix? yes
+[   57.505240] runit/1: check-lvm-parts: 
+[   57.505723] runit/1: check-lvm-parts: Free blocks count wrong for group #4 (32768, counted=960).
+[   57.506226] runit/1: check-lvm-parts: Fix? yes
+[   57.506695] runit/1: check-lvm-parts: 
+[   57.507170] runit/1: check-lvm-parts: Free blocks count wrong for group #5 (31871, counted=1151).
+[   57.507676] runit/1: check-lvm-parts: Fix? yes
+[   57.508142] runit/1: check-lvm-parts: 
+[   57.508618] runit/1: check-lvm-parts: Free blocks count wrong for group #6 (32768, counted=20732).
+[   57.509126] runit/1: check-lvm-parts: Fix? yes
+[   57.561693] runit/1: check-lvm-parts: 
+[   57.584668] runit/1: check-lvm-parts: Free blocks count wrong for group #16 (24544, counted=24362).
+[   57.611399] runit/1: check-lvm-parts: Fix? yes
+[   57.615287] runit/1: check-lvm-parts: 
+[   57.627992] runit/1: check-lvm-parts: Free blocks count wrong for group #17 (16384, counted=8142).
+[   57.628572] runit/1: check-lvm-parts: Fix? yes
+[   57.631556] runit/1: check-lvm-parts: 
+[   57.650673] runit/1: check-lvm-parts: Free blocks count wrong for group #18 (32768, counted=30728).
+[   57.717821] runit/1: check-lvm-parts: Fix? yes
+[   57.723915] runit/1: check-lvm-parts: 
+[   57.730274] runit/1: check-lvm-parts: Free blocks count wrong for group #32 (24544, counted=24278).
+[   57.732236] runit/1: check-lvm-parts: Fix? yes
+[   57.732800] runit/1: check-lvm-parts: 
+[   57.733379] runit/1: check-lvm-parts: Free blocks count wrong for group #33 (32768, counted=20487).
+[   57.735847] runit/1: check-lvm-parts: Fix? yes
+[   57.738155] runit/1: check-lvm-parts: 
+[   57.738795] runit/1: check-lvm-parts: Free blocks count wrong for group #34 (32768, counted=32117).
+[   57.739439] runit/1: check-lvm-parts: Fix? yes
+[   57.740007] runit/1: check-lvm-parts: 
+[   57.740551] runit/1: check-lvm-parts: Free blocks count wrong (1781313, counted=1609183).
+[   57.741201] runit/1: check-lvm-parts: Fix? yes
+[   57.741709] runit/1: check-lvm-parts: 
+[   57.742275] runit/1: check-lvm-parts: Inode bitmap differences:  -(8193--131072) -(139265--262144) -(270337--458752)
+[   57.743531] runit/1: check-lvm-parts: Fix? yes
+[   57.744120] runit/1: check-lvm-parts: 
+[   57.744685] runit/1: check-lvm-parts: Free inodes count wrong for group #0 (8180, counted=6559).
+[   57.749194] runit/1: check-lvm-parts: Fix? yes
+[   57.756044] runit/1: check-lvm-parts: 
+[   57.758909] runit/1: check-lvm-parts: Directories count wrong for group #0 (2, counted=448).
+[   57.764972] runit/1: check-lvm-parts: Fix? yes
+[   57.769113] runit/1: check-lvm-parts: 
+[   57.771735] runit/1: check-lvm-parts: Free inodes count wrong for group #16 (8192, counted=6742).
+[   57.775368] runit/1: check-lvm-parts: Fix? yes
+[   57.775981] runit/1: check-lvm-parts: 
+[   57.776544] runit/1: check-lvm-parts: Directories count wrong for group #16 (0, counted=172).
+[   57.777253] runit/1: check-lvm-parts: Fix? yes
+[   57.779683] runit/1: check-lvm-parts: 
+[   57.782500] runit/1: check-lvm-parts: Free inodes count wrong for group #32 (8192, counted=4955).
+[   57.794068] runit/1: check-lvm-parts: Fix? yes
+[   57.797741] runit/1: check-lvm-parts: 
+[   57.799293] runit/1: check-lvm-parts: Directories count wrong for group #32 (0, counted=241).
+[   57.801835] runit/1: check-lvm-parts: Fix? yes
+[   57.802642] runit/1: check-lvm-parts: 
+[   57.803303] runit/1: check-lvm-parts: Free inodes count wrong (458740, counted=452432).
+[   57.803915] runit/1: check-lvm-parts: Fix? yes
+[   57.805177] runit/1: check-lvm-parts: 
+[   57.805708] runit/1: check-lvm-parts: 
+[   57.806257] runit/1: check-lvm-parts: Home: ***** FILE SYSTEM WAS MODIFIED *****
+[   57.806961] runit/1: check-lvm-parts: Home: 6320/458752 files (5.0% non-contiguous), 225825/1835008 blocks
+[   57.807701] runit/1: check-lvm-parts: e2fsck -y on /dev/mapper/ivg-home returned 1
+[   57.812926] runit/1: check-lvm-parts: 2026-QEMU-patch: e2fsck -y fixed home, preserving data (cookies persist)
+[   57.820283] runit/1: check-lvm-parts: Gamesusr: recovering journal
+[   57.830069] runit/1: check-lvm-parts: Gamesusr: clean, 16/1310720 files, 246994/5242880 blocks
+[   57.837030] runit/1: check-lvm-parts: e2fsck on /dev/mapper/ivg-gamesusr returned 0
+[   57.856617] runit/1: check-lvm-parts: Gamesvar: recovering journal
+[   57.926480] runit/1: check-lvm-parts: Gamesvar: clean, 33/65536 files, 13040/262144 blocks
+[   57.932685] runit/1: check-lvm-parts: e2fsck on /dev/mapper/ivg-gamesvar returned 0
+[   57.945121] runit/1: check-lvm-parts: check-lvm-parts exiting 0
+[   57.951040] runit/1: check-lvm-parts: finish
+[   57.960650] EXT4-fs (dm-0): mounted filesystem with ordered data mode. Opts: (null)
+[   57.997060] EXT4-fs (dm-1): mounted filesystem with ordered data mode. Opts: (null)
+[   58.014557] runit/1: tmpfiles: start
+[   58.021691] runit/1: tmpfiles: rootdir=/
+[   58.028330] runit/1: tmpfiles: table='/etc/tmpfiles.d/gops.conf'
+[   58.033194] runit/1: tmpfiles: finish
+[   58.037260] Boot count set to 19
+[   58.043822] runit/1: check-map-symlink: start
+[   58.056549] runit/1: check-map-symlink: /sbin/check-map-symlink Bank A OK
+[   58.062163] runit/1: check-map-symlink: finish
+[   58.085401] EXT4-fs (dm-2): mounted filesystem with ordered data mode. Opts: (null)
+[   58.097434] EXT4-fs (dm-10): mounted filesystem with ordered data mode. Opts: usrquota,grpquota,prjquota
+[   58.102726] EXT4-fs (dm-12): mounted filesystem with ordered data mode. Opts: (null)
+[   58.104457] squashfs: SQUASHFS error: Xattrs in filesystem, these will be ignored
+[   58.104497] unable to read xattr id index table
+[   58.115013] runit/1: load-breakouts: start
+[   58.122047] runit/1: load-breakouts: ERROR: failed to determine boot bank
+[   58.128080] runit/1: load-breakouts: finish
+[   58.135043] runit/1: load-breakout-overlays: start
+[   58.148952] runit/1: load-breakout-overlays: cat: can't open '/sys/firmware/oem/eom': No such file or directory
+[   58.208906] runit/1: load-breakout-overlays: failed to open heci driver: No such file or directory
+[   58.218518] runit/1: load-breakout-overlays: failed to open heci client
+[   58.227061] runit/1: load-breakout-overlays: WARNING: FUSE COULD NOT BE READ
+[   58.236472] runit/1: load-breakout-overlays: WARNING: invalid directory: stat /opt/games/usr/breakout-overlays: no such file or directory
+[   58.241707] runit/1: load-breakout-overlays: install-dir not specified
+[   58.250308] runit/1: load-breakout-overlays: finish
+[   58.330834] runit/1: crit-backup: start
+[   58.331005] runit/1: Initializing random number generator...
+[   58.339710] crit-backup: No backup image found
+[   58.342912] runit/1: crit-backup: cat: can't open '/sys/block/mmcblk0boot1/size': No such file or directory
+[   58.343904] export_store: invalid GPIO 434
+[   58.345034] runit/1: crit-backup: /etc/crit-backup.vars: line 18: [: : integer expression expected
+[   58.346164] export_store: invalid GPIO 487
+[   58.348244] export_store: invalid GPIO 486
+[   58.351926] export_store: invalid GPIO 485
+[   58.353481] runit/1: crit-backup: crit-backup: No backup image found
+[   58.353808] export_store: invalid GPIO 484
+[   58.357122] runit/1: crit-backup: Creating initial backup
+[   58.358073] runit/1: crit-backup: cat: can't open '/sys/block/mmcblk0boot1/size': No such file or directory
+[   58.361178] crit-backup: wipe failed (1)
+[   58.366048] runit/1: crit-backup: /etc/crit-backup.vars: line 18: [: : integer expression expected
+[   58.375372] crit-backup: File '/var/lib/car_creds/car.crt' does not exist; skipping
+[   58.376605] runit/1: crit-backup: cat: can't open '/sys/block/mmcblk0boot1/size': No such file or directory
+[   58.376821] crit-backup: File '/var/lib/car_creds/car.key' does not exist; skipping
+[   58.378535] crit-backup: File '/var/lib/car_creds/eom_fuse_sentinel' does not exist; skipping
+[   58.380156] crit-backup: File '/var/lib/car_plaintext_creds/car_plaintext.key' does not exist; skipping
+[   58.381489] crit-backup: File '/var/lib/car_plaintext_creds/car_plaintext.crt' does not exist; skipping
+[   58.383080] crit-backup: File '/var/lib/ofono/apn' does not exist; skipping
+[   58.384620] runit/1: crit-backup: /etc/crit-backup.vars: line 18: [: : integer expression expected
+[   58.384720] crit-backup: File '/var/lib/ofono/use-sim-card' does not exist; skipping
+[   58.386142] crit-backup: File '/var/lib/ofono/modem' does not exist; skipping
+[   58.389970] crit-backup: File '/var/task_history/first_use_epoch' does not exist; skipping
+[   58.394370] runit/1: crit-backup: cat: can't open '/sys/block/mmcblk0boot1/size': No such file or directory
+[   58.401719] runit/1: crit-backup: crit-backup: wipe failed (1)
+[   58.403560] crit-backup: Unable to unlock mmcblk0boot1 for writes
+[   58.414155] runit/1: crit-backup: cat: can't open '/sys/block/mmcblk0boot1/size': No such file or directory
+[   58.418058] runit/1: crit-backup: /etc/crit-backup.vars: line 18: [: : integer expression expected
+[   58.422534] runit/1: crit-backup: Attempting to backup all files from /etc/crit-files
+[   58.427201] runit/1: crit-backup: Looking for existing backup image
+[   58.427785] runit/1: crit-backup: Validating source files
+[   58.428375] runit/1: crit-backup: File '/var/lib/car_creds/car.crt' does not exist; skipping
+[   58.429063] runit/1: crit-backup: crit-backup: File '/var/lib/car_creds/car.crt' does not exist; skipping
+[   58.429697] runit/1: crit-backup: File '/var/lib/car_creds/car.key' does not exist; skipping
+[   58.430382] runit/1: crit-backup: crit-backup: File '/var/lib/car_creds/car.key' does not exist; skipping
+[   58.431030] runit/1: crit-backup: File '/var/lib/car_creds/eom_fuse_sentinel' does not exist; skipping
+[   58.431730] runit/1: crit-backup: crit-backup: File '/var/lib/car_creds/eom_fuse_sentinel' does not exist; skipping
+[   58.432453] runit/1: crit-backup: File '/var/lib/car_plaintext_creds/car_plaintext.key' does not exist; skipping
+[   58.443181] runit/1: crit-backup: crit-backup: File '/var/lib/car_plaintext_creds/car_plaintext.key' does not exist; skipping
+[   58.447967] runit/1: crit-backup: File '/var/lib/car_plaintext_creds/car_plaintext.crt' does not exist; skipping
+[   58.462772] runit/1: crit-backup: crit-backup: File '/var/lib/car_plaintext_creds/car_plaintext.crt' does not exist; skipping
+[   58.464585] runit/1: crit-backup: File '/var/lib/ofono/apn' does not exist; skipping
+[   58.473808] runit/1: crit-backup: crit-backup: File '/var/lib/ofono/apn' does not exist; skipping
+[   58.476771] runit/1: crit-backup: File '/var/lib/ofono/use-sim-card' does not exist; skipping
+[   58.483445] runit/1: crit-backup: crit-backup: File '/var/lib/ofono/use-sim-card' does not exist; skipping
+[   58.492943] runit/1: crit-backup: File '/var/lib/ofono/modem' does not exist; skipping
+[   58.497437] runit/1: crit-backup: crit-backup: File '/var/lib/ofono/modem' does not exist; skipping
+[   58.507354] runit/1: crit-backup: File '/var/task_history/first_use_epoch' does not exist; skipping
+[   58.511695] runit/1: crit-backup: crit-backup: File '/var/task_history/first_use_epoch' does not exist; skipping
+[   58.519128] runit/1: crit-backup: The following 2 file(s) will be backed up:
+[   58.522944] runit/1: crit-backup: /var/lib/usb_creds/ecryptfs.passwd
+[   58.525096] runit/1: crit-backup: /var/task_history/odin_maintenance_history.csv
+[   58.528505] runit/1: crit-backup: Generating backup image
+[   58.533217] runit/1: crit-backup: Backup signature: 3d13efd154e2d82c6ab04a30a5537203
+[   58.541877] runit/1: crit-backup: Writing to backup device
+[   58.561018] runit/1: crit-backup: [===================================================================|] 3/3 100%
+[   58.565509] runit/1: crit-backup: /etc/crit-backup.vars: line 6: /sys/block/mmcblk0boot1/force_ro: No such file or directory
+[   58.572797] runit/1: crit-backup: ERROR: Unable to unlock mmcblk0boot1 for writes
+[   58.575419] runit/1: crit-backup: crit-backup: Unable to unlock mmcblk0boot1 for writes
+[   58.583629] runit/1: crit-backup: settings-db-backup.sh: copied snapshot of /home/ecallclient/.Tesla/data/QtCarECallClientSettings.db
+[   58.590288] runit/1: crit-backup: settings-db-backup.sh: copied snapshot of /home/tmserver/.Tesla/data/TMServerSettings.db
+[   58.593215] runit/1: crit-backup: settings-db-backup.sh: copied snapshot of /home/qtpower/.Tesla/data/QtCarVehiclePowerSettings.db
+[   58.594600] runit/1: crit-backup: settings-db-backup.sh: copied snapshot of /home/monitord/.Tesla/data/QtCarMonitorSettings.db
+[   58.599844] runit/1: crit-backup: settings-db-backup.sh: copied snapshot of /home/spotify/.Tesla/data/SpotifyServerSettings.db
+[   58.611814] runit/1: crit-backup: settings-db-backup.sh: copied snapshot of /home/mediaserver/.Tesla/data/QtCarMediaServer2Settings.db
+[   58.639174] runit/1: crit-backup: settings-db-backup.sh: copied snapshot of /home/tesla/.Tesla/data/QtCarVehicleSettings.db
+[   58.660705] runit/1: crit-backup: settings-db-backup.sh: copied snapshot of /home/tesla/.Tesla/data/QtCarSettings.db
+[   58.672807] runit/1: crit-backup: settings-db-backup.sh: copied snapshot of /home/tesla/.Tesla/data/AccountManagerSettings.db
+[   58.690737] runit/1: crit-backup: settings-db-backup.sh: copied snapshot of /home/tesla/.Tesla/data/NuanceServerSettings.db
+[   58.696569] runit/1: crit-backup: settings-db-backup.sh: ERROR: no valid content found at /home/tesla/.Tesla/data/QtCarBluetoothSettings.db
+[   58.705329] runit/1: crit-backup: settings-db-backup.sh: ERROR: no valid backup found for /home/tesla/.Tesla/data/QtCarBluetoothSettings.db
+[   58.707658] runit/1: crit-backup: settings-db-backup.sh: copied snapshot of /home/tesla/.Tesla/data/QtCarEVLogServiceSettings.db
+[   58.727214] runit/1: crit-backup: settings-db-backup.sh: copied snapshot of /home/tesla/.Tesla/data/QtCarSpeechRecognizerSettings.db
+[   58.758949] runit/1: crit-backup: settings-db-backup.sh: copied snapshot of /home/tesla/.Tesla/data/QtCarServerSettings.db
+[   58.769188] runit/1: crit-backup: settings-db-backup.sh: ERROR: no valid content found at /home/tesla/.Tesla/data/BTDevices.db
+[   58.772141] runit/1: crit-backup: settings-db-backup.sh: ERROR: no valid backup found for /home/tesla/.Tesla/data/BTDevices.db
+[   58.773631] runit/1: crit-backup: settings-db-backup.sh: copied snapshot of /home/tesla/.Tesla/data/VehicleDataKeys.db
+[   58.794206] runit/1: crit-backup: settings-db-backup.sh: copied snapshot of /home/tuner/.Tesla/data/RadioServerSettings.db
+[   58.822262] runit/1: crit-backup: settings-db-backup.sh: copied snapshot of /home/qtaudiod/.Tesla/data/QtCarAudioDSettings.db
+[   58.836963] runit/1: crit-backup: settings-db-backup.sh: copied snapshot of /home/qtenergymonitor/.Tesla/data/QtCarEnergyMonitorSettings.db
+[   58.914042] runit/1: crit-backup: settings-db-backup.sh: copied snapshot of /home/qtenergymonitor/.Tesla/data/EnergyConsumption.db
+[   58.931290] runit/1: crit-backup: settings-db-backup.sh: copied snapshot of /home/qtconnman/.Tesla/data/QtCarConnManSettings.db
+[   58.960108] runit/1: crit-backup: settings-db-backup.sh: copied snapshot of /home/gpsmanager/.Tesla/data/QtCarGpsManagerSettings.db
+[   59.010921] runit/1: crit-backup: settings-db-backup.sh: copied snapshot of /home/tesla/.Tesla/data/profiles
+[   59.020529] runit/1: crit-backup: settings-db-backup.sh: ERROR: no valid content found at /home/tesla/.Tesla/data/media/RadioFavorites
+[   59.029800] runit/1: crit-backup: settings-db-backup.sh: ERROR: no valid backup found for /home/tesla/.Tesla/data/media/RadioFavorites
+[   59.039209] runit/1: crit-backup: settings-db-backup.sh: ERROR: no valid content found at /home/tesla/.Tesla/data/media/MediaOfflineUICache
+[   59.048589] runit/1: crit-backup: settings-db-backup.sh: ERROR: no valid backup found for /home/tesla/.Tesla/data/media/MediaOfflineUICache
+[   59.057921] runit/1: crit-backup: settings-db-backup.sh: successfully committed backup data to disk at /var/lib/settings-backup.sqsh
+[   59.067021] runit/1: crit-backup: finish
+[   61.396139] ERROR: /usr/sbin/gw-diag -t1 -r3 failed
+[   61.400786] tpm-import: not importing - fused
+[   61.401026] cat: can't open '/sys/block/mmcblk0boot1/size': No such file or directory
+               /etc/crit-backup.vars: line 18: [: : integer expression expected
+[   61.414602] Error: Car credentials do not exist.
+[   61.453394] runit/1: override-security-ratchet: start
+[   61.463318] runit/1: override-security-ratchet: cat: can't open '/sys/firmware/oem/eom': No such file or directory
+[   61.471142] runit/1: override-security-ratchet: failed to open heci driver: No such file or directory
+[   61.478943] runit/1: override-security-ratchet: failed to open heci client
+[   61.487386] runit/1: override-security-ratchet: WARNING: FUSE COULD NOT BE READ
+[   61.496334] runit/1: override-security-ratchet: finish
+[   61.505933] runit/1: quota-rules-apply.sh: start
+[   61.866902] runit/1: quota-rules-apply.sh: Applying quota rules from 00-default
+[   61.877818] runit/1: quota-rules-apply.sh: Applying quota rules from 50-updater
+[   61.886924] runit/1: quota-rules-apply.sh: setquota: Mountpoint (or device) /home not found or has no quota enabled.
+[   61.895929] runit/1: quota-rules-apply.sh: setquota: Not all specified mountpoints are using quota.
+[   61.903163] runit/1: quota-rules-apply.sh: finish
+[   61.936154] export_store: invalid GPIO 367
+[   61.936318] export_store: invalid GPIO 464
+[   61.936455] export_store: invalid GPIO 467
+[   63.436728] export_store: invalid GPIO 367
+[   63.436957] export_store: invalid GPIO 464
+[   63.438335] export_store: invalid GPIO 467
+[   63.439117] ice-display-init: Registering plugin: E29
+[   63.439690] ice-display-init: Registering plugin: P88
+[   63.440316] ice-display-init: No plugin cache populated
+[   63.446388] ice-display-init: No plugin cache populated
+[   63.450556] ice-display-init: No plugin cache populated
+[   63.455326] ice-display-init: No plugin cache populated
+[   63.460706] ice-display-init: No plugin cache populated
+[   63.464538] ice-display-init: No plugin cache populated
+[   63.468345] ice-display-init: No plugin cache populated
+[   63.472223] ice-display-init: No plugin cache populated
+[   63.477619] ice-display-init: No plugin cache populated
+[   63.481414] ice-display-init: No plugin cache populated
+[   63.485290] ice-display-init: No plugin cache populated
+[   63.489185] ice-display-init: No plugin cache populated
+[   63.492902] ice-display-init: No plugin cache populated
+[   63.497010] ice-display-init: No plugin cache populated
+[   63.499748] ice-display-init: No plugin cache populated
+[   63.502452] ice-display-init: No plugin cache populated
+[   63.505547] ice-display-init: No plugin cache populated
+[   63.511339] ice-display-init: No plugin cache populated
+[   63.514247] ice-display-init: No plugin cache populated
+[   63.517050] ice-display-init: No plugin cache populated
+[   63.519875] ice-display-init: Probe failure: E29
+[   63.522842] ice-display-init: Probe failure: P88
+[   63.525892] ice-display-init: Probe failure: E29
+[   63.531117] ice-display-init: Probe failure: P88
+[   63.535521] ice-display-init: Probe failure: E29
+[   63.540360] ice-display-init: Probe failure: P88
+[   63.544510] ice-display-init: Probe failure: E29
+[   63.549135] ice-display-init: Probe failure: P88
+[   63.553842] ice-display-init: Probe failure: E29
+[   63.559909] ice-display-init: Probe failure: P88
+[   63.565248] ice-display-init: Probe failure: E29
+[   63.570380] ice-display-init: Probe failure: P88
+[   63.577070] ice-display-init: Probe failure: E29
+[   63.581862] ice-display-init: Probe failure: P88
+[   63.586679] ice-display-init: Probe failure: E29
+[   63.591893] ice-display-init: Probe failure: P88
+[   63.597294] ice-display-init: Probe failure: E29
+[   63.601809] ice-display-init: Probe failure: P88
+[   63.606898] ice-display-init: Probe failure: E29
+[   63.613233] ice-display-init: Probe failure: P88
+[   63.622584] ice-display-init: Failed to probe any display, defaulting to E29,  updating cachedisplay_init=start func=e29_init
+[   63.630429] ice-display-init: display_init=fail
+[   63.636175] ice-display-init: Current Display Information:
+[   63.643792] ice-display-init: display_power=1
+[   63.648448] ice-display-init: ti949_serializer=ok
+[   63.652811] ice-display-init: ti948_deserializer=ok
+[   63.656765] ice-display-init: blu_enabled=off
+[   63.662091] ice-display-init: blu_duty_cycle=0
+[   63.667122] ice-display-init: touch_controller=none
+[   63.671289] ice-display-init: touch_device=notenumerated
+[   63.674420] ice-display-init: touch_status=fail
+[   63.678724] ice-display-init: display_bitmap=ffffffff
+[   63.681429] ice-display-init: link_lost=no
+[   63.684390] ice-display-init: link_detected=no
+[   63.687307] ice-display-init: pxl_clk_detected=no
+[   63.690084] ice-display-init: remote_sig_detect=no
+[   63.692896] ice-display-init: pll_reset_disabled=x
+[   63.709363] cat: can't open '/sys/firmware/oem/eom': No such file or directory
+[   63.709530] failed to open heci driver: No such file or directory
+               failed to open heci client
+               WARNING: FUSE COULD NOT BE READ
+               I smell a wumpus. Locking the doors and windows.
+[   63.721072] runit/1: firewall: start
+[   63.725907] runit/1: firewall: cat: can't open '/var/etc/dashw': No such file or directory
+[   63.730826] runit/1: firewall: WARNING: dashw file corrupted or does not exist
+[   63.731432] runit/1: firewall: /sbin/firewall: line 72: -o: not found
+[   63.760191] runit/1: firewall: Warning: Extension multiport revision 0 not supported, missing kernel module?
+[   63.767681] runit/1: firewall: Warning: Extension multiport is not supported, missing kernel module?
+[   63.776830] runit/1: firewall: iptables-restore: line 20 failed
+[   63.785626] runit/1: firewall: ERROR: Failed to commit firewall rules
+[   63.793892] runit/1: firewall: finish
+[   63.803202] runit/1: WARNING: firewall: Failed to load rules (QEMU: continuing instead of runit_die, see Stage 20.55)
+[   63.842951] runit/1: setting default thermal limit
+[   63.852964] wrmsr: CPU 0 cannot set MSR 0x00000610 to 0x00008f0000dd8980
+[   63.868709] runit/1: RAPL 
+[   63.875943] runit/1: [WARN] failed to set default thermal limit
+[   63.923733] dmesg-alert-2026-11-14T05:07:22-08:00
+[   63.949669] Starting klog
+[   63.953337] udevd[4027]: starting version 3.2.14
+[   63.979678] device eth0 entered promiscuous mode
+[   64.013524] udevd[4027]: starting eudev-3.2.14
+[   64.088939] input: qemu-tablet-touch as /devices/virtual/input/input6
+[   64.193822] cgroup: cgroup: disabling cgroup2 socket matching due to net_prio or net_cls activation
+[   64.615126] Currently used EDID:
+[   64.714721] show_signal: 25 callbacks suppressed
+[   64.714722] traps: minijail0[8381] general protection fault ip:7f02ea1fbf2b sp:7fff10a27520 error:0 in libc.so.6[7f02ea1fb000+15b000]
+[   64.979870] audit: type=1400 audit(1794661643.736:37): apparmor="ALLOWED" operation="open" profile="/usr/sbin/connmand" name="/proc/8487/cmdline" pid=8487 comm="connmand" requested_mask="r" denied_mask="r" fsuid=0 ouid=0
+[   64.980182] audit: type=1400 audit(1794661643.736:38): apparmor="ALLOWED" operation="open" profile="/usr/sbin/connmand" name="/proc/8487/environ" pid=8487 comm="connmand" requested_mask="r" denied_mask="r" fsuid=0 ouid=0
+[   64.981641] audit: type=1400 audit(1794661643.737:39): apparmor="ALLOWED" operation="open" profile="/usr/sbin/connmand" name="/proc/8487/fd/" pid=8487 comm="connmand" requested_mask="r" denied_mask="r" fsuid=0 ouid=0
+[   64.981793] audit: type=1400 audit(1794661643.737:40): apparmor="ALLOWED" operation="capable" profile="/usr/sbin/connmand" pid=8522 comm="connmand" capability=8  capname="setpcap"
+[   64.982795] audit: type=1400 audit(1794661643.738:41): apparmor="ALLOWED" operation="exec" profile="/usr/sbin/connmand" name="/usr/sbin/connmand" pid=8522 comm="connmand" requested_mask="x" denied_mask="x" fsuid=0 ouid=0 target="/usr/sbin/connmand//null-/usr/sbin/connmand"
+[   64.982877] audit: type=1400 audit(1794661643.738:42): apparmor="ALLOWED" operation="file_mmap" profile="/usr/sbin/connmand//null-/usr/sbin/connmand" name="/usr/sbin/connmand" pid=8522 comm="connmand" requested_mask="r" denied_mask="r" fsuid=0 ouid=0
+[   64.982879] audit: type=1400 audit(1794661643.739:43): apparmor="ALLOWED" operation="file_mmap" profile="/usr/sbin/connmand//null-/usr/sbin/connmand" name="/lib/ld-linux-x86-64.so.2" pid=8522 comm="connmand" requested_mask="r" denied_mask="r" fsuid=0 ouid=0
+[   64.983003] audit: type=1400 audit(1794661643.739:44): apparmor="ALLOWED" operation="open" profile="/usr/sbin/connmand//null-/usr/sbin/connmand" name="/usr/lib/libterminate.so.1.0.0" pid=8522 comm="connmand" requested_mask="r" denied_mask="r" fsuid=0 ouid=0
+[   64.983024] audit: type=1400 audit(1794661643.739:45): apparmor="ALLOWED" operation="file_mmap" profile="/usr/sbin/connmand//null-/usr/sbin/connmand" name="/usr/lib/libterminate.so.1.0.0" pid=8522 comm="connmand" requested_mask="rm" denied_mask="rm" fsuid=0 ouid=0
+[   65.187718] input: Tesla Touch Proxy as /devices/virtual/input/input7
+[   65.289273] udevd[8775]: failed to execute '/usr/sbin/blkid' '/usr/sbin/blkid -o udev -p /dev/dm-14': No such file or directory
+[   65.289476] udevd[5751]: conflicting device node '/dev/mapper/rootfs-a' found, link to '/dev/dm-14' will not be created
+[   65.291547] udevd[8783]: failed to execute '/usr/sbin/blkid' '/usr/sbin/blkid -o udev -p /dev/dm-15': No such file or directory
+[   65.291747] udevd[5752]: conflicting device node '/dev/mapper/rootfs-b' found, link to '/dev/dm-15' will not be created
+[   69.746862] kauditd_printk_skb: 43 callbacks suppressed
+[   69.746863] audit: type=1400 audit(1794661648.499:86): apparmor="ALLOWED" operation="open" profile="/usr/sbin/connmand//null-/usr/sbin/connmand//null-worker" name="/proc/cmdline" pid=8522 comm="connmand-worker" requested_mask="r" denied_mask="r" fsuid=0 ouid=0
+[   69.746865] audit: type=1400 audit(1794661648.499:87): apparmor="ALLOWED" operation="open" profile="/usr/sbin/connmand//null-/usr/sbin/connmand//null-worker" name="/proc/8522/net/pnp" pid=8522 comm="connmand-worker" requested_mask="r" denied_mask="r" fsuid=0 ouid=0
+[   69.830793] audit: type=1400 audit(1794661648.502:88): apparmor="ALLOWED" operation="capable" profile="/usr/sbin/connmand" pid=8487 comm="connmand" capability=12  capname="net_admin"
+[   71.218760] udevd[10999]: failed to execute '/usr/bin/systemd-run' '/usr/bin/systemd-run --no-block --property DefaultDependencies=no --unit lvm-activate-ivg /usr/sbin/lvm vgchange -aay --autoactivation event ivg': No such file or directory
+[   71.731947] traps: minijail0[11158] general protection fault ip:7f7ff3946f2b sp:7ffc575c5660 error:0 in libc.so.6[7f7ff3946000+15b000]
+[   71.789333] audit: type=1400 audit(1794661650.545:89): apparmor="ALLOWED" operation="open" profile="/usr/sbin/connmand//null-/usr/sbin/connmand//null-worker" name="/proc/cmdline" pid=8522 comm="connmand-worker" requested_mask="r" denied_mask="r" fsuid=0 ouid=0
+[   71.789335] audit: type=1400 audit(1794661650.545:90): apparmor="ALLOWED" operation="open" profile="/usr/sbin/connmand//null-/usr/sbin/connmand//null-worker" name="/proc/8522/net/pnp" pid=8522 comm="connmand-worker" requested_mask="r" denied_mask="r" fsuid=0 ouid=0
+[   71.789337] audit: type=1400 audit(1794661650.545:91): apparmor="ALLOWED" operation="capable" profile="/usr/sbin/connmand" pid=8487 comm="connmand" capability=12  capname="net_admin"
+[   71.790294] audit: type=1400 audit(1794661650.546:92): apparmor="ALLOWED" operation="capable" profile="/usr/sbin/connmand//null-/usr/sbin/connmand//null-worker" pid=8522 comm="connmand-worker" capability=2  capname="dac_read_search"
+[   71.790297] audit: type=1400 audit(1794661650.546:93): apparmor="ALLOWED" operation="open" profile="/usr/sbin/connmand//null-/usr/sbin/connmand//null-worker" name="/var/lib/connman/settings" pid=8522 comm="connmand-worker" requested_mask="r" denied_mask="r" fsuid=0 ouid=1027
+[   71.790414] audit: type=1400 audit(1794661650.546:94): apparmor="ALLOWED" operation="open" profile="/usr/sbin/connmand//null-/usr/sbin/connmand//null-worker" name="/usr/share/zoneinfo/posix/America/Los_Angeles" pid=8522 comm="connmand-worker" requested_mask="r" denied_mask="r" fsuid=0 ouid=0
+[   75.423296] export_store: invalid GPIO 289
+[   75.427646] export_store: invalid GPIO 292
+[   75.746066] show_signal: 22 callbacks suppressed
+[   75.746067] traps: minijail0[12201] general protection fault ip:7fdd3f6a8f2b sp:7ffcb2e7beb0 error:0 in libc.so.6[7fdd3f6a8000+15b000]
+[   75.876742] igb 0000:00:04.0 eth0: igb: eth0 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: RX/TX
+[   76.035051] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready
+[   76.434414] audit: type=1400 audit(1794661655.190:114): apparmor="ALLOWED" operation="capable" profile="/usr/sbin/connmand//null-/usr/sbin/connmand//null-worker" pid=8522 comm="connmand-worker" capability=2  capname="dac_read_search"
+[   76.434417] audit: type=1400 audit(1794661655.190:115): apparmor="ALLOWED" operation="mkdir" profile="/usr/sbin/connmand//null-/usr/sbin/connmand//null-worker" name="/var/lib/connman/ethernet_525400123456_cable/" pid=8522 comm="connmand-worker" requested_mask="c" denied_mask="c" fsuid=0 ouid=0
+[   76.434418] audit: type=1400 audit(1794661655.190:116): apparmor="ALLOWED" operation="capable" profile="/usr/sbin/connmand//null-/usr/sbin/connmand//null-worker" pid=8522 comm="connmand-worker" capability=1  capname="dac_override"
+[   76.434479] audit: type=1400 audit(1794661655.190:117): apparmor="ALLOWED" operation="mknod" profile="/usr/sbin/connmand//null-/usr/sbin/connmand//null-worker" name="/var/lib/connman/ethernet_525400123456_cable/data" pid=8522 comm="connmand-worker" requested_mask="c" denied_mask="c" fsuid=0 ouid=0
+[   76.434481] audit: type=1400 audit(1794661655.190:118): apparmor="ALLOWED" operation="open" profile="/usr/sbin/connmand//null-/usr/sbin/connmand//null-worker" name="/var/lib/connman/ethernet_525400123456_cable/data" pid=8522 comm="connmand-worker" requested_mask="wrc" denied_mask="wrc" fsuid=0 ouid=0
+[   76.434500] audit: type=1400 audit(1794661655.190:119): apparmor="ALLOWED" operation="truncate" profile="/usr/sbin/connmand//null-/usr/sbin/connmand//null-worker" name="/var/lib/connman/ethernet_525400123456_cable/data" pid=8522 comm="connmand-worker" requested_mask="w" denied_mask="w" fsuid=0 ouid=0
+[   76.434685] audit: type=1400 audit(1794661655.190:120): apparmor="ALLOWED" operation="capable" profile="/usr/sbin/connmand" pid=8487 comm="connmand" capability=12  capname="net_admin"
+[   76.434928] audit: type=1400 audit(1794661655.191:121): apparmor="ALLOWED" operation="capable" profile="/usr/sbin/connmand" pid=8487 comm="connmand" capability=12  capname="net_admin"
+[   76.435095] audit: type=1400 audit(1794661655.191:122): apparmor="ALLOWED" operation="open" profile="/usr/sbin/connmand//null-/usr/sbin/connmand//null-worker" name="/etc/resolv.conf" pid=8522 comm="connmand-worker" requested_mask="r" denied_mask="r" fsuid=0 ouid=0
+[   77.233757] input: WebApp.tesla.supercharger-queue-teslakeyboard as /devices/virtual/input/input8
+[   78.334378] seccomp: errno: uid=1234 gid=1234 pid=12640 comm="godot" exe="/usr/bin/godot" syscall=9 arg0=0 arg1=10485760 arg2=7 arg3=34 arg4=4294967295 arg5=0
+[   78.594511] input: Chromium-teslakeyboard as /devices/virtual/input/input9
+[   78.598408] input: Theater-teslakeyboard as /devices/virtual/input/input10
+[   78.636868] input: OwnersManual-teslakeyboard as /devices/virtual/input/input11
+[   78.642030] input: WebApp.tesla.diner-teslakeyboard as /devices/virtual/input/input12
+[   78.647727] input: WebApp.tesla.fsd-teslakeyboard as /devices/virtual/input/input13
+[   81.933084] show_signal: 50 callbacks suppressed
+[   81.933085] traps: minijail0[13177] general protection fault ip:7fbe50170f2b sp:7ffc4d31d1e0 error:0 in libc.so.6[7fbe50170000+15b000]
+[   83.615752] traps: minijail0[13344] general protection fault ip:7f2d87541f2b sp:7fffa16be4f0 error:0 in libc.so.6[7f2d87541000+15b000]
+[   84.786972] traps: minijail0[13671] general protection fault ip:7efd3b140f2b sp:7fff42027170 error:0 in libc.so.6[7efd3b140000+15b000]
+[   86.248516] traps: minijail0[13805] general protection fault ip:7f495e89ef2b sp:7ffcdad59da0 error:0 in libc.so.6[7f495e89e000+15b000]
+[   87.427753] input: touch-ChromiumApp as /devices/virtual/input/input14
+[   88.543641] traps: minijail0[14097] general protection fault ip:7f32cd5e7f2b sp:7ffe7b680e10 error:0 in libc.so.6[7f32cd5e7000+15b000]
+[   88.682892] traps: minijail0[14262] general protection fault ip:7fb22868af2b sp:7ffc77bc6940 error:0 in libc.so.6[7fb22868a000+15b000]
+[   89.929999] traps: minijail0[14477] general protection fault ip:7f115a2e4f2b sp:7ffc6f26c050 error:0 in libc.so.6[7f115a2e4000+15b000]
+[   91.274632] traps: minijail0[14623] general protection fault ip:7fcf855d0f2b sp:7ffee56640c0 error:0 in libc.so.6[7fcf855d0000+15b000]
+[   92.900031] traps: minijail0[14771] general protection fault ip:7fdfc30d5f2b sp:7fff82413aa0 error:0 in libc.so.6[7fdfc30d5000+15b000]
+[   94.128499] traps: minijail0[14895] general protection fault ip:7f6955976f2b sp:7ffc6b83fa30 error:0 in libc.so.6[7f6955976000+15b000]
+[   95.287402] traps: minijail0[15030] general protection fault ip:7f210c1ccf2b sp:7fffbe30c760 error:0 in libc.so.6[7f210c1cc000+15b000]
+[   96.489801] traps: minijail0[15156] general protection fault ip:7f72be18cf2b sp:7fff8640fbc0 error:0 in libc.so.6[7f72be18c000+15b000]
+[   97.666747] traps: minijail0[15312] general protection fault ip:7fa6e43cff2b sp:7ffd7f29c2c0 error:0 in libc.so.6[7fa6e43cf000+15b000]
+[   98.829463] traps: minijail0[15404] general protection fault ip:7f1d548ebf2b sp:7ffff36b0ed0 error:0 in libc.so.6[7f1d548eb000+15b000]
+[  100.061418] traps: minijail0[15646] general protection fault ip:7f7b52ff1f2b sp:7ffee2095a10 error:0 in libc.so.6[7f7b52ff1000+15b000]
+[  101.234163] traps: minijail0[15934] general protection fault ip:7f35db546f2b sp:7ffefdf66710 error:0 in libc.so.6[7f35db546000+15b000]
+[  101.834328] export_store: invalid GPIO 334
+[  101.856650] export_store: invalid GPIO 439
+[  101.859305] export_store: invalid GPIO 440
+[  101.872674] export_store: invalid GPIO 334
+[  102.433813] traps: minijail0[16198] general protection fault ip:7f892c706f2b sp:7fffd7c40f90 error:0 in libc.so.6[7f892c706000+15b000]
+[  103.632245] traps: minijail0[16293] general protection fault ip:7f91a24a8f2b sp:7ffe68e3d4e0 error:0 in libc.so.6[7f91a24a8000+15b000]
+[  103.880171] export_store: invalid GPIO 334
+[  103.885171] export_store: invalid GPIO 439
+[  103.887019] export_store: invalid GPIO 440
+[  103.888846] export_store: invalid GPIO 334
+[  103.890523] export_store: invalid GPIO 282
+[  104.779510] traps: minijail0[16431] general protection fault ip:7f8aabc5ef2b sp:7ffcd7bdf6c0 error:0 in libc.so.6[7f8aabc5e000+15b000]
+[  105.994798] traps: minijail0[16551] general protection fault ip:7fe613eb2f2b sp:7fff7fb880d0 error:0 in libc.so.6[7fe613eb2000+15b000]
+[  107.218399] traps: minijail0[16701] general protection fault ip:7f42ed972f2b sp:7ffc52a89750 error:0 in libc.so.6[7f42ed972000+15b000]
+[  108.374965] traps: minijail0[16803] general protection fault ip:7fcb6036af2b sp:7ffd5dd5a2f0 error:0 in libc.so.6[7fcb6036a000+15b000]
+[  109.561502] traps: minijail0[16932] general protection fault ip:7f7c32992f2b sp:7ffc6a07f230 error:0 in libc.so.6[7f7c32992000+15b000]
+[  110.731658] traps: minijail0[17113] general protection fault ip:7f8cc605cf2b sp:7ffd5d3d6bf0 error:0 in libc.so.6[7f8cc605c000+15b000]
+[  111.923057] traps: minijail0[17214] general protection fault ip:7f987ca8ef2b sp:7ffeb5e21a20 error:0 in libc.so.6[7f987ca8e000+15b000]
+[  113.095455] traps: minijail0[17351] general protection fault ip:7f8d6691ff2b sp:7fff57dc9fc0 error:0 in libc.so.6[7f8d6691f000+15b000]
+[  114.291428] traps: minijail0[17481] general protection fault ip:7f90a02c3f2b sp:7ffcb663a680 error:0 in libc.so.6[7f90a02c3000+15b000]
+[  115.486403] traps: minijail0[17606] general protection fault ip:7f5eabfd0f2b sp:7ffefb99b2d0 error:0 in libc.so.6[7f5eabfd0000+15b000]
+[  116.683230] traps: minijail0[17702] general protection fault ip:7fc1a6098f2b sp:7fffca6e46a0 error:0 in libc.so.6[7fc1a6098000+15b000]
+[  117.888883] traps: minijail0[17855] general protection fault ip:7f855f585f2b sp:7ffe4755d360 error:0 in libc.so.6[7f855f585000+15b000]
+[  119.059811] traps: minijail0[17983] general protection fault ip:7f8a73a42f2b sp:7ffde629a260 error:0 in libc.so.6[7f8a73a42000+15b000]
+[  120.245050] traps: minijail0[18117] general protection fault ip:7f13e5f45f2b sp:7fff65250d70 error:0 in libc.so.6[7f13e5f45000+15b000]
+[  121.421356] traps: minijail0[18259] general protection fault ip:7f8216a48f2b sp:7ffe2f8a5be0 error:0 in libc.so.6[7f8216a48000+15b000]
+[  122.646657] traps: minijail0[18446] general protection fault ip:7fcb7644ff2b sp:7ffcc3d8f040 error:0 in libc.so.6[7fcb7644f000+15b000]
+[  123.842432] traps: minijail0[18568] general protection fault ip:7fe740de6f2b sp:7fff1b7f6a00 error:0 in libc.so.6[7fe740de6000+15b000]
+[  125.029372] traps: minijail0[18751] general protection fault ip:7fb22b2d8f2b sp:7ffe17007790 error:0 in libc.so.6[7fb22b2d8000+15b000]
+[  126.192540] traps: minijail0[18849] general protection fault ip:7f4db2067f2b sp:7ffc3b297eb0 error:0 in libc.so.6[7f4db2067000+15b000]
+[  127.367397] traps: minijail0[18989] general protection fault ip:7fa9e24e3f2b sp:7ffd9eeb8f20 error:0 in libc.so.6[7fa9e24e3000+15b000]
+[  128.559391] traps: minijail0[19111] general protection fault ip:7fb8ca0adf2b sp:7ffdfca43710 error:0 in libc.so.6[7fb8ca0ad000+15b000]
+[  129.752193] traps: minijail0[19220] general protection fault ip:7fa73be3bf2b sp:7ffde0200a00 error:0 in libc.so.6[7fa73be3b000+15b000]
+[  130.931864] traps: minijail0[19356] general protection fault ip:7f20b9db0f2b sp:7ffc142ef850 error:0 in libc.so.6[7f20b9db0000+15b000]
+[  132.281987] traps: minijail0[19779] general protection fault ip:7fec9d72bf2b sp:7ffc7e1ef830 error:0 in libc.so.6[7fec9d72b000+15b000]
+[  133.468106] traps: minijail0[20007] general protection fault ip:7f481b7d8f2b sp:7ffff8759c20 error:0 in libc.so.6[7f481b7d8000+15b000]
+[  134.675004] traps: minijail0[20119] general protection fault ip:7fa35ff33f2b sp:7fffdb92a5f0 error:0 in libc.so.6[7fa35ff33000+15b000]
+[  135.993275] traps: minijail0[20243] general protection fault ip:7f3915541f2b sp:7ffea4de99b0 error:0 in libc.so.6[7f3915541000+15b000]
+[  137.199801] traps: minijail0[20371] general protection fault ip:7facfcba7f2b sp:7fffb27b7960 error:0 in libc.so.6[7facfcba7000+15b000]
+[  138.360726] traps: minijail0[20509] general protection fault ip:7f4d49180f2b sp:7ffc7bda4660 error:0 in libc.so.6[7f4d49180000+15b000]
+[  139.576217] traps: minijail0[20655] general protection fault ip:7fe97c904f2b sp:7ffda134b5e0 error:0 in libc.so.6[7fe97c904000+15b000]
+[  140.088816] export_store: invalid GPIO 334
+[  140.104218] export_store: invalid GPIO 439
+[  140.108110] export_store: invalid GPIO 440
+[  140.121556] export_store: invalid GPIO 334
+[  140.763839] traps: minijail0[20788] general protection fault ip:7fe340d8df2b sp:7ffd74a24a00 error:0 in libc.so.6[7fe340d8d000+15b000]
+[  141.969252] traps: minijail0[20915] general protection fault ip:7fc782376f2b sp:7ffd450d4a80 error:0 in libc.so.6[7fc782376000+15b000]
+[  142.128332] export_store: invalid GPIO 334
+[  142.133602] export_store: invalid GPIO 439
+[  142.136069] export_store: invalid GPIO 440
+[  142.138399] export_store: invalid GPIO 334
+[  142.140409] export_store: invalid GPIO 282
+[  143.109623] traps: minijail0[21060] general protection fault ip:7f0b875eff2b sp:7ffe654b9f30 error:0 in libc.so.6[7f0b875ef000+15b000]
+[  144.271121] traps: minijail0[21158] general protection fault ip:7fbf5327df2b sp:7fff194c7920 error:0 in libc.so.6[7fbf5327d000+15b000]
+[  145.435477] traps: minijail0[21286] general protection fault ip:7f5ace4b0f2b sp:7fffd1afb400 error:0 in libc.so.6[7f5ace4b0000+15b000]
+[  146.616395] traps: minijail0[21412] general protection fault ip:7feec2ca4f2b sp:7ffc9f318450 error:0 in libc.so.6[7feec2ca4000+15b000]
+[  147.804050] traps: minijail0[21546] general protection fault ip:7fc4f607af2b sp:7fffa29e7fc0 error:0 in libc.so.6[7fc4f607a000+15b000]
+[  148.200251] wifi-power (20694): drop_caches: 1
+[  149.028453] traps: minijail0[21645] general protection fault ip:7f3289074f2b sp:7ffd9d5de5d0 error:0 in libc.so.6[7f3289074000+15b000]
+[  150.230638] traps: minijail0[21844] general protection fault ip:7fb20d2a2f2b sp:7ffe6e3eba20 error:0 in libc.so.6[7fb20d2a2000+15b000]
+[  151.400631] traps: minijail0[21968] general protection fault ip:7f6e78a92f2b sp:7ffc9d1eb4f0 error:0 in libc.so.6[7f6e78a92000+15b000]
+[  152.603130] traps: minijail0[22117] general protection fault ip:7f159d180f2b sp:7fff990c5930 error:0 in libc.so.6[7f159d180000+15b000]
+[  153.815161] traps: minijail0[22209] general protection fault ip:7fde58f62f2b sp:7ffdcdf5a710 error:0 in libc.so.6[7fde58f62000+15b000]
+[  154.954999] traps: minijail0[22369] general protection fault ip:7f5786b09f2b sp:7ffd34b94bd0 error:0 in libc.so.6[7f5786b09000+15b000]
+[  156.152442] traps: minijail0[22490] general protection fault ip:7f5983038f2b sp:7fff308e25e0 error:0 in libc.so.6[7f5983038000+15b000]
+[  157.321041] traps: minijail0[22594] general protection fault ip:7f5d8e834f2b sp:7ffcdc80a670 error:0 in libc.so.6[7f5d8e834000+15b000]
+[  158.498172] traps: minijail0[22724] general protection fault ip:7f8594640f2b sp:7ffc64f7f200 error:0 in libc.so.6[7f8594640000+15b000]
+[  159.715111] traps: minijail0[22861] general protection fault ip:7fe24ac60f2b sp:7ffe99aa1a30 error:0 in libc.so.6[7fe24ac60000+15b000]
+[  160.886499] traps: minijail0[23003] general protection fault ip:7f5bbc58cf2b sp:7ffd2f72a2d0 error:0 in libc.so.6[7f5bbc58c000+15b000]
+[  162.054805] traps: minijail0[23105] general protection fault ip:7fe559a7ef2b sp:7fff2ffacf80 error:0 in libc.so.6[7fe559a7e000+15b000]
+[  163.187509] traps: minijail0[23372] general protection fault ip:7ff55e1dbf2b sp:7ffd02c4d7f0 error:0 in libc.so.6[7ff55e1db000+15b000]
+[  164.529352] traps: minijail0[23602] general protection fault ip:7f05c2ca4f2b sp:7ffe6f50bcf0 error:0 in libc.so.6[7f05c2ca4000+15b000]
+[  165.722276] traps: minijail0[23750] general protection fault ip:7f51c8ccdf2b sp:7ffc10af3500 error:0 in libc.so.6[7f51c8ccd000+15b000]
+[  166.874941] traps: minijail0[23843] general protection fault ip:7f948a803f2b sp:7ffd8dd63750 error:0 in libc.so.6[7f948a803000+15b000]
+[  168.083033] traps: minijail0[23992] general protection fault ip:7eff8f9def2b sp:7ffc901592e0 error:0 in libc.so.6[7eff8f9de000+15b000]
+[  169.229403] traps: minijail0[24120] general protection fault ip:7fe8520a2f2b sp:7fff8e60efc0 error:0 in libc.so.6[7fe8520a2000+15b000]
+[  170.433811] traps: minijail0[24261] general protection fault ip:7fb405e8cf2b sp:7ffc577b7240 error:0 in libc.so.6[7fb405e8c000+15b000]
+[  171.593890] traps: minijail0[24365] general protection fault ip:7f9605ba3f2b sp:7ffe541c1190 error:0 in libc.so.6[7f9605ba3000+15b000]
+[  172.808044] traps: minijail0[24515] general protection fault ip:7f70ad52ef2b sp:7ffcb9097570 error:0 in libc.so.6[7f70ad52e000+15b000]
+[  174.028540] traps: minijail0[24635] general protection fault ip:7fc83247ff2b sp:7ffc4cad5c10 error:0 in libc.so.6[7fc83247f000+15b000]
+[  175.188066] traps: minijail0[24735] general protection fault ip:7faf1103af2b sp:7ffdee0b2fb0 error:0 in libc.so.6[7faf1103a000+15b000]
+[  176.351027] traps: minijail0[24856] general protection fault ip:7fba25dbff2b sp:7ffcce7833f0 error:0 in libc.so.6[7fba25dbf000+15b000]
+[  177.572502] traps: minijail0[24998] general protection fault ip:7f1b29676f2b sp:7fffd6af56a0 error:0 in libc.so.6[7f1b29676000+15b000]
+[  178.534199] input: touch-Theater as /devices/virtual/input/input15
+[  178.806638] traps: minijail0[25352] general protection fault ip:7f610c0bcf2b sp:7ffd00acc6d0 error:0 in libc.so.6[7f610c0bc000+15b000]
+[  179.382348] export_store: invalid GPIO 334
+[  179.399889] export_store: invalid GPIO 439
+[  179.401530] export_store: invalid GPIO 440
+[  179.413177] export_store: invalid GPIO 334
+[  179.955031] traps: minijail0[25615] general protection fault ip:7fe3c27f6f2b sp:7ffe3c5105a0 error:0 in libc.so.6[7fe3c27f6000+15b000]
+[  181.146538] traps: minijail0[25742] general protection fault ip:7f842439ef2b sp:7ffe6e8360d0 error:0 in libc.so.6[7f842439e000+15b000]
+[  181.420232] export_store: invalid GPIO 334
+[  181.424746] export_store: invalid GPIO 439
+[  181.426565] export_store: invalid GPIO 440
+[  181.428426] export_store: invalid GPIO 334
+[  181.431538] export_store: invalid GPIO 282
+[  182.319962] traps: minijail0[25889] general protection fault ip:7fa0b1e5af2b sp:7ffce6990f00 error:0 in libc.so.6[7fa0b1e5a000+15b000]
+[  183.508866] traps: minijail0[26034] general protection fault ip:7fdd6a991f2b sp:7ffc2eded5d0 error:0 in libc.so.6[7fdd6a991000+15b000]
+[  184.699970] traps: minijail0[26209] general protection fault ip:7f710841df2b sp:7ffe89134980 error:0 in libc.so.6[7f710841d000+15b000]
+[  185.875675] traps: minijail0[26339] general protection fault ip:7f6ec2a09f2b sp:7ffe9aa2b090 error:0 in libc.so.6[7f6ec2a09000+15b000]
+[  187.028240] traps: minijail0[26459] general protection fault ip:7f7418b19f2b sp:7ffd386de2b0 error:0 in libc.so.6[7f7418b19000+15b000]
+[  187.466391] wifi-power (25506): drop_caches: 1
+[  188.195599] traps: minijail0[26620] general protection fault ip:7fd2b60d1f2b sp:7ffd16252ca0 error:0 in libc.so.6[7fd2b60d1000+15b000]
+[  189.350979] traps: minijail0[26742] general protection fault ip:7fc0fac64f2b sp:7ffe4aca9530 error:0 in libc.so.6[7fc0fac64000+15b000]
+[  190.547107] traps: minijail0[26875] general protection fault ip:7f40693a9f2b sp:7ffd2a27ec10 error:0 in libc.so.6[7f40693a9000+15b000]
+[  191.715970] traps: minijail0[27003] general protection fault ip:7ffbec474f2b sp:7ffd6deb30d0 error:0 in libc.so.6[7ffbec474000+15b000]
+[  192.889767] traps: minijail0[27153] general protection fault ip:7f0fa359af2b sp:7ffd6c4b8f80 error:0 in libc.so.6[7f0fa359a000+15b000]
+[  194.046261] traps: minijail0[27273] general protection fault ip:7fd026346f2b sp:7fff424961a0 error:0 in libc.so.6[7fd026346000+15b000]
+[  195.239269] traps: minijail0[27588] general protection fault ip:7f58a44d1f2b sp:7fffab5ac7a0 error:0 in libc.so.6[7f58a44d1000+15b000]
+[  196.457209] traps: minijail0[27785] general protection fault ip:7f1462282f2b sp:7ffca15ca0d0 error:0 in libc.so.6[7f1462282000+15b000]
+[  197.594749] traps: minijail0[27895] general protection fault ip:7fb75a6fef2b sp:7ffd34add720 error:0 in libc.so.6[7fb75a6fe000+15b000]
+[  198.755528] traps: minijail0[28019] general protection fault ip:7f42d37f2f2b sp:7ffdf521ed20 error:0 in libc.so.6[7f42d37f2000+15b000]
+[  199.914803] traps: minijail0[28155] general protection fault ip:7f8832f61f2b sp:7ffe1a60dc40 error:0 in libc.so.6[7f8832f61000+15b000]
+[  201.081990] traps: minijail0[28272] general protection fault ip:7f3328d47f2b sp:7ffd883129f0 error:0 in libc.so.6[7f3328d47000+15b000]
+[  202.274516] traps: minijail0[28397] general protection fault ip:7f5d247c0f2b sp:7fff0fa4a9f0 error:0 in libc.so.6[7f5d247c0000+15b000]
+[  203.449496] traps: minijail0[28536] general protection fault ip:7fdee98d4f2b sp:7ffc60b039b0 error:0 in libc.so.6[7fdee98d4000+15b000]
+[  204.580474] traps: minijail0[28664] general protection fault ip:7fa19760ff2b sp:7ffd3c10e700 error:0 in libc.so.6[7fa19760f000+15b000]
+[  205.748650] traps: minijail0[28760] general protection fault ip:7f9010e8ef2b sp:7ffd84e7e890 error:0 in libc.so.6[7f9010e8e000+15b000]
+[  206.901459] traps: minijail0[28884] general protection fault ip:7fcee36f4f2b sp:7ffefe75c930 error:0 in libc.so.6[7fcee36f4000+15b000]
+[  208.064562] traps: minijail0[29035] general protection fault ip:7fe9a6cdef2b sp:7fff148be680 error:0 in libc.so.6[7fe9a6cde000+15b000]
+[  209.073151] audit: type=1400 audit(1794661788.652:170): apparmor="ALLOWED" operation="capable" profile="/usr/sbin/connmand" pid=8487 comm="connmand" capability=12  capname="net_admin"
+[  209.227773] traps: minijail0[29140] general protection fault ip:7fc7eaa4ff2b sp:7fffb9fefce0 error:0 in libc.so.6[7fc7eaa4f000+15b000]
+[  210.378316] traps: minijail0[29265] general protection fault ip:7f022e682f2b sp:7ffc88cb6f50 error:0 in libc.so.6[7f022e682000+15b000]
+[  211.567301] traps: minijail0[29385] general protection fault ip:7f6b45ec8f2b sp:7ffdd4d84150 error:0 in libc.so.6[7f6b45ec8000+15b000]
+[  212.815956] traps: minijail0[29533] general protection fault ip:7f4f24249f2b sp:7ffdee52dd70 error:0 in libc.so.6[7f4f24249000+15b000]
+[  213.975074] traps: minijail0[29628] general protection fault ip:7fa090406f2b sp:7fff4ee5cf70 error:0 in libc.so.6[7fa090406000+15b000]
+[  215.123451] traps: minijail0[29787] general protection fault ip:7f2f79bd4f2b sp:7ffccb0f09d0 error:0 in libc.so.6[7f2f79bd4000+15b000]
+[  216.288709] traps: minijail0[29910] general protection fault ip:7fe31e02af2b sp:7fffbee83e80 error:0 in libc.so.6[7fe31e02a000+15b000]
+[  217.451756] traps: minijail0[30035] general protection fault ip:7f7d8325af2b sp:7ffebaea44f0 error:0 in libc.so.6[7f7d8325a000+15b000]
+[  217.837212] export_store: invalid GPIO 334
+[  217.847916] export_store: invalid GPIO 439
+[  217.849779] export_store: invalid GPIO 440
+[  217.855296] export_store: invalid GPIO 334
+[  218.617821] traps: minijail0[30163] general protection fault ip:7f73eac54f2b sp:7ffc406a99d0 error:0 in libc.so.6[7f73eac54000+15b000]
+[  219.791598] traps: minijail0[30317] general protection fault ip:7f7dff9aff2b sp:7ffe60b2ecd0 error:0 in libc.so.6[7f7dff9af000+15b000]
+[  219.870909] export_store: invalid GPIO 334
+[  219.875971] export_store: invalid GPIO 439
+[  219.878279] export_store: invalid GPIO 440
+[  219.880485] export_store: invalid GPIO 334
+[  219.882744] export_store: invalid GPIO 282
+[  220.931162] traps: minijail0[30454] general protection fault ip:7fcb66866f2b sp:7ffc86476760 error:0 in libc.so.6[7fcb66866000+15b000]
+[  222.104521] traps: minijail0[30562] general protection fault ip:7f99549d7f2b sp:7fffcf1dfdf0 error:0 in libc.so.6[7f99549d7000+15b000]
+[  223.281264] traps: minijail0[30696] general protection fault ip:7f77b3fc8f2b sp:7ffdde1a2d10 error:0 in libc.so.6[7f77b3fc8000+15b000]
+[  224.445007] traps: minijail0[30821] general protection fault ip:7fb00f59ff2b sp:7fff9a55a680 error:0 in libc.so.6[7fb00f59f000+15b000]
+[  225.594556] traps: minijail0[30946] general protection fault ip:7f68153d5f2b sp:7fffee9eacd0 error:0 in libc.so.6[7f68153d5000+15b000]
+[  225.909383] wifi-power (30088): drop_caches: 1
+[  226.789223] traps: minijail0[31282] general protection fault ip:7f8e4c6f6f2b sp:7ffe32dfd360 error:0 in libc.so.6[7f8e4c6f6000+15b000]
+[  227.973238] traps: minijail0[31482] general protection fault ip:7f26a1ed0f2b sp:7ffffcb43b20 error:0 in libc.so.6[7f26a1ed0000+15b000]
+[  229.135135] traps: minijail0[31604] general protection fault ip:7f1aba848f2b sp:7ffcac1c4ae0 error:0 in libc.so.6[7f1aba848000+15b000]
+[  230.407661] traps: minijail0[31746] general protection fault ip:7f80cdf1ef2b sp:7ffe99799ce0 error:0 in libc.so.6[7f80cdf1e000+15b000]
+[  231.591744] traps: minijail0[31851] general protection fault ip:7f000b1f9f2b sp:7fffb5436580 error:0 in libc.so.6[7f000b1f9000+15b000]
+[  232.755368] traps: minijail0[31993] general protection fault ip:7f9df9825f2b sp:7ffe305994d0 error:0 in libc.so.6[7f9df9825000+15b000]
+[  233.883438] traps: minijail0[32122] general protection fault ip:7f808ed74f2b sp:7ffd3bb10ed0 error:0 in libc.so.6[7f808ed74000+15b000]
+[  235.050459] traps: minijail0[32243] general protection fault ip:7f0f6e56af2b sp:7fffdffcac30 error:0 in libc.so.6[7f0f6e56a000+15b000]
+[  236.229459] traps: minijail0[32356] general protection fault ip:7f066ba7ff2b sp:7ffef1320b40 error:0 in libc.so.6[7f066ba7f000+15b000]
+[  237.401079] traps: minijail0[32483] general protection fault ip:7fd80a9a4f2b sp:7fff048f85d0 error:0 in libc.so.6[7fd80a9a4000+15b000]
+[  238.564344] traps: minijail0[32615] general protection fault ip:7f0fb4b41f2b sp:7ffc911f71d0 error:0 in libc.so.6[7f0fb4b41000+15b000]
+[  239.737383] traps: minijail0[32721] general protection fault ip:7f2b04f95f2b sp:7ffdcc7ce3c0 error:0 in libc.so.6[7f2b04f95000+15b000]
+[  240.911645] traps: minijail0[385] general protection fault ip:7f1475951f2b sp:7ffcf3faf550 error:0 in libc.so.6[7f1475951000+15b000]
+[  242.063960] traps: minijail0[508] general protection fault ip:7f07ec097f2b sp:7ffee226af20 error:0 in libc.so.6[7f07ec097000+15b000]
+[  243.252132] traps: minijail0[668] general protection fault ip:7f85a2a09f2b sp:7ffe34f708e0 error:0 in libc.so.6[7f85a2a09000+15b000]
+[  244.429434] traps: minijail0[785] general protection fault ip:7f0efff22f2b sp:7fff05ecfd00 error:0 in libc.so.6[7f0efff22000+15b000]
+[  245.586130] traps: minijail0[1006] general protection fault ip:7fd852d3bf2b sp:7ffdb62d0750 error:0 in libc.so.6[7fd852d3b000+15b000]
+[  246.757755] traps: minijail0[1126] general protection fault ip:7fd752fbdf2b sp:7ffc5f7429c0 error:0 in libc.so.6[7fd752fbd000+15b000]
+[  247.919685] traps: minijail0[1240] general protection fault ip:7f4e28d18f2b sp:7ffe2d7fda90 error:0 in libc.so.6[7f4e28d18000+15b000]
+[  249.104155] traps: minijail0[1382] general protection fault ip:7fca8433ff2b sp:7ffd9e2882b0 error:0 in libc.so.6[7fca8433f000+15b000]
+[  250.271095] traps: minijail0[1521] general protection fault ip:7f40ebe3ff2b sp:7fff6e3c1960 error:0 in libc.so.6[7f40ebe3f000+15b000]
+[  251.448480] traps: minijail0[1642] general protection fault ip:7f75e2deff2b sp:7fffd80b2090 error:0 in libc.so.6[7f75e2def000+15b000]
+[  252.599252] traps: minijail0[1777] general protection fault ip:7f5692d5df2b sp:7ffe4ddff360 error:0 in libc.so.6[7f5692d5d000+15b000]
+[  253.744166] traps: minijail0[1910] general protection fault ip:7f6273b8cf2b sp:7ffd35488640 error:0 in libc.so.6[7f6273b8c000+15b000]
+[  254.903734] traps: minijail0[2046] general protection fault ip:7fb574389f2b sp:7ffc3ecb6a40 error:0 in libc.so.6[7fb574389000+15b000]
+[  256.085008] traps: minijail0[2181] general protection fault ip:7f4fc0d7df2b sp:7ffc979e29a0 error:0 in libc.so.6[7f4fc0d7d000+15b000]
+[  256.184698] export_store: invalid GPIO 334
+[  256.192072] export_store: invalid GPIO 439
+[  256.194230] export_store: invalid GPIO 440
+[  256.200743] export_store: invalid GPIO 334
+[  257.244321] traps: minijail0[2315] general protection fault ip:7f4863180f2b sp:7fffa1b6bf90 error:0 in libc.so.6[7f4863180000+15b000]
+[  258.212479] export_store: invalid GPIO 334
+[  258.222902] export_store: invalid GPIO 439
+[  258.225214] export_store: invalid GPIO 440
+[  258.227602] export_store: invalid GPIO 334
+[  258.232494] export_store: invalid GPIO 282
+[  258.401034] traps: minijail0[2651] general protection fault ip:7fc798702f2b sp:7fff8462f5d0 error:0 in libc.so.6[7fc798702000+15b000]
+[  259.563292] traps: minijail0[2831] general protection fault ip:7ff61d4caf2b sp:7fff9a873940 error:0 in libc.so.6[7ff61d4ca000+15b000]
+[  260.716985] traps: minijail0[2935] general protection fault ip:7f5543ba7f2b sp:7ffe1f8a6ab0 error:0 in libc.so.6[7f5543ba7000+15b000]
+[  261.955298] traps: minijail0[3062] general protection fault ip:7f820dbd2f2b sp:7ffc34378660 error:0 in libc.so.6[7f820dbd2000+15b000]
+[  263.116592] traps: minijail0[3207] general protection fault ip:7f46b9d9bf2b sp:7ffdc1c58a60 error:0 in libc.so.6[7f46b9d9b000+15b000]
+[  264.260419] wifi-power (2212): drop_caches: 1
+[  264.333017] traps: minijail0[3340] general protection fault ip:7f275d9d1f2b sp:7ffdc90e8920 error:0 in libc.so.6[7f275d9d1000+15b000]
+[  265.531751] traps: minijail0[3488] general protection fault ip:7f6f18d6ff2b sp:7ffd2b39c780 error:0 in libc.so.6[7f6f18d6f000+15b000]
+[  266.703169] traps: minijail0[4059] general protection fault ip:7f22079eff2b sp:7ffe3f8b6af0 error:0 in libc.so.6[7f22079ef000+15b000]
+[  267.868829] traps: minijail0[4287] general protection fault ip:7fd9e2519f2b sp:7ffc4760aa80 error:0 in libc.so.6[7fd9e2519000+15b000]
+[  269.053434] traps: minijail0[4436] general protection fault ip:7f3ef1ad0f2b sp:7ffd234237c0 error:0 in libc.so.6[7f3ef1ad0000+15b000]
+[  270.212323] traps: minijail0[4557] general protection fault ip:7f1d38aeff2b sp:7ffd0ec593c0 error:0 in libc.so.6[7f1d38aef000+15b000]
+[  271.350921] traps: minijail0[4689] general protection fault ip:7f441bdfaf2b sp:7ffdf2f966d0 error:0 in libc.so.6[7f441bdfa000+15b000]
+[  272.513446] traps: minijail0[4822] general protection fault ip:7f724a676f2b sp:7fffd1073cf0 error:0 in libc.so.6[7f724a676000+15b000]
+[  273.684099] traps: minijail0[4927] general protection fault ip:7fed976b7f2b sp:7ffebe25d1b0 error:0 in libc.so.6[7fed976b7000+15b000]
+[  274.839671] traps: minijail0[5090] general protection fault ip:7f84813f7f2b sp:7ffe7c6daad0 error:0 in libc.so.6[7f84813f7000+15b000]
+[  275.991101] traps: minijail0[5213] general protection fault ip:7f3aa6f8ff2b sp:7ffe7f9160b0 error:0 in libc.so.6[7f3aa6f8f000+15b000]
+[  277.175409] traps: minijail0[5339] general protection fault ip:7f7d5b2bff2b sp:7ffe68582660 error:0 in libc.so.6[7f7d5b2bf000+15b000]
+[  278.345723] traps: minijail0[5466] general protection fault ip:7fdcc9e64f2b sp:7ffc75462130 error:0 in libc.so.6[7fdcc9e64000+15b000]
+[  279.519620] traps: minijail0[5589] general protection fault ip:7f2eeba1bf2b sp:7ffd07c42930 error:0 in libc.so.6[7f2eeba1b000+15b000]
+[  280.650442] traps: minijail0[5723] general protection fault ip:7f9bf4e57f2b sp:7ffe29ec1460 error:0 in libc.so.6[7f9bf4e57000+15b000]
+[  281.835144] traps: minijail0[5820] general protection fault ip:7ff578582f2b sp:7fff58dea240 error:0 in libc.so.6[7ff578582000+15b000]
+
+################ runit services (sv status) ################
+fail: /etc/service/*: unable to change to service directory: file does not exist
