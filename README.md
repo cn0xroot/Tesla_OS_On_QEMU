@@ -57,6 +57,71 @@ Repository: https://github.com/cn0xroot/Tesla_OS_On_QEMU
 > repo](#whats-not-in-this-repo) below. You must supply your own firmware
 > dump.
 
+## Features at a glance
+
+Everything implemented across the project, spanning the 2024 firmware
+version (OEM 4.14 kernel) and the 2026 firmware version (self-built
+linux-5.4 kernel). The 2026 one-click image (`2026/scripts/run_and_fix.sh`)
+bundles most of the runtime pieces below.
+
+| Feature | What it gives you | Firmware version | Entry point |
+|---|---|---|---|
+| **Firmware unpack + root** | Unpack a dm-verity/`dm-linear` firmware dump and boot a modified rootfs **as root** via a signature-check-bypass `init` (emulator-only) | 2024 & 2026 | `tesla_fw.py unpack` / `patch`; `custom_init.c` |
+| **One-click boot + auto-fix** | Boot QEMU and auto-apply every usability fix (black-screen / touch / map / browser / capture / cookie persistence) in one command | 2026 | `2026/scripts/run_and_fix.sh` |
+| **eBPF + kprobe/uprobe tracing** | Load and run eBPF programs (`bpftrace`/bcc) with kernel + userspace probes inside the guest — the OEM 4.14 kernel can't; powers [ArgusBPF](https://github.com/cn0xroot/ArgusBPF) (see [below](#related-ebpf-projects)) | 2026 (self-built 5.4 kernel) | `CONFIG_BPF`/`BPF_SYSCALL`/`BPF_JIT`/`KPROBES`/`UPROBES`/`BPF_EVENTS` baked into `linux-5.4.265.config` |
+| **GDB debugging (dual-layer)** | Kernel-level gdbstub on `:1234` with self-built `vmlinux` symbols, plus userspace `gdbserver` on `:2345` to attach into minijail-sandboxed processes (`QtCarDvServer`, `vcrypt`, …) | 2024 (both layers); 2026 (kernel gdb via 9p `gdbtool`) | `run_qemu_gdb.sh`; `2026/extracted/hostshare/gdbtool/` |
+| **Built-in AI CLIs** | `grok` (xAI official) and Claude Code baked into the image, with login state persisted across reboots (binaries in `/opt`, credentials on the persistent `/home`) | 2026 image | `/opt/grok`, `/opt/claude` (baked into the rootfs) |
+| **Software TPM 2.0** | `swtpm` TPM2 device with persistent sealed LUKS keys (reproduces "only the first boot is slow") | 2026 | `TPM=on ./scripts/run_qemu_test.sh` |
+| **Virtual touchscreen** | Host mouse clicks injected as guest multi-touch (correct 1920×1200 coordinate mapping) | 2024 & 2026 | `touch-translate` / `x11-input-proxy.c` / `touch-proxy.c` |
+| **Network fix (app + SSH together)** | Dual-NIC connman static IP so app connectivity and stable SSH coexist; browser gets `veth` + `MASQUERADE` out to the internet | 2024 & 2026 | `apply_network_fix.sh`; built into `run_and_fix.sh` |
+| **Traffic capture (MITM)** | [BeeEye](https://github.com/cn0xroot/BeeEye) capture service auto-started at boot (see [below](#related-ebpf-projects)) — web UI on `:8090` (`/connections`), MITM on `:8453` | 2026 | baked runit service |
+| **Maps / navigation** | Transparent proxy `REDIRECT`s map/streaming traffic that ignores `http_proxy` (needs the netfilter kernel rebuild) | 2024 & 2026 | `run_and_fix.sh`; custom kernel |
+| **Display / GPU** | 2D `virtio-vga` at 1920×1200 in a GTK/SDL window (viewable/clickable remotely over VNC); optional virgl 3D path | 2024 & 2026 | `run_qemu_test.sh` (`GPU=`, `RES=`) |
+| **Audio** | Custom AC97 path streamed to the host PulseAudio/PipeWire, with an auto-unmute watchdog | 2024 & 2026 | `AUDIO=on` |
+| **9p host file share** | Mount a host directory at guest `/mnt/host` — run host-side `gdb`/tools against the guest without copying files | 2026 | `VIRTFS=on` |
+| **Out-of-band root shell (ttyS1)** | A second serial channel exposing a root shell + small-file upload, independent of SSH | 2026 | `ttys1_probe.py` / `ttys1_upload.py` |
+| **Serial console log** | Full `ttyS0` boot log captured to file (the `console=ttyS0` kernel fix; previously 0 bytes) | 2026 | `logs/serial_<ts>.log` |
+| **Live snapshot** | RAM + CPU + disk snapshot via QMP for fast restore | 2024 | `qemu_snapshot.py` |
+| **Cookie / login persistence** | `check-lvm-parts` uses `e2fsck -y` so `/home` (Chromium cookies, AI login) survives instead of being reformatted on boot | 2026 | baked into the beeeye rootfs |
+| **Intel-Mac port** | Run the whole thing on an Intel Mac via HVF acceleration; packaging helper included | 2024 & 2026 | `run_qemu_test_mac.sh` / `pack_for_mac.sh` |
+
+> The AI CLIs, capture service, touch/map/browser/audio fixes and cookie
+> persistence live in the pre-built rootfs images, which are **not**
+> distributed with this repo (see [What's *not* in this repo](#whats-not-in-this-repo)).
+> The tooling, kernel `.config`, and build recipes to reproduce them are.
+
+### Related eBPF projects
+
+Two companion open-source projects build on the eBPF capability above.
+
+**[BeeEye](https://github.com/cn0xroot/BeeEye)** — an eBPF-based home-IoT
+gateway traffic analyzer. Its web-based Wireshark lets you identify the
+traffic requests and network communication data inside the Tesla system,
+with device fingerprinting and protocol dissection (including TLS
+SNI/ALPN/JA3 from the plaintext handshake). Here it runs as the
+auto-started capture service (web UI `:8090`, MITM `:8453`).
+
+<table>
+<tr>
+<td width="50%"><a href="https://pbs.twimg.com/media/HTjgstNaMAAN8kX.jpg?name=orig"><img src="https://pbs.twimg.com/media/HTjgstNaMAAN8kX.jpg?name=orig" width="100%" alt="BeeEye web-based Wireshark analyzing Tesla OS traffic"/></a></td>
+<td width="50%"><a href="https://pbs.twimg.com/media/HTjgtiWaUAAewIF.jpg?name=orig"><img src="https://pbs.twimg.com/media/HTjgtiWaUAAewIF.jpg?name=orig" width="100%" alt="BeeEye analyzing Tesla system network communication"/></a></td>
+</tr>
+</table>
+
+**[ArgusBPF](https://github.com/cn0xroot/ArgusBPF)** — an eBPF-based system
+& AI-agent activity monitor. A single Go binary hooks the kernel via CO-RE
+eBPF to identify and watch the exec / file / network / ptrace operations of
+core processes inside the Tesla system, surfaced in plain language on a
+bilingual web dashboard. It also recognizes AI-agent CLIs like Claude Code
+and Grok CLI, pairing with the AI CLIs built into the 2026 image.
+
+<table>
+<tr>
+<td width="50%"><a href="https://pbs.twimg.com/media/HTmuHw4bUAADIH2.jpg?name=orig"><img src="https://pbs.twimg.com/media/HTmuHw4bUAADIH2.jpg?name=orig" width="100%" alt="ArgusBPF dashboard monitoring Tesla system processes"/></a></td>
+<td width="50%"><a href="https://pbs.twimg.com/media/HTmuJXhbQAAYRHS.jpg?name=orig"><img src="https://pbs.twimg.com/media/HTmuJXhbQAAYRHS.jpg?name=orig" width="100%" alt="ArgusBPF eBPF activity monitor on Tesla OS"/></a></td>
+</tr>
+</table>
+
 ## What this is
 
 Tesla's Intel-based infotainment ECU stores its root filesystem as a

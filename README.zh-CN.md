@@ -50,6 +50,67 @@ English version: [README.md](README.md)
 
 > **本仓库只包含工具代码和文档，不包含、也不会自动下载任何固件镜像、解包产物、密钥、抓包数据或日志文件**——详见下文[仓库里不包含什么](#仓库里不包含什么)。你需要自备固件dump。
 
+## 功能总览
+
+项目已实现的全部功能，横跨 **2024 版本固件**（OEM 4.14 内核）与 **2026
+版本固件**（自编译 linux-5.4 内核）。2026 一键镜像
+（`2026/scripts/run_and_fix.sh`）把下面大部分运行期能力打包在一起。
+
+| 功能 | 作用 | 适用版本 | 入口 |
+|---|---|---|---|
+| **固件解包 + Root** | 解包 dm-verity/`dm-linear` 固件 dump，用绕过签名校验的 `init` **以 root 启动**改过的 rootfs（仅限模拟器） | 2024 & 2026 | `tesla_fw.py unpack` / `patch`；`custom_init.c` |
+| **一键启动 + 自动修复** | 一条命令启动 QEMU 并自动套用全部可用性修复（黑屏 / 触摸 / 地图 / 浏览器 / 抓包 / Cookie 持久） | 2026 | `2026/scripts/run_and_fix.sh` |
+| **eBPF + kprobe/uprobe 追踪** | 在 guest 内加载 eBPF、跑 `bpftrace`/bcc，带内核态 + 用户态探针——OEM 4.14 内核做不到；[ArgusBPF](https://github.com/cn0xroot/ArgusBPF) 即基于此（见[下方](#相关-ebpf-项目)） | 2026（自编译 5.4 内核） | `linux-5.4.265.config` 已内建 `CONFIG_BPF`/`BPF_SYSCALL`/`BPF_JIT`/`KPROBES`/`UPROBES`/`BPF_EVENTS` |
+| **GDB 调试（双层）** | 内核态 gdbstub 监听 `:1234`（配自编译 `vmlinux` 符号）；用户态 `gdbserver` 监听 `:2345`，可附加到 minijail 沙箱内进程（`QtCarDvServer`、`vcrypt` 等） | 2024（双层齐全）；2026（经 9p `gdbtool` 调自编译内核） | `run_qemu_gdb.sh`；`2026/extracted/hostshare/gdbtool/` |
+| **内置 AI 命令行** | `grok`（xAI 官方）与 Claude Code 移植集成到镜像，登录态重启不丢（二进制在 `/opt`、凭据落持久化 `/home`） | 2026 镜像 | `/opt/grok`、`/opt/claude`（集成到 rootfs） |
+| **软件 TPM 2.0** | `swtpm` TPM2 设备，TPM 密封的 LUKS 密钥持久化（复现"只有第一次开机慢"） | 2026 | `TPM=on ./scripts/run_qemu_test.sh` |
+| **虚拟触摸屏** | 把宿主机鼠标点击转换为 guest 多点触摸事件并注入（1920×1200 坐标正确映射） | 2024 & 2026 | `touch-translate` / `x11-input-proxy.c` / `touch-proxy.c` |
+| **网络修复（联网 + SSH 共存）** | 双网卡 connman 静态 IP，让 App 联网与稳定 SSH 互不干扰；浏览器经 `veth` + `MASQUERADE` 出公网 | 2024 & 2026 | `apply_network_fix.sh`；已内建进 `run_and_fix.sh` |
+| **抓包（MITM）** | [BeeEye](https://github.com/cn0xroot/BeeEye) 抓包服务开机自启（见[下方](#相关-ebpf-项目)）——Web 界面 `:8090`（`/connections`）、MITM `:8453` | 2026 | 集成到镜像的 runit 服务 |
+| **地图 / 导航** | 透明代理 `REDIRECT` 掉那些无视 `http_proxy` 的地图/流媒体流量（需 netfilter 内核重编） | 2024 & 2026 | `run_and_fix.sh`；自编译内核 |
+| **显示 / GPU** | 2D `virtio-vga` 1920×1200，GTK/SDL 窗口（可经 VNC 远程看/点）；可选 virgl 3D 路径 | 2024 & 2026 | `run_qemu_test.sh`（`GPU=`、`RES=`） |
+| **音频** | 自定义 AC97 路径接到宿主机 PulseAudio/PipeWire，带自动解静音巡检 | 2024 & 2026 | `AUDIO=on` |
+| **9p 宿主机文件共享** | 把宿主机目录挂到 guest `/mnt/host`——不用拷文件就能在宿主机对 guest 跑 `gdb`/工具 | 2026 | `VIRTFS=on` |
+| **带外 root shell（ttyS1）** | 独立于 SSH 的第二路串口，挂一个 root shell + 小文件上传通道 | 2026 | `ttys1_probe.py` / `ttys1_upload.py` |
+| **串口启动日志** | 完整 `ttyS0` 启动日志落盘（`console=ttyS0` 内核修复；此前恒为 0 字节） | 2026 | `logs/serial_<时间戳>.log` |
+| **活体快照** | 经 QMP 给 guest 做 RAM+CPU+磁盘快照，秒级恢复 | 2024 | `qemu_snapshot.py` |
+| **Cookie / 登录持久** | `check-lvm-parts` 改用 `e2fsck -y`，`/home`（Chromium cookie、AI 登录态）不再被开机重建 | 2026 | 集成到 beeeye rootfs |
+| **Intel Mac 移植** | 经 HVF 加速在 Intel Mac 上整套跑起来，附打包脚本 | 2024 & 2026 | `run_qemu_test_mac.sh` / `pack_for_mac.sh` |
+
+> 内置 AI、抓包服务、触摸/地图/浏览器/音频修复与 Cookie 持久都在预构建
+> 的 rootfs 镜像里，这些镜像**不随仓库分发**（见[仓库里不包含什么](#仓库里不包含什么)）；
+> 能复现它们的工具、内核 `.config` 与构建配方随仓库走。
+
+### 相关 eBPF 项目
+
+两个构建在上面 eBPF 能力之上的配套开源项目。
+
+**[BeeEye](https://github.com/cn0xroot/BeeEye)** —— 基于 eBPF 的家庭 IoT
+网关流量分析。在它的 Web 版 Wireshark 里，可以识别 Tesla 系统内的流量请求
+与网络通信数据，并做设备指纹与协议解析（含从明文握手里取 TLS
+SNI/ALPN/JA3）。在本项目里它作为开机自启的抓包服务运行（Web `:8090`、
+MITM `:8453`）。
+
+<table>
+<tr>
+<td width="50%"><a href="https://pbs.twimg.com/media/HTjgstNaMAAN8kX.jpg?name=orig"><img src="https://pbs.twimg.com/media/HTjgstNaMAAN8kX.jpg?name=orig" width="100%" alt="BeeEye 在 Tesla OS 上分析流量（Web 版 Wireshark）"/></a></td>
+<td width="50%"><a href="https://pbs.twimg.com/media/HTjgtiWaUAAewIF.jpg?name=orig"><img src="https://pbs.twimg.com/media/HTjgtiWaUAAewIF.jpg?name=orig" width="100%" alt="BeeEye 分析 Tesla 系统网络通信数据"/></a></td>
+</tr>
+</table>
+
+**[ArgusBPF](https://github.com/cn0xroot/ArgusBPF)** —— 基于 eBPF 的系统
+& AI agent 活动监控。单个 Go 二进制经 CO-RE eBPF 挂内核，可识别、监测
+Tesla 系统内核心程序进程的 exec / 文件 / 网络 / ptrace 等操作事件，并用
+通俗语言呈现在中英双语 Web 仪表盘上。它还能识别 Claude Code、Grok CLI 等
+AI agent CLI，正好和 2026 镜像里内置的 AI 命令行配套。
+
+<table>
+<tr>
+<td width="50%"><a href="https://pbs.twimg.com/media/HTmuHw4bUAADIH2.jpg?name=orig"><img src="https://pbs.twimg.com/media/HTmuHw4bUAADIH2.jpg?name=orig" width="100%" alt="ArgusBPF 仪表盘监测 Tesla 系统进程"/></a></td>
+<td width="50%"><a href="https://pbs.twimg.com/media/HTmuJXhbQAAYRHS.jpg?name=orig"><img src="https://pbs.twimg.com/media/HTmuJXhbQAAYRHS.jpg?name=orig" width="100%" alt="ArgusBPF 在 Tesla OS 上的 eBPF 活动监控"/></a></td>
+</tr>
+</table>
+
 ## 这是什么
 
 Tesla这一代Intel车机的根文件系统是一份受dm-verity保护的squashfs镜像，物理上被拆散存放在多个GPT分区里，用厂商私有的`dm-linear`布局，由原厂`verity-init`在每次启动时动态重新拼接起来。要拿到一份完整、可检查的文件系统副本——并且能在模拟器里而不是真实硬件上把它跑起来——需要走完几个不太直观的步骤（完整过程，包括中间走过的弯路，如果你本地保留了那份分析记录，见`docs/firmware_unpacking_reproduction.md`）。
