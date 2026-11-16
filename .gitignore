@@ -14,6 +14,8 @@
 !/scripts/*.py
 !/scripts/*.c
 !/scripts/*.patch
+# 逐文件放行 README(勿用 *.md)
+!/scripts/README.md
 
 # 明确排除：即使上面的规则以后被放宽，这些也绝不进仓库
 /scripts/ssh_key/*        # SSH 私钥，绝不能进公开仓库
@@ -46,6 +48,8 @@
 !/2026/scripts/*.py
 !/2026/scripts/*.c
 !/2026/scripts/*.patch
+# 逐文件放行 README(勿用 *.md:同目录 tsla-infotainment-lab-analysis.md 须保持排除)
+!/2026/scripts/README.md
 !/2026/kernel/
 !/2026/kernel/*.config
 !/2026/kernel/*.md
