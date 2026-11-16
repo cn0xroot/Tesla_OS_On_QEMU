@@ -2,6 +2,8 @@
 
 中文说明见 [README.zh-CN.md](README.zh-CN.md)。
 
+> 🧰 **Tooling:** 2024-generation tools live in [`scripts/`](scripts/); the 2026 new-kernel (linux-5.4) tools live in [`2026/scripts/`](2026/scripts/) — see [2026/README.md](2026/README.md).
+
 ## 🎬 Demo videos
 
 <table>
@@ -176,7 +178,7 @@ What actually works once you're booted, and what still doesn't:
 |---|---|---|---|
 | Touch input | Working | Replaced `touch-proxy` (wrong coordinate space) with `x11-input-proxy`, which injects clicks via X11 XTest directly in screen coordinates (v63) | Partially — `scripts/x11-input-proxy.c` is tracked; the rootfs-side wiring that runs it isn't |
 | Browser — Apple Music web view (`chromium-app`) | Working (renders, stable) | Forced software rendering (`--disable-gpu --disable-gpu-compositing`) plus sandbox netns/bind-mount fixes; the streaming backend itself is unreachable from an emulator, which isn't a guest bug | No — baked into the rootfs only |
-| Browser — built-in in-car Browser | Partially working | Panel opens after a boot-race workaround, but page content renders as a black screen: no GPU acceleration and no swiftshader software-GL fallback compiled in — an open, unresolved hard limit | No — open issue |
+| Browser — built-in in-car Browser | Working (renders live pages) | Renders live 2D web pages — see the screenshots at the top of this README (Netflix, `x.com`). 3D/GPU acceleration is still unavailable on this host (see the 3D hardware-acceleration row below), but 2D page rendering works without it | No — baked into the rootfs only |
 | Audio / sound card | Working (host playback) | The OEM kernel ships no PCI/USB sound driver at all; a custom AC97 kernel module plus QEMU `-audiodev pa,...` streams guest audio out to the host's PulseAudio/PipeWire. A prior crash loop was fixed separately by pre-creating `/var/lib/alsa` and `/var/lib/audiod` | Partially — the QEMU-side `-audiodev` wiring is in `run_qemu_ui.sh`/`run_v62_glamor.sh`; the kernel module and rootfs directory fix aren't |
 | Network (app connectivity + stable SSH, simultaneously) | Working | v68's dual-NIC design: `eth0` stays under `connman`'s static IP for app connectivity, `eth1` gets its own static IP outside connman's reach for SSH, so neither interferes with the other. A separate earlier fix stops `connman` from picking a factory-only config that drops the whole connection | **Yes** — `tesla_fw.py patch network-fix` (see below) |
 | UI rendering (2D) | Working | Pure 2D scanout (`-device virtio-vga`, `gl=on` left off) — the real Tesla UI fully renders and keeps running (Factory Net label, map grid, loading cards, bottom taskbar all visible and animating) | No — QEMU display flags only, no rootfs change needed |

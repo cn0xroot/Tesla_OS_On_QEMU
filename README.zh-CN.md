@@ -2,6 +2,8 @@
 
 English version: [README.md](README.md)
 
+> 🧰 **工具导航**：2024世代工具见[`scripts/`](scripts/)；2026新内核（linux-5.4）工具见[`2026/scripts/`](2026/scripts/)，说明见[2026/README.md](2026/README.md)。
+
 ## 🎬 演示视频
 
 <table>
@@ -142,7 +144,7 @@ tesla_fw.py run --mode glamor
 |---|---|---|---|
 | 触摸 | 可用 | 把坐标空间算错的`touch-proxy`换成`x11-input-proxy`——直接用X11 XTest以屏幕坐标注入点击(v63) | 部分——`scripts/x11-input-proxy.c`本身在仓库里，但rootfs里调用它的那部分配置不在 |
 | 浏览器——Apple Music网页视图(`chromium-app`) | 可用(能渲染、不崩溃) | 强制走软件渲染(`--disable-gpu --disable-gpu-compositing`)，加上沙箱netns/绑定挂载修复；流媒体后端本身在模拟器环境里连不通，这不是客户机软件的问题 | 否——只烘焙在rootfs里 |
-| 浏览器——车机内置Browser应用 | 部分可用 | 绕开一个开机时序竞争后面板能打开，但页面内容是黑屏：没有GPU加速、也没编译进swiftshader软件GL兜底——目前是个尚未解决的硬限制 | 否——未解决问题 |
+| 浏览器——车机内置Browser应用 | 可用(能渲染真实网页) | 能渲染真实的2D网页——见本README顶部的截图(Netflix、`x.com`)；3D/GPU加速在本宿主上仍不可用(见下方3D硬件加速那一行)，但渲染2D页面并不需要它 | 否——只烘焙在rootfs里 |
 | 音频/声卡 | 可用(声音输出到宿主机) | 原厂内核压根没编译PCI/USB声卡驱动，加了一个自定义AC97内核模块，配合QEMU的`-audiodev pa,...`把客户机音频流实时转到宿主机PulseAudio/PipeWire；此前还单独修过一个崩溃重启循环(预先建好`/var/lib/alsa`和`/var/lib/audiod`目录) | 部分——QEMU侧的`-audiodev`配置在`run_qemu_ui.sh`/`run_v62_glamor.sh`里，但内核模块和rootfs目录修复不在 |
 | 网络(app联网+稳定SSH同时成立) | 可用 | v68双网卡方案：`eth0`留给connman管、配静态IP保证app联网；`eth1`配一个connman完全碰不到的独立静态IP专供SSH，两边互不干扰。另有一个更早的独立修复，防止connman错选一份factory专用配置导致整机断网 | **是**——`tesla_fw.py patch network-fix`(见下文) |
 | 图形渲染(2D) | 可用 | 纯2D直出(`-device virtio-vga`，不开`gl=on`)——真实车机UI完整渲染并持续运行(Factory Net标识、地图网格、加载卡片、底部任务栏全部可见且在动) | 否——只是QEMU显示参数，不需要改rootfs |
