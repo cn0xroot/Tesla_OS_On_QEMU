@@ -2,6 +2,46 @@
 
 中文说明见 [README.zh-CN.md](README.zh-CN.md)。
 
+## 🎬 Demo videos
+
+<table>
+<tr>
+<td align="center" width="33%">
+<a href="https://www.youtube.com/watch?v=BFNpJylyLFE&amp;list=PLLlpK6hF1lGg&amp;index=4"><img src="https://img.youtube.com/vi/BFNpJylyLFE/maxresdefault.jpg" width="100%" alt="Tesla OS With Root on QEMU"></a><br/>
+<b>Tesla OS With Root on QEMU</b>
+</td>
+<td align="center" width="33%">
+<a href="https://www.youtube.com/watch?v=0IaR9INcCyo&amp;list=PLLlpK6hF1lGg&amp;index=3"><img src="https://img.youtube.com/vi/0IaR9INcCyo/maxresdefault.jpg" width="100%" alt="ROOT Tesla OS On QEMU And Enable eBPF"></a><br/>
+<b>ROOT Tesla OS On QEMU And Enable eBPF</b>
+</td>
+<td align="center" width="33%">
+<a href="https://www.youtube.com/watch?v=paxEmI8nfXc&amp;list=PLLlpK6hF1lGg&amp;index=2"><img src="https://img.youtube.com/vi/paxEmI8nfXc/maxresdefault.jpg" width="100%" alt="Tesla OS on Mac"></a><br/>
+<b>Tesla OS on Mac</b>
+</td>
+</tr>
+</table>
+
+> ▶️ The thumbnails link straight to the demo videos on YouTube.
+
+## 📸 Screenshots
+
+The real Tesla infotainment UI, booted and running under QEMU on an ordinary Linux desktop (full-size captures hosted on the author's blog):
+
+![Booted Tesla UI under QEMU](https://cn0xroot.wordpress.com/wp-content/uploads/2026/09/2026333333.png)
+*Booted QtCar UI — vehicle-controls card (frunk/trunk, charge port) and a podcast player on the left, the in-car Browser rendering a live web page on the right.*
+
+![In-car Browser loading a full x.com profile page](https://cn0xroot.wordpress.com/wp-content/uploads/2026/09/20264444.png)
+*The in-car Browser rendering a full `x.com` profile page.*
+
+![Research desktop: SSH into the guest, the QEMU window, and a host monitor](https://cn0xroot.wordpress.com/wp-content/uploads/2026/09/logoooooo.png)
+*End-to-end research desktop — an SSH session showing the live QtCar process tree (`ps aux`), the QEMU window on the vehicle Controls screen, and a host system monitor.*
+
+![In-car Browser rendering the Netflix landing page full-screen](https://cn0xroot.wordpress.com/wp-content/uploads/2026/09/2026555.png)
+*The in-car Browser rendering the Netflix landing page full-screen.*
+
+![Audible audiobooks app running inside the car UI](https://cn0xroot.wordpress.com/wp-content/uploads/2026/09/2026000000.png)
+*The Audible audiobook app running inside the car UI.*
+
 Tooling to unpack a Tesla infotainment ECU ("ICE") firmware/eMMC dump,
 optionally patch its root filesystem for research, and boot it under QEMU
 for offline analysis — built from a full reverse-engineering pass over a

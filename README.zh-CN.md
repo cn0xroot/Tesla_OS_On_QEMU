@@ -2,6 +2,46 @@
 
 English version: [README.md](README.md)
 
+## 🎬 演示视频
+
+<table>
+<tr>
+<td align="center" width="33%">
+<a href="https://www.youtube.com/watch?v=BFNpJylyLFE&amp;list=PLLlpK6hF1lGg&amp;index=4"><img src="https://img.youtube.com/vi/BFNpJylyLFE/maxresdefault.jpg" width="100%" alt="Tesla OS With Root on QEMU"></a><br/>
+<b>Tesla OS With Root on QEMU</b>
+</td>
+<td align="center" width="33%">
+<a href="https://www.youtube.com/watch?v=0IaR9INcCyo&amp;list=PLLlpK6hF1lGg&amp;index=3"><img src="https://img.youtube.com/vi/0IaR9INcCyo/maxresdefault.jpg" width="100%" alt="ROOT Tesla OS On QEMU And Enable eBPF"></a><br/>
+<b>ROOT Tesla OS On QEMU And Enable eBPF</b>
+</td>
+<td align="center" width="33%">
+<a href="https://www.youtube.com/watch?v=paxEmI8nfXc&amp;list=PLLlpK6hF1lGg&amp;index=2"><img src="https://img.youtube.com/vi/paxEmI8nfXc/maxresdefault.jpg" width="100%" alt="Tesla OS on Mac"></a><br/>
+<b>Tesla OS on Mac</b>
+</td>
+</tr>
+</table>
+
+> ▶️ 点击缩略图即可跳转到YouTube上的演示视频。
+
+## 📸 运行截图
+
+在普通Linux桌面上、通过QEMU启动并运行起来的真实Tesla车机界面（原图托管在作者博客）：
+
+![QEMU中启动的Tesla车机界面](https://cn0xroot.wordpress.com/wp-content/uploads/2026/09/2026333333.png)
+*启动后的QtCar界面——左侧是车控卡片（前/后备箱、充电口）和播客播放器，右侧车机浏览器正在渲染一个真实网页。*
+
+![车机浏览器完整渲染x.com个人主页](https://cn0xroot.wordpress.com/wp-content/uploads/2026/09/20264444.png)
+*车机内置浏览器完整渲染`x.com`个人主页。*
+
+![研究桌面：SSH进guest、QEMU窗口、宿主机监控](https://cn0xroot.wordpress.com/wp-content/uploads/2026/09/logoooooo.png)
+*完整的研究桌面——SSH会话里是正在运行的QtCar进程树（`ps aux`）、中间是停在车控界面的QEMU窗口、右侧是宿主机系统监控。*
+
+![车机浏览器整屏渲染Netflix落地页](https://cn0xroot.wordpress.com/wp-content/uploads/2026/09/2026555.png)
+*车机内置浏览器整屏渲染Netflix落地页。*
+
+![车机内运行Audible有声书App](https://cn0xroot.wordpress.com/wp-content/uploads/2026/09/2026000000.png)
+*车机界面里运行的Audible有声书App。*
+
 一套用于解包Tesla车机（信息娱乐ECU，"ICE"）固件/eMMC dump、按需改包（patch）根文件系统用于研究，并在QEMU里离线启动分析的工具集——基于对一台真实Model 3 Intel Elkhart Lake（"ICE-MRB"）平台固件镜像的完整逆向分析工作整理而成。
 
 仓库地址：https://github.com/cn0xroot/Tesla_OS_On_QEMU
