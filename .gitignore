@@ -49,10 +49,21 @@
 !/2026/kernel/
 !/2026/kernel/*.config
 !/2026/kernel/*.md
+# 2026/docs：⚠ 此目录含约 190 份敏感安全研究文档（漏洞/CVE/报告），绝不公开。
+# 只逐文件放行指定的公开样例，严禁用 *.md / *.log 之类通配（会把研究文档全泄露）。
+!/2026/docs/
+!/2026/docs/sample-boot-5.4.log
 
 # 明确排除：实验性/重复入口，避免新人被多个启动脚本搞晕
 /2026/scripts/run_hybrid_gui.sh
 /2026/scripts/launch_gui.sh
+
+# 公开参考文档。逐文件放行——本地 docs/ 下的研究笔记、运行期 dump
+# （analysis.md / guest_ps_netstat_*.txt / guest_sysinfo_*.txt 等）不在此列，
+# 靠顶部 `*` 继续忽略，绝不随仓库外泄。
+!/docs/
+!/docs/network-domains.md
+!/docs/rootfs-binaries.md
 
 # 顶层文档
 !/README.md
