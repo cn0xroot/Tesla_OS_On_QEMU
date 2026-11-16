@@ -1,8 +1,8 @@
-# `scripts/` — 2024-generation tooling / 2024 世代工具
+# `scripts/` — 2024 firmware-version tooling / 2024 版本固件工具
 
-**EN** — Tooling for unpacking the 2024 Tesla firmware and booting it under QEMU (OEM 4.14 kernel lineage). For the 2026 new-kernel generation, see [`../2026/scripts/`](../2026/scripts/).
+**EN** — Tooling for unpacking the 2024 Tesla firmware and booting it under QEMU (OEM 4.14 kernel lineage). For the 2026 new-kernel firmware version, see [`../2026/scripts/`](../2026/scripts/).
 
-**中文** — 解包 2024 Tesla 固件并在 QEMU 下启动的工具(OEM 4.14 内核一系)。2026 新内核世代见 [`../2026/scripts/`](../2026/scripts/)。
+**中文** — 解包 2024 Tesla 固件并在 QEMU 下启动的工具(OEM 4.14 内核一系)。2026 新内核版本固件见 [`../2026/scripts/`](../2026/scripts/)。
 
 > Binaries (firmware/ROM/rootfs/kernel), keys and logs are **not** shipped (see root `.gitignore`); these scripts expect you to produce those locally from the firmware.
 > 二进制(固件/ROM/rootfs/内核)、密钥、日志**不随仓库分发**(见根 `.gitignore`),需你自己从固件产出。

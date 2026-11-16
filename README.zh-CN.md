@@ -2,7 +2,7 @@
 
 English version: [README.md](README.md)
 
-> 🧰 **工具导航**：2024世代工具见[`scripts/`](scripts/)；2026新内核（linux-5.4）工具见[`2026/scripts/`](2026/scripts/)，说明见[2026/README.md](2026/README.md)。
+> 🧰 **工具导航**：2024版本固件工具见[`scripts/`](scripts/)；2026新内核（linux-5.4）工具见[`2026/scripts/`](2026/scripts/)，说明见[2026/README.md](2026/README.md)。
 
 ## 🎬 演示视频
 

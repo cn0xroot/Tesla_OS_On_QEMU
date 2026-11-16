@@ -2,7 +2,7 @@
 
 中文说明见 [README.zh-CN.md](README.zh-CN.md)。
 
-> 🧰 **Tooling:** 2024-generation tools live in [`scripts/`](scripts/); the 2026 new-kernel (linux-5.4) tools live in [`2026/scripts/`](2026/scripts/) — see [2026/README.md](2026/README.md).
+> 🧰 **Tooling:** 2024 firmware-version tools live in [`scripts/`](scripts/); the 2026 new-kernel (linux-5.4) tools live in [`2026/scripts/`](2026/scripts/) — see [2026/README.md](2026/README.md).
 
 ## 🎬 Demo videos
 

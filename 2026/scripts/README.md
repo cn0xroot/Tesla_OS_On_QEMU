@@ -1,4 +1,4 @@
-# `2026/scripts/` — 2026 new-generation tooling / 2026 新世代工具
+# `2026/scripts/` — 2026 firmware-version tooling / 2026 版本固件工具
 
 **EN** — Launchers & helpers for the 2026 firmware on a **self-built linux-5.4.265 kernel**. Overview and non-shipped local artifacts: [`../README.md`](../README.md); kernel build recipe: [`../kernel/BUILD_KERNEL.md`](../kernel/BUILD_KERNEL.md). The 2024 (OEM 4.14) tools are in [`../../scripts/`](../../scripts/).
 

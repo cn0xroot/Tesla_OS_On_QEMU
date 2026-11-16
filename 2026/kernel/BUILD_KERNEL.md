@@ -1,6 +1,6 @@
 # 构建 2026 版 QEMU 用内核（linux-amd-5.4）
 
-2026 新世代脚本（`2026/scripts/` 下的 `run_and_fix.sh` / `launch_gui_v2.sh` /
+2026 版本固件脚本（`2026/scripts/` 下的 `run_and_fix.sh` / `launch_gui_v2.sh` /
 `run_hybrid_gui.sh` / `start_tesla.sh`）启动的是一颗**自编译的 Linux 5.4.265 内核**，
 而不是 2024 那套用的 OEM 4.14 内核。本仓库**不分发内核二进制**（见根目录
 `.gitignore` 的白名单说明），只提供这份**构建配方 + `.config`**，你自己编出

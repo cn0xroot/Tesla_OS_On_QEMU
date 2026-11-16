@@ -1,7 +1,7 @@
-# Tesla OS on QEMU — 2026 新世代工具（linux-amd-5.4 内核）
+# Tesla OS on QEMU — 2026 版本固件工具（linux-amd-5.4 内核）
 
-> 顶层仓库的 `scripts/` 是 **2024 世代**工具（OEM 4.14 内核）。
-> 本目录 `2026/scripts/` 是 **2026 世代**：启动一颗**自编译的 Linux 5.4.265
+> 顶层仓库的 `scripts/` 是 **2024 版本固件**工具（OEM 4.14 内核）。
+> 本目录 `2026/scripts/` 是 **2026 版本固件**：启动一颗**自编译的 Linux 5.4.265
 > 内核**，配 2026 固件的 rootfs。两套平行演进，互不依赖。
 
 本目录**只分发文本工具/源码/构建配方**。内核二进制、rootfs、overlay 磁盘、
@@ -46,7 +46,7 @@ swtpm 状态、SSH 密钥、日志一律**不进仓库**（体积大 + 敏感 + 
 1. **内核 `bzImage`** —— 按 [`kernel/BUILD_KERNEL.md`](kernel/BUILD_KERNEL.md) 从
    kernel.org 源码 + 本仓库 `.config` 自行编译。
 2. **rootfs squashfs**（如 `extracted/rootfs_2026_beeeye.squashfs`）—— 从 2026
-   固件解包、再用 `patch_rootfs.sh` 打可用性补丁得到。解包流程参考 2024 世代的
+   固件解包、再用 `patch_rootfs.sh` 打可用性补丁得到。解包流程参考 2024 版本固件的
    `scripts/tesla_fw.py unpack`。
 3. **overlay qcow2** —— backing 到只读固件 ROM 的 CoW 磁盘（绝对路径，拷到别的
    机器会失效，见 `pack_for_mac.sh` 注释）。
@@ -63,7 +63,7 @@ swtpm 状态、SSH 密钥、日志一律**不进仓库**（体积大 + 敏感 + 
 ```
 
 启动日志落在 `2026/logs/serial_<时间戳>.log`（**前提是内核按 BUILD_KERNEL.md
-用了 `console=ttyS0`**，否则该文件恒为空——这是本世代修过的一个坑）。
+用了 `console=ttyS0`**，否则该文件恒为空——这是本版本修过的一个坑）。
 
 ## 合规
 
